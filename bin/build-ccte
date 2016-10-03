@@ -1,0 +1,40 @@
+#!/bin/sh
+set -xue
+
+# Disable cgo entirely.
+# We have seen one too many problems with cgo,
+# including an occasional (rare) malloc failure.
+# See https://github.com/lib/pq/issues/395.
+export CGO_ENABLED=0
+
+commit=`git rev-parse HEAD`
+date=`date +%s`
+ldflags="-X main.buildTag=dev -X main.buildCommit=$commit -X main.buildDate=$date"
+
+cleanup() {
+  rm -f $CHAIN/docker/te/corectl
+  rm -f $CHAIN/docker/te/cored
+  rm -f $CHAIN/docker/te/schema.sql
+  rm -rf $CHAIN/docker/te/java/
+  rm -rf $CHAIN/sdk/java/target/
+}
+trap "cleanup" EXIT
+
+GOOS=linux GOARCH=amd64 go build\
+  -tags 'insecure_disable_https_redirect'\
+  -ldflags "$ldflags"\
+  -o $CHAIN/docker/te/cored\
+  chain/cmd/cored
+
+GOOS=linux GOARCH=amd64 go build\
+  -o $CHAIN/docker/te/corectl\
+  chain/cmd/corectl
+
+cp $CHAIN/core/schema.sql $CHAIN/docker/te/schema.sql
+mkdir -p $CHAIN/docker/te/java
+cd $CHAIN/sdk/java && mvn -Djar.finalName=sdk package
+cp $CHAIN/sdk/java/target/sdk.jar $CHAIN/docker/te/java/sdk.jar
+cp $CHAIN/perf/Testnet.java $CHAIN/docker/te/java/Testnet.java
+cd $CHAIN/docker/te/java && javac -cp sdk.jar Testnet.java
+
+docker build --tag registry.heroku.com/chain-core-ccte/web:latest $CHAIN/docker/te
