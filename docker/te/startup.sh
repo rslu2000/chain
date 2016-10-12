@@ -15,8 +15,9 @@ mkfifo $psmgr
 (
 	export DATABASE_URL=postgres://`whoami`:@127.0.0.1/core?sslmode=disable
 	export LISTEN=:$PORT
-	/corectl config $BLOCKCHAIN_ID $GENERATOR_URL
+	/corectl config -t $GENERATOR_NETWORK_TOKEN $BLOCKCHAIN_ID $GENERATOR_URL
 	/cored &
+	sleep 3
 	cd /java && CLASSPATH=sdk.jar:. java Testnet
 	echo 'cored' >$psmgr
 ) &
