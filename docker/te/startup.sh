@@ -17,7 +17,7 @@ mkfifo $psmgr
 	export LISTEN=:$PORT
 	/corectl config -t $GENERATOR_NETWORK_TOKEN $BLOCKCHAIN_ID $GENERATOR_URL
 	/cored &
-	sleep 3
+	sleep 5
 	cd /java && CLASSPATH=sdk.jar:. java Testnet
 	echo 'cored' >$psmgr
 ) &
