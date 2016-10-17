@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <title>Chain Core Quickstart </title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="/doc/css/style.css">
+  <link rel="stylesheet" href="/doc/css/prettify.css">
+  <script src="/doc/js/jquery.min.js"></script>
+  <script src="/doc/js/layout.js"></script>
+</head>
+<body>
+<div id="docs">
+  <div id="side-nav">
+    <div class="brand">
+      <a class="mainsite" href="/" title="Chain"><img src="../images/chain-brand.png"> </a>
+      <a class="subsite" href="/docs">developers</a>
+    </div>
+    <div class="docs-nav">
+      <h1>Getting Started</h1>
+      <ul>
+        <li><a href="/doc/getting-started/install-core.html">Install</a></li>
+        <li><a href="/doc/getting-started/protocol-guide.html">Protocol Guide</a></li>
+        <li><a href="/doc/getting-started/configure">Configure</a></li>
+        <li><a href="/doc/getting-started/fundamentals">Fundamentals</a></li>
+        <li><a href="/doc/getting-started/five-minute-guide">5-Minute Guide</a></li>
+      </ul>
+      <h1>Building Applications</h1>
+      <ul>
+        <li><a href="/doc/building-applications/accounts">Accounts</a></li>
+        <li><a href="/doc/building-applications/assets">Assets</a></li>
+        <li><a href="/doc/building-applications/transactions">Transactions</a></li>
+        <li><a href="/doc/building-applications/unspent-outputs">Unspent Outputs</a></li>
+        <li><a href="/doc/building-applications/balances">Balances</a></li>
+        <li><a href="/doc/building-applications/control-programs">Control Programs</a></li>
+        <li><a href="/doc/building-applications/query-filters">Query Filters</a></li>
+        <li><a href="/doc/building-applications/multiparty-trades">Multiparty Trades</a></li>
+        <li><a href="/doc/building-applications/real-time-transaction-processing">Real-time Transaction Processing</a>
+        </li>
+        <li><a href="/doc/building-applications/batch-operations">Batch operations</a></li>
+      </ul>
+      <h1>Learn More</h1>
+      <ul>
+        <li><a href="/doc/learn-more/global-vs-local-data">Global vs Local Data</a></li>
+        <li><a href="/doc/learn-more/blockchain-operators">Blockchain Operators</a></li>
+        <li><a href="/doc/learn-more/blockchain-participants">Blockchain Partitipants</a></li>
+      </ul>
+      <h1>API Reference</h1>
+      <ul>
+        <li><a href="/doc/java/javadoc/index.html" target="_blank">SDK Javadoc</a></li>
+        <li><a href="/doc/reference/api-objects">API Objects</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="doc-wrapper" tabindex="0">
+    <div id="doc-header">
+      <nav>
+        <ul class="external">
+          <li><a href="https://support.chain.com">Support</a></li>
+
+          <li class="button">
+            <a href="https://dashboard.chain.com">Dashboard</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <article id="doc-content">
+      <div class="option-container">
+        <h1>Install</h1>
+        <h2>Choose Operating System</h2>
+        <ul class="download-options tab">
+          <li class="download-option">
+            <a href="javascript:void(0)" class="tablinks active" onclick="openOS(event, 'mac')">
+              <div class="os-icon os-icon-mac"></div>
+              <h3 data-no-anchor="">Mac</h3>
+            </a>
+          </li>
+          <li class="download-option">
+            <a href="javascript:void(0)" class="tablinks" onclick="openOS(event, 'windows')">
+              <div class="os-icon os-icon-windows"></div>
+              <h3 data-no-anchor="">Windows</h3>
+            </a>
+          </li>
+          <li class="download-option">
+            <a href="javascript:void(0)" class="tablinks" onclick="openOS(event, 'linux')">
+              <div class="os-icon os-icon-linux"></div>
+              <h3 data-no-anchor="">Linux</h3>
+            </a>
+          </li>
+        </ul>
+
+        <div id="mac" class="tabcontent" style="display: block;">
+          <h2>Download Mac App</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+            atque corrupti quos dolores et quas.</p>
+          <button type="submit" class="btn btn-success">Download App
+            <img src="../images/download-icon.png" class="btn-icon icon-download">
+          </button>
+
+          <hr class="separator-line">
+          <span class="separator-tag">or</span>
+
+          <h2>Install with Docker</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+            atque
+            corrupti quos dolores et quas.</p>
+
+          <h3>Run the latest Docker Image</h3>
+      <pre>
+        <code>$ docker run -it chain:latest -p 8080:8080</code>
+      </pre>
+
+          <h3>Visit Dashbaord</h3>
+      <pre>
+        <code>$ open http://localhost:8080</code>
+      </pre>
+
+        </div>
+
+        <div id="windows" class="tabcontent">
+          <h2>Download Windows Installer</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+            atque corrupti quos dolores et quas.</p>
+          <button type="submit" class="btn btn-success" id="downloadBtn">Download Installer
+            <img src="../images/download-icon.png" class="btn-icon icon-download">
+          </button>
+
+          <hr class="separator-line">
+          <span class="separator-tag">or</span>
+
+          <h2>Install with Docker</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+            atque
+            corrupti quos dolores et quas.</p>
+
+          <h3>Run the latest Docker Image</h3>
+      <pre>
+        <code>$ docker run -it chain:latest -p 8080:8080</code>
+      </pre>
+
+          <h3>Visit Dashbaord</h3>
+      <pre>
+        <code>$ open http://localhost:8080</code>
+      </pre>
+
+          <h3>Confirgure port forwarding (Windows 7, 8, 8.1)</h3>
+
+          <p>Systems running Windows 7, 8, or 8.1 are unable to run the latest version of Docker (Docker for Windows).
+            Instead, these systems run Docker Toolbox, which utilizes VirtualBox. Therefore, in order to access the
+            Chain
+            Core container through localhost, you must first configure VirtualBox port forwarding to properly route the
+            requests.
+          <p>If you are running the latest version of Docker on Windows 10, you can skip this step.</p>
+
+          <iframe src="https://player.vimeo.com/video/187316196" width="640" height="360" frameborder="0"
+                  webkitallowfullscreen mozallowfullscreen allowfullscreen id="iframe"></iframe>
+
+        </div>
+
+        <div id="linux" class="tabcontent">
+          <h2>Install with Docker</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+            atque
+            corrupti quos dolores et quas.</p>
+
+          <h3>Run the latest Docker Image</h3>
+      <pre>
+        <code>docker run -it chain:latest -p 8080:8080</code>
+      </pre>
+
+          <h3>Visit Dashbaord</h3>
+      <pre>
+        <code>$ open http://localhost:8080</code>
+      </pre>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+<div id="downloadModal" class="modal md-modal md-effect-1">
+  <div class="modal-content">
+    <span class="close"><img src="../images/close.png" class="close-icon"> </span>
+    <div class="form-container">
+      <h1 class="modal-title ">Sign up for updates</h1>
+      <div class="divider"></div>
+      <p class="modal-subtitle">Thank you for installing the Core app. To stay up to date, please provide your email
+        address and we will let you know when
+        we have updates on the software or have other product related information. </p>
+      <form action="http://go.pardot.com/l/230312/2016-10-14/dqt" method="post" accept-charset="utf-8">
+        <fieldset id="sign_up">
+          <div class="fl w-100 w-50-m pl3-m mt4">
+            <label for="email">Email address </label>
+            <input class="input" type="email"
+                   name="email" id="email" required>
+          </div>
+        </fieldset>
+        <div class="modal-footer">
+          <button class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
