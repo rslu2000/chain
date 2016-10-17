@@ -123,4 +123,3 @@ Affero General Public License Version 3 (AGPL)](LICENSE).
 
 The Chain Java SDK (`/sdk/java`) is licensed under the terms of the 
 [Apache License Version 2.0](sdk/java/LICENSE).
-
