@@ -94,14 +94,106 @@ $(function () {
 })
 
 
-//$(function () {
-//  var biggestHeight = "0";
-//  $("section *").each(function () {
-//    if ($(this).height() > biggestHeight) {
-//      biggestHeight = $(this).height()
-//    }
-//  });
-//
-//
-//  $("section").height(biggestHeight);
-//});
+
+
+// This finds <p> <aside> pairs and wraps them in <section class="text-block">.
+// Inner paragraphs are wrapped together in <div class="text-main">
+function rewrapSidenotes() {
+	var collectedElements = {
+		state: "idle",
+		paragraphs: [],
+		sidenote: null
+	}
+	$("#content.sidenotes-able > *").each(function(index){
+		var element = $(this)
+		var tag = element[0].nodeName.toLowerCase()
+		
+		console.log("tag: " + element[0].nodeName.toLowerCase())
+		
+		if (collectedElements.state == "idle") {
+			if (tag != "aside") {
+				// We need to find the first element before the sidenote.
+				// So we remember one element only, right before the sidenote.
+				collectedElements.paragraphs = [ element ]
+			} else {
+				// If this is an sidenote, start collecting paragraphs
+				collectedElements.sidenote = element
+				collectedElements.state = "collecting"
+				
+				console.log("Begin collecting")
+			}
+		} else if (collectedElements.state == "collecting") {
+			if (tag != "aside") {
+				// Lets remember all elements until we find the sidenote.
+				// If/when we find the sidenote, we'll pop that element.
+				console.log("collecting: adding an element: " + tag)
+				collectedElements.paragraphs.push(element)
+			} else {
+				// Oops, some other sidenote is detected - let's forget the last added paragraph - it belongs to that sidenote's group.
+				var lastparagraph = collectedElements.paragraphs.pop()
+				var nextsidenote = element
+				
+				// 1. Wrap collected elements.
+				// 1.1. Insert sidenote after the last paragraph.
+				console.log("1.1. Insert after the last paragraph")
+				collectedElements.sidenote.insertAfter(collectedElements.paragraphs[collectedElements.paragraphs.length - 1])
+				
+				// 1.2. Wrap all paragraphs.
+				console.log("1.2. Wrap all paragraphs")
+				$.each(collectedElements.paragraphs, function(index, value) {
+					value.addClass("temp-wrapping-class")
+				});
+				
+				$(".temp-wrapping-class").wrapAll("<div class=\"text-main temp-superwrapping-class\"></div>")
+				
+				$.each(collectedElements.paragraphs, function(index, value) {
+					value.removeClass("temp-wrapping-class")
+				});
+				
+				// 1.3. Wrap paragraph's wrapper and sidenote in a section wrapper.
+				console.log("1.3. Wrap super wrappers")
+				collectedElements.sidenote.addClass("temp-superwrapping-class")
+				$(".temp-superwrapping-class").wrapAll("<section class=\"text-block\"></section>")
+				$(".temp-superwrapping-class").removeClass("temp-superwrapping-class")
+				
+				// 2. Put lastparagraph and nextsidenote into a new collectedElements group
+				collectedElements.state = "collecting"
+				collectedElements.paragraphs = [lastparagraph]
+				collectedElements.sidenote = nextsidenote
+			}
+		} else {
+			console.error("Unsupported state. Should never happen." + collectedElements.state)
+		}
+	})
+	
+	// wrap remaining items if in "collecting" state
+	
+	// 1. Wrap collected elements.
+	// 1.1. Insert sidenote after the last paragraph.
+	console.log("1.1. Insert after the last paragraph")
+	collectedElements.sidenote.insertAfter(collectedElements.paragraphs[collectedElements.paragraphs.length - 1])
+	
+	// 1.2. Wrap all paragraphs.
+	console.log("1.2. Wrap all paragraphs")
+	$.each(collectedElements.paragraphs, function(index, value) {
+		value.addClass("temp-wrapping-class")
+	});
+	
+	$(".temp-wrapping-class").wrapAll("<div class=\"text-main temp-superwrapping-class\"></div>")
+	
+	$.each(collectedElements.paragraphs, function(index, value) {
+		value.removeClass("temp-wrapping-class")
+	});
+	
+	// 1.3. Wrap paragraph's wrapper and sidenote in a section wrapper.
+	console.log("1.3. Wrap super wrappers")
+	collectedElements.sidenote.addClass("temp-superwrapping-class")
+	$(".temp-superwrapping-class").wrapAll("<section class=\"text-block\"></section>")
+	$(".temp-superwrapping-class").removeClass("temp-superwrapping-class")
+	
+}
+
+$(function(){
+	rewrapSidenotes()
+})
+
