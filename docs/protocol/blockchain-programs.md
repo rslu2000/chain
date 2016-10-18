@@ -1,4 +1,4 @@
-## Scripting
+## Blockchain Programs
 
 ### Chain Virtual Machine
 
@@ -10,7 +10,7 @@ The CVM provides
 
 * Transaction introspection opcodes
 	* The CVM provides opcodes that, when used in an output's control program, introspect elements of any transaction attempting to spend that output. [Footnote: The EVM includes many opcodes that provide introspection into the execution environment, although its radically different transaction model means those opcodes are not different. Bitcoin has recently taken steps toward fuller transaction introspection from the VM, with "CheckLockTimeVerify".]
-	* `CHECKOUTPUT` allows an input to introspect the outputs of the transaction. This allows it to place restrictions on how its value—or other value included in the same transaction—is subsequently used. [Footnote: A similar opcode was been proposed by Möser et al in their [Bitcoin Covenants](http://fc16.ifca.ai/bitcoin/papers/MES16.pdf) paper, which also proposes some applications.].
+	* `CHECKOUTPUT` allows an input to introspect the outputs of the transaction. This allows it to place restrictions on how its value — or other value included in the same transaction — is subsequently used. [Footnote: A similar opcode was been proposed by Möser et al in their [Bitcoin Covenants](http://fc16.ifca.ai/bitcoin/papers/MES16.pdf) paper, which also proposes some applications.].
 	* `MINTIME` and `MAXTIME` allow limitations on when a UTXO can be spent. [Footnote: the 
 	* `AMOUNT`, `ASSET`, `PROGRAM`, `REFDATAHASH`, and `INDEX` allow a control program to introspect the input itself.
 * Predicate evaluation opcodes
@@ -46,11 +46,11 @@ This is made possible by the `CHECKPREDICATE` opcode, combined with the introspe
 
 #### Smart Contracts
 
-Typical UTXOs—including signed-predicate-enabled UTXOs—are controlled by some combination of private keys.
+Typical UTXOs — including signed-predicate-enabled UTXOs — are controlled by some combination of private keys.
 
-Smart contracts—in the Chain context—are control programs that use the introspection opcodes to .
+Smart contracts — in the Chain context — are control programs that use the introspection opcodes to .
 
- Chain Virtual Machine—particularly the introspection opcodes.
+ Chain Virtual Machine — particularly the introspection opcodes.
 
 * On-chain and off-chain contracts
 
