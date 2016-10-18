@@ -115,7 +115,7 @@ func render(f string) ([]byte, error) {
 		return nil, err
 	}
 
-	return bytes.Replace(layout, defaultLayout, formatSidenotes(markdown(src)), 1), nil
+	return bytes.Replace(layout, defaultLayout, markdown(src), 1), nil
 }
 
 // Returns the contents of a layout.html file
@@ -312,26 +312,4 @@ func markdown(source []byte) []byte {
 	extensions |= blackfriday.EXTENSION_AUTO_HEADER_IDS
 
 	return blackfriday.Markdown(source, renderer, extensions)
-}
-
-func formatSidenotes(source []byte) []byte {
-	
-	const openTag = `<p>[sidenote]</p>`
-	const closeTag = `<p>[/sidenote]</p>`
-	
-	w := new(bytes.Buffer)
-	scanner := bufio.NewScanner(bytes.NewBuffer(source))
-	for scanner.Scan() {
-		line := scanner.Text()
-		if strings.HasPrefix(line, closeTag) {
-			fmt.Fprintln(w, "</div>")
-			continue
-		}
-		if strings.HasPrefix(line, openTag) {
-			fmt.Fprintln(w, "<div class=\"sidenote\">")
-			continue
-		}
-		fmt.Fprintln(w, line)
-	}
-	return w.Bytes()
 }
