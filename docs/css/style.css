@@ -478,47 +478,48 @@ section {
     margin-right: 86px;
 
 }
-aside {
+
+div.sidenote {
     position: relative;
     flex: 0.5 1;
 
 }
-aside p {
+div.sidenote p {
     font-size: 18px;
     line-height: 24px;
 }
 
-aside.reference:first-child {
-    margin-top: 0
+/*div.sidenote:first-child {
+    margin-top: 0;
 }
-
-aside.reference h3 {
+*/
+div.sidenote h3 {
     font-size: 15px;
     color: #373e42;
     font-weight: 500;
 }
 
-aside.reference p:not(:first-child) {
-    padding-top: 10px
+div.sidenote p:not(:first-child) {
+    padding-top: 0px
 }
 
-aside.reference p,
-aside.note ul {
-    font-size: 14px;
+/*
+div.sidenote p,
+div.sidenote ul {
     color: #373e42;
     line-height: 18px
 }
 
-aside.reference ul li {
+div.sidenote ul li {
     padding-left: 25px
 }
 
-aside.reference ul li:before {
+div.sidenote ul li:before {
     top: 7px;
     width: 4px;
     height: 4px
 }
-
+*/
 code,
 strong {
     font-weight: 500;
