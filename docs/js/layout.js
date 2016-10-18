@@ -93,7 +93,7 @@ $(function () {
 
 
 
-// This finds <p> <aside> pairs and wraps them in <section class="text-block">.
+// This finds <p> <div class="sidenote"> pairs and wraps them in <section class="text-block">.
 // Inner paragraphs are wrapped together in <div class="text-main">
 function rewrapSidenotes() {
 	var collectedElements = {
@@ -103,12 +103,13 @@ function rewrapSidenotes() {
 	}
 	$("#content.sidenotes-able > *").each(function(index){
 		var element = $(this)
+		var klass = element.attr('class')
 		var tag = element[0].nodeName.toLowerCase()
 		
 		console.log("tag: " + element[0].nodeName.toLowerCase())
 		
 		if (collectedElements.state == "idle") {
-			if (tag != "aside") {
+			if (klass != "sidenote") {
 				// We need to find the first element before the sidenote.
 				// So we remember one element only, right before the sidenote.
 				collectedElements.paragraphs = [ element ]
@@ -120,7 +121,7 @@ function rewrapSidenotes() {
 				console.log("Begin collecting")
 			}
 		} else if (collectedElements.state == "collecting") {
-			if (tag != "aside") {
+			if (klass != "sidenote") {
 				// Lets remember all elements until we find the sidenote.
 				// If/when we find the sidenote, we'll pop that element.
 				console.log("collecting: adding an element: " + tag)
