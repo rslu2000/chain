@@ -779,7 +779,8 @@ button {
     display: inline-block;
     text-decoration: none
 }
-.btn {
+.btn,
+a.btn {
     height: 40px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -793,7 +794,10 @@ button {
 }
 .btn:hover,
 .btn:active,
-.btn:focus {
+.btn:focus,
+a.btn:hover,
+a.btn:active,
+a.btn:focus {
     outline: none;
     cursor: pointer;
     margin-top: 10px;
@@ -802,7 +806,11 @@ button {
 .btn-success,
 .btn-success:hover,
 .btn-success:active,
-.bn-success:focus {
+.bn-success:focus,
+a.btn-success,
+a.btn-success:hover,
+a.btn-success:active,
+a.bn-success:focus {
     color: #ffffff;
     font-size: 18px;
     background-color: #00BFAA;

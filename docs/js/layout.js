@@ -52,7 +52,7 @@ function openOS(evt, osName) {
 }
 
 function attachSignupFormToDownloadButton() {
-	$("#downloadBtn1").click(function() {
+	$(".downloadBtn").click(function() {
 	  	showSignUpForm();
 	  	return true;
 	});
