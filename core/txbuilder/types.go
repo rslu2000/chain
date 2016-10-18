@@ -3,6 +3,7 @@ package txbuilder
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	"chain/errors"
 	"chain/protocol/bc"
@@ -71,14 +72,14 @@ func (si *SigningInstruction) UnmarshalJSON(b []byte) error {
 
 type (
 	BuildResult struct {
-		Inputs               []*bc.TxInput
-		Outputs              []*bc.TxOutput
-		SigningInstructions  []*SigningInstruction
-		MinTimeMS, MaxTimeMS uint64
-		ReferenceData        []byte
+		Inputs              []*bc.TxInput
+		Outputs             []*bc.TxOutput
+		SigningInstructions []*SigningInstruction
+		MinTimeMS           uint64
+		ReferenceData       []byte
 	}
 
 	Action interface {
-		Build(context.Context) (*BuildResult, error)
+		Build(context.Context, time.Time) (*BuildResult, error)
 	}
 )
