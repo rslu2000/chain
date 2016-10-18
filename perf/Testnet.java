@@ -13,7 +13,8 @@ public class Testnet {
   static Context ctx;
   static MockHsm.Key key;
   static String alice = "alice";
-  static String asset = "asset";
+  static String bob = "bob";
+  static String gold = "gold";
   // Used to distinguish issuances from differing
   // dynos on HK.
   static String token = UUID.randomUUID().toString();
@@ -27,13 +28,12 @@ public class Testnet {
   private static void setup() throws Exception {
     ctx = new Context(new URL(String.format("http://127.0.0.1:%s", System.getenv("PORT"))));
     key = MockHsm.Key.create(ctx);
-    HsmSigner.addKey(key);
-
+    HsmSigner.addKey(key, MockHsm.getSignerContext(ctx));
     new Account.Builder().addRootXpub(key.xpub).setAlias(alice).setQuorum(1).create(ctx);
-
+    new Account.Builder().addRootXpub(key.xpub).setAlias(bob).setQuorum(1).create(ctx);
     new Asset.Builder()
         .addRootXpub(key.xpub)
-        .setAlias(asset)
+        .setAlias(gold)
         .setQuorum(1)
         .addDefinitionField("core", "ccte")
         .addDefinitionField("token", token)
@@ -46,24 +46,55 @@ public class Testnet {
       int delay = (5 + new Random().nextInt(5)) * 10000;
       timer.schedule(new Issue(), delay);
       try {
-        final long amount = 1000;
-        Transaction.Template txTmpl =
-            new Transaction.Builder()
-                .addAction(new Transaction.Action.Issue().setAssetAlias(asset).setAmount(amount))
-                .addAction(
-                    new Transaction.Action.ControlWithAccount()
-                        .setAccountAlias(alice)
-                        .setAssetAlias(asset)
-                        .setAmount(amount)
-                        .addReferenceDataField("core", "ccte")
-                        .addReferenceDataField("token", token))
-                .addAction(
-                    new Transaction.Action.SetTransactionReferenceData()
-                        .addReferenceDataField("core", "ccte")
-                        .addReferenceDataField("token", token))
-                .build(ctx);
-        Transaction.Template signedTpl = HsmSigner.sign(txTmpl);
-        Transaction.SubmitResponse tx = Transaction.submit(ctx, signedTpl);
+
+    Transaction.Template issuance =
+        new Transaction.Builder()
+            .addAction(new Transaction.Action.Issue().setAssetAlias(gold).setAmount(100))
+            .addAction(
+                new Transaction.Action.ControlWithAccount()
+                    .setAccountAlias(alice)
+                    .setAssetAlias(gold)
+                    .setAmount(100))
+			.addAction(
+				new Transaction.Action.SetTransactionReferenceData()
+					.addReferenceDataField("core", "ccte")
+					.addReferenceDataField("token", token))
+            .build(ctx);
+    Transaction.submit(ctx, HsmSigner.sign(issuance));
+
+    Transaction.Template spending =
+        new Transaction.Builder()
+            .addAction(
+                new Transaction.Action.SpendFromAccount()
+                    .setAccountAlias(alice)
+                    .setAssetAlias(gold)
+                    .setAmount(10))
+            .addAction(
+                new Transaction.Action.ControlWithAccount()
+                    .setAccountAlias(bob)
+                    .setAssetAlias(gold)
+                    .setAmount(10))
+			.addAction(
+				new Transaction.Action.SetTransactionReferenceData()
+					.addReferenceDataField("core", "ccte")
+					.addReferenceDataField("token", token))
+            .build(ctx);
+    Transaction.submit(ctx, HsmSigner.sign(spending));
+
+    Transaction.Template retirement =
+        new Transaction.Builder()
+            .addAction(
+                new Transaction.Action.SpendFromAccount()
+                    .setAccountAlias(bob)
+                    .setAssetAlias(gold)
+                    .setAmount(5))
+            .addAction(new Transaction.Action.Retire().setAssetAlias(gold).setAmount(5))
+			.addAction(
+				new Transaction.Action.SetTransactionReferenceData()
+					.addReferenceDataField("core", "ccte")
+					.addReferenceDataField("token", token))
+            .build(ctx);
+    Transaction.submit(ctx, HsmSigner.sign(retirement));
       } catch (Exception e) {
         System.out.println(e);
       }
