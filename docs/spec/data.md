@@ -52,51 +52,51 @@
 * [Test vectors](#test-vectors)
 
 
-# Introduction
+## Introduction
 
-This section describes the serialization format for the blockchain data structures used in the Chain Protocol.
+This document describes the serialization format for the blockchain data structures used in the Chain Protocol.
 
-# Definitions
+## Definitions
 
-## Varint
+### Varint
 
 [Little Endian Base 128](https://developers.google.com/protocol-buffers/docs/encoding) encoding for unsigned integers typically used to specify length prefixes for arrays and strings. Values in range [0, 127] are encoded in one byte. Larger values use two or more bytes.
 
-## Varint31
+### Varint31
 
 A varint with a maximum allowed value of 0x7fffffff (2<sup>31</sup> – 1) and a minimum of 0. A varint31 fits into a signed 32-bit integer.
 
-## Varint63
+### Varint63
 
 A varint with a maximum allowed value of 0x7fffffffffffffff (2<sup>63</sup> – 1) and a minimum of 0. A varint63 fits into a signed 64-bit integer.
 
-## Varstring31
+### Varstring31
 
 A binary string with a varint31 prefix specifying its length in bytes. So the empty string is encoded as a single byte 0x00, a one-byte string is encoded with two bytes 0x01 0xNN, a two-byte string is 0x02 0xNN 0xMM, etc. The maximum allowed length of the underlying string is 0x7fffffff (2<sup>31</sup> – 1).
 
-## Extensible string
+### Extensible string
 
 A varstring31 whose content is the concatenation of other encoded data structures, possibly including other varstring31s. Used for values that future versions of the protocol might wish to extend without breaking older clients. Older clients can consume the complete "outer" varstring31 and parse out the subparts they understand while ignoring the suffix that they don’t.
 
-## Public Key
+### Public Key
 
 In this document, a *public key* is the 32-byte binary encoding
 of an Ed25519 (EdDSA) public key, as defined in [CFRG1](https://tools.ietf.org/html/draft-irtf-cfrg-eddsa-05).
 
-## Signature
+### Signature
 
 In this document, a *signature* is the 64-byte binary encoding
 of an Ed25519 (EdDSA) signature, as defined in [CFRG1](https://tools.ietf.org/html/draft-irtf-cfrg-eddsa-05).
 
 
-## SHA3
+### SHA3
 
 *SHA3* refers to the SHA3-256 function as defined in [FIPS202](https://dx.doi.org/10.6028/NIST.FIPS.202) with a fixed-length 32-byte output.
 
 This hash function is used throughout all data structures and algorithms in this spec,
 with the exception of SHA-512 (see [FIPS180](http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf)) used internally as function H inside Ed25519 (see [CFRG1](https://tools.ietf.org/html/draft-irtf-cfrg-eddsa-05)).
 
-## Optional Hash
+### Optional Hash
 
 An *optional hash* is a function that transforms a variable-length binary string to another variable-length binary string using SHA3-256 with a special case for an empty string: it is hashed to an empty string.
 
@@ -107,7 +107,7 @@ Non-empty string  | 32-byte result of SHA3-256  | 33-byte string; first byte equ
 
 
 
-## Block
+### Block
 
 Field               | Type              | Description
 --------------------|-------------------|----------------------------------------------------------
@@ -123,7 +123,7 @@ Transactions        | [Transaction]     | List of individual [transactions](#tra
 
 
 
-## Block Serialization Flags
+### Block Serialization Flags
 
 Serialization flags control what data is in a given block message and how it is encoded. Unused values are reserved for future expansion. Implementations must reject messages using unsupported serialization values.
 
@@ -142,13 +142,13 @@ Serialization Flags Examples | Description
 
 
 
-## Block Header
+### Block Header
 
 "Block header" is shorthand for a block serialized with [serialization flags](#block-serialization-flags) 0x01. Header does not contain actual transactions, but contains all commitments and witness data with block signatures.
 
 
 
-## Block Commitment
+### Block Commitment
 
 The *block commitment* string allows extending blocks with additional data. For instance, a hypothetical future [VM version](#vm-version) might append a hash of an additional state available to the programming environment.
 
@@ -163,7 +163,7 @@ Next [Consensus Program](#consensus-program) | varstring31 | Authentication pred
 
 
 
-## Block Witness
+### Block Witness
 
 The *block witness* string contains cryptographic signatures and other data necessary for block verification. It allows extending blocks with additional witness data in future upgrades excluded from any signatures on this block, but committed to by the blocks that follow.
 
@@ -176,16 +176,16 @@ Program Arguments       | [varstring31] | List of [signatures](#signature) and o
 The entire witness data string (including any unsupported fields) is excluded from the [block’s signature hash](#block-signature-hash).
 
 
-## Block ID
+### Block ID
 
 The *block ID* (also called *block hash*) is defined as [SHA3-256](#sha3) of the block serialized with 0x01 [serialization flags](#block-serialization-flags). This covers all header data including the block witness and the transactions’ merkle root, but it excludes transactions themselves.
 
 
-## Block Signature Hash
+### Block Signature Hash
 
 The *block signature hash* is defined as [SHA3-256](#sha3) of the block serialized with 0x00 [serialization flags](#block-serialization-flags). This covers header data excluding the block witness, but including the [transactions’ merkle root](#transactions-merkle-root).
 
-## Transaction
+### Transaction
 
 A *transaction* comprises the following fields concatenated:
 
@@ -202,7 +202,7 @@ Outputs             | [TxOutput]    | List of [transaction outputs](#transaction
 Reference Data      | varstring31   | Arbitrary string or its [optional hash](#optional-hash), depending on [serialization flags](#transaction-serialization-flags).
 
 
-## Transaction Common Fields
+### Transaction Common Fields
 
 This is the extensible set of fields common to all inputs and outputs.
 
@@ -213,7 +213,7 @@ Maximum Time        | varint63      | Zero or a block timestamp after which tran
 —                   | —             | Additional fields may be added by future extensions.
 
 
-## Transaction Common Witness
+### Transaction Common Witness
 
 The *transaction common witness* string contains data necessary to verify the entire transaction, but not specific to any particular input or output. Witness string does not affect the *outcome* of the transaction and therefore is excluded from the [transaction ID](#transaction-id).
 
@@ -226,7 +226,7 @@ Field               | Type        | Description
 —                   | —           | Additional fields may be added by future extensions.
 
 
-## Transaction Input
+### Transaction Input
 
 A *transaction input* specifies an asset being issued or an earlier output being spent by the transaction. For extensibility, the concrete mechanism for issuance and spending is specific to each asset version, which is specified in the beginning of the input.
 
@@ -240,7 +240,7 @@ Reference Data    | varstring31         | Arbitrary string or its [optional hash
 Input Witness     | Extensible string   | Optional [input witness](#transaction-input-witness) data. Absent if [serialization flags](#transaction-serialization-flags) do not have the witness bit set.
 
 
-## Transaction Input Commitment
+### Transaction Input Commitment
 
 **Asset Version 1** defines two types of input commitments. The type is specified by a single-byte prefix.
 
@@ -252,7 +252,7 @@ Nodes must reject transactions with unknown type values for asset version 1.
 
 An asset version other than 1 is reserved for future expansion. Input commitments for undefined versions must be ignored.
 
-### Asset Version 1 Issuance Commitment
+#### Asset Version 1 Issuance Commitment
 
 Unlike spending commitments, each of which is unique because it references a distinct outpoint, issuance commitments are not intrinsically unique and must be made so to protect against replay attacks. The field *nonce* contains an arbitrary string that must be distinct from the nonces in other issuances of the same asset ID during the interval between the transaction's minimum and maximum time. Nodes ensure uniqueness of the issuance by remembering the [issuance hash](#issuance-hash) that includes the nonce, asset ID and minimum and maximum timestamps. To make sure that *issuance memory* does not take an unbounded amount of RAM, network enforces the *maximum issuance window* for these timestamps.
 
@@ -269,7 +269,7 @@ Amount                | varint63            | Amount being issued.
 —                     | —                   | Additional fields may be added by future extensions.
 
 
-### Asset Version 1 Spend Commitment
+#### Asset Version 1 Spend Commitment
 
 Field                 | Type                  | Description
 ----------------------|-----------------------|----------------------------------------------------------
@@ -279,7 +279,7 @@ Output Commitment     | [Output Commitment](#transaction-output-commitment) | Op
 —                     | —                     | Additional fields may be added by future extensions.
 
 
-## Issuance Hash
+### Issuance Hash
 
 Issuance hash provides a globally unique identifier for an issuance input. It is defined as [SHA3-256](#sha3) of the following structure:
 
@@ -293,7 +293,7 @@ Maximum Time            | varint63                | Maximum time from the [commo
 Note: the timestamp values are used exactly as specified in the [transaction](#transaction-common-fields).
 
 
-## Transaction Input Witness
+### Transaction Input Witness
 
 The *transaction input witness* string contains [program arguments](#program-arguments) ([cryptographic signatures](#signature) and other data necessary to verify the input). Witness string does not affect the *outcome* of the transaction and therefore is excluded from the [transaction ID](#transaction-id).
 
@@ -302,7 +302,7 @@ The input witness string can be extended with additional commitments, proofs or 
 Asset version 1 defines two witness structures: one for issuances and another one for spends.
 
 
-### Asset Version 1 Issuance Witness
+#### Asset Version 1 Issuance Witness
 
 Field                   | Type                    | Description
 ------------------------|-------------------------|----------------------------------------------------------
@@ -316,7 +316,7 @@ Program Arguments       | [varstring31]           | [Signatures](#signature) and
 Note: nodes must verify that the initial block ID and issuance program are valid and match the declared asset ID in the [issuance commitment](#asset-version-1-issuance-commitment).
 
 
-### Asset Version 1 Spend Witness
+#### Asset Version 1 Spend Witness
 
 Field                   | Type                    | Description
 ------------------------|-------------------------|----------------------------------------------------------
@@ -325,7 +325,7 @@ Program Arguments       | [varstring31]           | [Signatures](#signature) and
 —                       | —                       | Additional fields may be added by future extensions.
 
 
-## Outpoint
+### Outpoint
 
 An *outpoint* uniquely specifies a single transaction output.
 
@@ -338,7 +338,7 @@ Note: In the transaction wire format, outpoint uses the [varint encoding](#varin
 
 
 
-## Transaction Output
+### Transaction Output
 
 A *transaction output* specifies an asset version, an output commitment, and reference data.
 
@@ -352,11 +352,11 @@ Reference Data      | varstring31             | Arbitrary string or its optional
 Output Witness      | Extensible string       | Arbitrary string containing proofs related to the [output commitment](#transaction-output-commitment). Absent if [serialization flags](#transaction-serialization-flags) do not have the witness bit set.
 
 
-## Transaction Output Commitment
+### Transaction Output Commitment
 
 The *output commitment* encapsulates both the value and the authentication data necessary to spend that value.
 
-### Asset Version 1 Output Commitment
+#### Asset Version 1 Output Commitment
 
 Field           | Type                    | Description
 ----------------|-------------------------|----------------------------------------------------------
@@ -367,7 +367,7 @@ Control Program | varstring31             | Predicate [program](#control-program
 —               | —                       | Additional fields may be added by future extensions.
 
 
-## Transaction Output Witness
+### Transaction Output Witness
 
 Like the input witness data, the *output witness* string contains data necessary for transaction verification, but which does not affect the *outcome* of the transaction and therefore is excluded from the [transaction ID](#transaction-id).
 
@@ -375,7 +375,7 @@ The output witness string can be extended with additional commitments, proofs or
 
 **Asset version 1** and **VM version 1** do not use the output witness data which is set to an empty string (encoded as a single byte 0x00 that represents a varstring31 encoding of an empty string). To support future upgrades, nodes must accept and ignore arbitrary data in the output witness string.
 
-## Transaction Serialization Flags
+### Transaction Serialization Flags
 
 Serialization flags control what and how data is encoded in a given *Transaction* message. Unused values are reserved for future expansion. Implementations must reject messages using unsupported serialization values. This allows changing encoding freely and extending the serialization flags fields to a longer sequence if needed.
 
@@ -394,11 +394,11 @@ Serialization Flags Examples | Description
 0000 0101                    | Non-redundant full binary serialization with witness fields and reference data.
 
 
-## Transaction ID
+### Transaction ID
 
 The *transaction ID* (also called *txid* or *transaction hash*) is defined as [SHA3-256](#sha3) of the transaction serialized with 0x00 [serialization flags](#transaction-serialization-flags). Thus, reference data is hashed via intermediate hashes and transaction witness data is excluded.
 
-## Transaction Witness Hash
+### Transaction Witness Hash
 
 The *transaction witness hash* is defined as [SHA3-256](#sha3) of the following structure:
 
@@ -419,7 +419,7 @@ Note: hashes of input witness data cover not only the [program arguments](#progr
     SHA3-256(0x0201aa02bbbbffff) = 0x0c5ff1a162fc8ef7b742bfbf556c1a85ab404d27ec89e206c29f9a7e28b5f712
 
 
-## Transaction Signature Hash
+### Transaction Signature Hash
 
 A *signature hash* (or *sighash*) corresponding to a given input is a hash of the [transaction ID](#transaction-id) and the index for that input. It is returned by [TXSIGHASH](vm1.md#txsighash), and is designed for use with [CHECKSIG](vm1.md#checksig) and [CHECKMULTISIG](vm1.md#checkmultisig) instructions.
 
@@ -435,38 +435,38 @@ Note 1. Including the spent output commitment makes it easier to verify the asse
 
 Note 2. Using the hash of the output commitment instead of the output commitment as-is does not incur additional overhead since this hash is readily available from the [assets merkle tree](#assets-merkle-root). As a result, total amount of data to be hashed by all nodes during transaction validation is reduced.
 
-## Program
+### Program
 
 A variable-length string of instructions executed by a virtual machine during blockchain verification.
 
-## VM Version
+### VM Version
 
 A variable-length integer encoded as [varint63](#varint63) that defines bytecode format and virtual machine semantics for a program. See [VM Versioning](vm1.md#versioning) for more details.
 
-## Consensus Program
+### Consensus Program
 
 The consensus program is a program declared in the [block commitment](#block-commitment) specifying a predicate for signing the next block after the current one.
 
 
-## Control Program
+### Control Program
 
 The control program is a program specifying a predicate for transferring an asset; this is the asset’s destination. Control programs usually contain a hash of a contract allowing the actual contract code to be supplied later in the program arguments list of a spending transaction (along with authentication data such as digital signatures).
 
-## Issuance Program
+### Issuance Program
 
 The issuance program is a [program](#program) specifying a predicate for issuing an asset within an [input issuance commitment](#asset-version-1-issuance-commitment). The asset ID is derived from the issuance program, guaranteeing the authenticity of the issuer.
 
 Issuance programs must start with a [PUSHDATA](vm1.md#pushdata) opcode, followed by the [asset definition](#asset-definition), followed by a [DROP](vm1.md#drop) opcode.
 
-## Program Arguments
+### Program Arguments
 
 A list of binary strings in a [transaction input witness](#transaction-input-witness) and [block witness](#block-witness) structures. It typically contains signatures and other data to satisfy the predicate specified by the control program of the output referenced by the current input. Program arguments are used also for authenticating *issuance inputs* where the predicate is defined by an issuance program.
 
-## Asset Version
+### Asset Version
 
 An *asset version* is a variable-length integer encoded as [varint63](#varint63). Asset issuance and transfer is defined within the scope of a given asset version. Commitments and witness fields of inputs and outputs with unknown versions are treated as opaque strings. Unassigned versions are left for future extensions.
 
-## Asset ID
+### Asset ID
 
 Globally unique identifier of a given asset. Each [asset version](#asset-version) defines its own method to compute the asset ID, but an asset ID is always guaranteed to be unique across all asset versions and across all blockchains.
 
@@ -479,13 +479,13 @@ Asset Version    | varint63      | [Version](#asset-version) of this asset.
 VM Version       | varint63      | [Version of the VM](#vm-version) for the issuance program.
 Issuance Program | varstring31   | Program used in the issuance input.
 
-## Asset Definition
+### Asset Definition
 
 An asset definition is an arbitrary binary string that corresponds to a particular [asset ID](#asset-id). Each asset version may define its own method to declare and commit to asset definitions.
 
 For version 1 assets, asset definitions are included in the issuance program. Issuance programs must start with a [PUSHDATA](vm1.md#pushdata) opcode, followed by the asset definition, followed by a [DROP](vm1.md#drop) opcode. Since the issuance program is part of the string hashed to determine an asset ID, the asset definition for a particular asset ID is immutable.
 
-## Retired Asset
+### Retired Asset
 
 Units of an asset can be retired by sending them to a [VM version 1](#vm-version) [control program](#control-program) starting with [FAIL](vm1.md#fail) instruction resulting in a provably unspendable output. The rest of the control program can contain arbitrary instructions.
 
@@ -493,11 +493,11 @@ Retired assets are not included in the [assets merkle root](#assets-merkle-root)
 
 Note: many other kinds of control programs may render the output unspendable (e.g. `FALSE` or `0 VERIFY`), but they do not cause the output to be removed from the [assets merkle root](#assets-merkle-root), only programs beginning with `FAIL` do.
 
-## Transactions Merkle Root
+### Transactions Merkle Root
 
 Root hash of the [merkle binary hash tree](#merkle-binary-tree) formed by the *transaction witness hashes* of all transactions included in the block.
 
-## Assets Merkle Root
+### Assets Merkle Root
 
 Root hash of the [merkle patricia tree](#merkle-patricia-tree) formed by unspent outputs with an **asset version 1** after applying the block. Allows bootstrapping nodes from recent blocks and an archived copy of the corresponding merkle patricia tree without processing all historical transactions.
 
@@ -507,13 +507,13 @@ The tree contains [non-retired](#retired-asset) unspent outputs (one or more per
 
 Note: unspent output indices are encoded with a fixed-length big-endian format to support lexicographic ordering.
 
-## Merkle Root
+### Merkle Root
 
 A top hash of a *merkle tree* (binary or patricia). Merkle roots are used within blocks to commit to a set of transactions and complete state of the blockchain. They are also used in merkleized programs and may also be used for structured reference data commitments.
 
 
 
-## Merkle Binary Tree
+### Merkle Binary Tree
 
 The protocol uses a binary merkle hash tree for efficient proofs of validity. The construction is from [RFC 6962 Section 2.1](https://tools.ietf.org/html/rfc6962#section-2.1), but using SHA3–256 instead of SHA2–256. It is reproduced here, edited to update the hashing algorithm.
 
@@ -538,7 +538,7 @@ Note that we do not require the length of the input list to be a power of two. T
 ![Merkle Binary Tree](merkle-binary-tree.png)
 
 
-## Merkle Patricia Tree
+### Merkle Patricia Tree
 
 The protocol uses a binary radix tree with variable-length branches to implement a *merkle patricia tree*. This tree structure is used for efficient concurrent updates of the [assets merkle root](#assets-merkle-root) and compact recency proofs for unspent outputs.
 
@@ -566,7 +566,7 @@ In case a list contains multiple items, all keys have a common bit-prefix extrac
 
 
 
-# References
+## References
 
 * [FIPS180] ["Secure Hash Standard", United States of America, National Institute of Standards and Technology, Federal Information Processing Standard (FIPS) 180-2](http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf).
 * [FIPS202] [Federal Inf. Process. Stds. (NIST FIPS) - 202 (SHA3)](https://dx.doi.org/10.6028/NIST.FIPS.202)
@@ -581,9 +581,9 @@ In case a list contains multiple items, all keys have a common bit-prefix extrac
 
 
 
-# Test vectors
+## Test vectors
 
-## 1. Varint test vectors
+### 1. Varint test vectors
 
 Decimal Value | Varint (hex)
 --------------|---------------
@@ -594,7 +594,7 @@ Decimal Value | Varint (hex)
 624485        | e58e26
 
 
-## 2. Varstring test vectors
+### 2. Varstring test vectors
 
 String            | Varstring31 (hex)
 ------------------|---------------
@@ -604,7 +604,7 @@ String            | Varstring31 (hex)
 
 
 
-## 3. SHA3 test vectors
+### 3. SHA3 test vectors
 
 Input String              | SHA3-256 Value (hex)
 --------------------------|---------------
@@ -613,12 +613,12 @@ Empty string              | a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d8
 0x616263 ("abc" in ASCII) | 3a985da74fe225b2045c172d6bd390bd855f086e3e9d525b46bfe24511431532
 
 
-## 4. Asset ID test vectors
+### 4. Asset ID test vectors
 
 TBD: asset id with different issuance programs
 
 
-## 5. Block test vectors
+### 5. Block test vectors
 
 TBD: initial block
 
@@ -631,7 +631,7 @@ TBD: merge block
 TBD: final block (before merging)
 
 
-## 6. Transaction test vectors
+### 6. Transaction test vectors
 
 TBD: empty transaction
 
