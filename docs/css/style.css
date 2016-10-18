@@ -362,7 +362,7 @@ h6 {
 dl, ol, p, table tbody, ul {
     font-size: 20px;
     color: #373e42;
-    line-height: 26px
+    line-height: 28px
 }
 
 p:not(:first-child) {
@@ -427,6 +427,9 @@ ol li h6 {
     padding-top: 0
 }
 
+#doc-content {
+    padding-bottom: 50px;
+}
 #doc-content h2 {
     border-bottom: none;
 }
@@ -730,7 +733,7 @@ pre code {
     font-family: Nitti-Normal;
     color: #333;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 19px;
     white-space: pre;
     -webkit-overflow-scrolling: touch;
@@ -750,7 +753,7 @@ article li > .code:last-child {
 }
 code {
     font-family: Nitti-Normal;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 li > code,
