@@ -1,12 +1,10 @@
 "use strict";
 
 function activateCurrentSidebarItem() {
-	if (location.pathname == '/') {
-	  $('.docs-nav a[href$="' + ('/install') + '"]').addClass('active');
-	} else {
-	  var p = location.pathname;
-	  $('.docs-nav a[href$="' + (p) + '"]').addClass('active');
-	}		
+	var p = location.pathname;
+	var currentItem = $('.docs-nav a[href$="' + (p) + '"]')
+ 	currentItem.addClass('active');
+	currentItem.parent().parent().addClass("show").show()
 }
 
 function prepareSidebarMenu() {
@@ -15,18 +13,18 @@ function prepareSidebarMenu() {
     $(".toggle").click(function(e) {
       e.preventDefault();
   
-      var $this = $(this);
+      var sectionLink = $(this);
   
-      if ($this.next().hasClass('show')) {
-        $this.next().removeClass('show');
-        $this.next().slideUp(350);
+      if (sectionLink.next().hasClass('show')) {
+        sectionLink.next().removeClass('show');
+        sectionLink.next().slideUp(350);
       } else {
-        $this.parent().parent().find('li .inner').removeClass('show');
-        $this.parent().parent().find('li .inner').slideUp(350);
-        $this.next().toggleClass('show');
-        $this.next().slideToggle(350);
+        sectionLink.parent().parent().find('li .inner').removeClass('show');
+        sectionLink.parent().parent().find('li .inner').slideUp(350);
+        sectionLink.next().toggleClass('show');
+        sectionLink.next().slideToggle(350);
       }
-    }).first().click();
+    })
 }
 
 // switcher between the navtabs for operating systems
@@ -123,7 +121,7 @@ function rewrapSidenotes() {
 		var klass = element.attr('class')
 		var tag = element[0].nodeName.toLowerCase()
 		
-		console.log("tag: " + element[0].nodeName.toLowerCase())
+		//console.log("tag: " + element[0].nodeName.toLowerCase())
 		
 		if (collectedElements.state == "idle") {
 			if (klass != "sidenote") {
@@ -135,13 +133,13 @@ function rewrapSidenotes() {
 				collectedElements.sidenote = element
 				collectedElements.state = "collecting"
 				
-				console.log("Begin collecting")
+				//console.log("Begin collecting")
 			}
 		} else if (collectedElements.state == "collecting") {
 			if (klass != "sidenote") {
 				// Lets remember all elements until we find the sidenote.
 				// If/when we find the sidenote, we'll pop that element.
-				console.log("collecting: adding an element: " + tag)
+				//console.log("collecting: adding an element: " + tag)
 				collectedElements.paragraphs.push(element)
 			} else {
 				// Oops, some other sidenote is detected - let's forget the last added paragraph - it belongs to that sidenote's group.
@@ -150,11 +148,11 @@ function rewrapSidenotes() {
 				
 				// 1. Wrap collected elements.
 				// 1.1. Insert sidenote after the last paragraph.
-				console.log("1.1. Insert after the last paragraph")
+				//console.log("1.1. Insert after the last paragraph")
 				collectedElements.sidenote.insertAfter(collectedElements.paragraphs[collectedElements.paragraphs.length - 1])
 				
 				// 1.2. Wrap all paragraphs.
-				console.log("1.2. Wrap all paragraphs")
+				//console.log("1.2. Wrap all paragraphs")
 				$.each(collectedElements.paragraphs, function(index, value) {
 					value.addClass("temp-wrapping-class")
 				});
@@ -166,7 +164,7 @@ function rewrapSidenotes() {
 				});
 				
 				// 1.3. Wrap paragraph's wrapper and sidenote in a section wrapper.
-				console.log("1.3. Wrap super wrappers")
+				//console.log("1.3. Wrap super wrappers")
 				collectedElements.sidenote.addClass("temp-superwrapping-class")
 				$(".temp-superwrapping-class").wrapAll("<section class=\"text-block\"></section>")
 				$(".temp-superwrapping-class").removeClass("temp-superwrapping-class")
@@ -185,11 +183,11 @@ function rewrapSidenotes() {
 	if (collectedElements.state == "collecting") {
 		// 1. Wrap collected elements.
 		// 1.1. Insert sidenote after the last paragraph.
-		console.log("1.1. Insert after the last paragraph")
+		//console.log("1.1. Insert after the last paragraph")
 		collectedElements.sidenote.insertAfter(collectedElements.paragraphs[collectedElements.paragraphs.length - 1])
 
 		// 1.2. Wrap all paragraphs.
-		console.log("1.2. Wrap all paragraphs")
+		//console.log("1.2. Wrap all paragraphs")
 		$.each(collectedElements.paragraphs, function(index, value) {
 			value.addClass("temp-wrapping-class")
 		});
@@ -201,7 +199,7 @@ function rewrapSidenotes() {
 		});
 
 		// 1.3. Wrap paragraph's wrapper and sidenote in a section wrapper.
-		console.log("1.3. Wrap super wrappers")
+		//console.log("1.3. Wrap super wrappers")
 		collectedElements.sidenote.addClass("temp-superwrapping-class")
 		$(".temp-superwrapping-class").wrapAll("<section class=\"text-block\"></section>")
 		$(".temp-superwrapping-class").removeClass("temp-superwrapping-class")
