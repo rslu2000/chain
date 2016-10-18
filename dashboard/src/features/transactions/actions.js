@@ -19,7 +19,7 @@ function preprocessTransaction(formParams) {
     actions: copy.actions,
   }
 
-  // HACK: set a longer TTL when user is generated partial tx hex.
+  // HACK: set a longer TTL when user is generating partial tx hex.
   if (formParams.submit_action == 'generate') {
     builder.ttl = '1h' // 1 hour
   }
