@@ -145,10 +145,10 @@ a {
 }
 
 #side-nav h1,
-#side-nav h1 a {
+#side-nav ul li a.toggle {
     display: block;
     font-size: 15px;
-    color: #d2d3d5;
+    color: #fff;
     font-weight: 500;
     height: 36px;
     line-height: 36px;
@@ -163,7 +163,6 @@ a {
 }
 
 #side-nav ul {
-    padding-left: 25px;
     overflow: hidden
 }
 
@@ -175,7 +174,7 @@ a {
     margin-bottom: 10px
 }
 
-#side-nav ul li a {
+#side-nav ul li ul li a {
     position: relative;
     display: block;
     font-size: 18px;
@@ -192,7 +191,6 @@ a {
     font-weight: 500;
     background: transparent;
     position: relative;
-    color: #FFFFFF;
     font-family: NittiGrotesk-Medium;
 }
 
@@ -254,7 +252,7 @@ a {
     padding-top: 33px;
     padding-left: 32px;
     margin: 0 25px 0 0;
-    overflow-x: hidden
+    overflow-x: scroll
 }
 
 #doc-content,
@@ -349,13 +347,13 @@ h3 {
 }
 
 h3 {
-    font-size: 23px
+    font-size: 22px
 }
 
 h4,
 h5,
 h6 {
-    font-size: 18px;
+    font-size: 20px;
     color: #20252D;
     font-weight: 500;
     font-family: NittiGrotesk-Medium;
@@ -371,15 +369,20 @@ p:not(:first-child) {
     padding-top: 20px
 }
 
-h2 {
-    margin-top: -20px;
-    padding-top: 20px
+.doc-content h2 {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 2px solid rgba(120, 134, 156, .08);
 }
 
-h2:not(:first-child),
-li h2 {
-    margin-top: 18px;
-    padding-top: 20px
+h2:first-of-type {
+    border-top: none;
+    padding-top: 10px;
+}
+.doc-content footer h2 {
+    margin-top: 0;
+    padding-top: 40px;
+    border-top: 2px solid rgba(120, 134, 156, .08);
 }
 
 h3 {
@@ -463,12 +466,15 @@ section {
     border-top: none;
 }
 
+#doc-content.protocol-content h2 {
+    margin-top: 40px;
+}
 #doc-content.protocol-content section {
     margin-top: 20px;
 }
 
 .text-main {
-    flex: 0.95 1;
+    flex: 1 1;
     margin-right: 86px;
 
 }
@@ -478,7 +484,7 @@ aside {
 
 }
 aside p {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 24px;
 }
 
@@ -573,7 +579,7 @@ table:not(:first-child) {
 
 table thead tr th {
     font-family: NittiGrotesk-Medium;
-    font-size: 13px;
+    font-size: 14px;
     color:  #a4afb5;
     text-transform: uppercase;
     text-align: left;
@@ -586,7 +592,7 @@ table thead tr th:first-child {
 }
 
 table tbody {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 24px
 }
 
@@ -684,7 +690,7 @@ pre:not(:last-child) {
 }
 
 pre {
-    padding: 11px 14px;
+
     line-height: normal;
     background: #fcfcfc;
     border-radius: 5px;
@@ -693,14 +699,24 @@ pre {
     line-height: 1.4;
     color: #706d77;
     border-radius: 0.25em;
-    padding: 1.125rem 1.875rem;
     margin: 0;
     tab-size: 6px;
     border-left: 4px solid #b9f3ee;
-    overflow: auto !important;
+    overflow: scroll !important;
     word-wrap: normal !important;
     overflow-x: scroll !important;
     white-space: normal;
+    -moz-tab-size: 2;
+    -o-tab-size: 2;
+    tab-size: 2;
+    -ms-word-break: normal;
+    word-break: normal;
+    word-break: normal;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    position: relative;
 }
 
 pre.wrap {
@@ -709,11 +725,16 @@ pre.wrap {
 
 pre code {
     position: relative;
+    padding: 1.125rem 1.875rem;
     font-family: Nitti-Normal;
     color: #333;
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
+    white-space: pre;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    overflow: auto;
 }
 
 .code > pre {
@@ -1110,4 +1131,30 @@ input:focus {
         width: 6px;
         height: 6px;
     }
+}
+
+
+
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+ul .inner {
+    padding-left: 1em;
+    overflow: hidden;
+    display: none;
+}
+ul .inner.show {
+    /*display: block;*/
+}
+ul li {
+    margin: .5em 0;
+}
+ul li a.toggle {
+    display: block;
+    /*transition: background .3s ease;*/
+}
+ul li a.toggle:hover {
+    background: rgba(0, 0, 0, 0.9);
 }
