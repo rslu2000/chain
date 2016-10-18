@@ -45,7 +45,6 @@ func serve(addr string) {
 			http.ServeFile(w, r, path)
 			return
 		}
-
 		b, err := render(path + ".md")
 		if os.IsNotExist(err) {
 			// Try the index
@@ -60,7 +59,6 @@ func serve(addr string) {
 			http.Error(w, err.Error(), 500)
 			return
 		}
-
 		w.Write(b)
 	})
 	log.Fatal(http.ListenAndServe(addr, nil))
@@ -115,7 +113,11 @@ func render(f string) ([]byte, error) {
 		return nil, err
 	}
 
-	return bytes.Replace(layout, defaultLayout, markdown(src), 1), nil
+	src = preprocessLocalLinks(src)
+	src = markdown(src)
+	src = formatSidenotes(src)
+
+	return bytes.Replace(layout, defaultLayout, src, 1), nil
 }
 
 // Returns the contents of a layout.html file
@@ -312,4 +314,45 @@ func markdown(source []byte) []byte {
 	extensions |= blackfriday.EXTENSION_AUTO_HEADER_IDS
 
 	return blackfriday.Markdown(source, renderer, extensions)
+}
+
+// Very rude, but compatible with our code rewrite of local .md links to their post-processed URLs.
+// The intention is to process only local links to .md files into non-.md files:
+// [Foo](foo.md) -> [Foo](foo)
+// [Bar](../bar.md) -> [Bar](../bar)
+// [Global](https://github.com/.../global.md) -> [Global](https://github.com/.../global.md)   <- .md must be preserved here!
+func preprocessLocalLinks(source []byte) []byte {
+
+	// We use a simple rule - local URLs are those without ":" in them.
+	var localMdLink = regexp.MustCompile(`(\]\([^:)]+)\.md\)`)
+
+	w := new(bytes.Buffer)
+	scanner := bufio.NewScanner(bytes.NewBuffer(source))
+	for scanner.Scan() {
+		line := scanner.Text()
+		fmt.Fprintln(w, localMdLink.ReplaceAllString(line, "$1)"))
+	}
+	return w.Bytes()
+}
+
+func formatSidenotes(source []byte) []byte {
+
+	const openTag = `<p>[sidenote]</p>`
+	const closeTag = `<p>[/sidenote]</p>`
+
+	w := new(bytes.Buffer)
+	scanner := bufio.NewScanner(bytes.NewBuffer(source))
+	for scanner.Scan() {
+		line := scanner.Text()
+		if strings.HasPrefix(line, closeTag) {
+			fmt.Fprintln(w, "</div>")
+			continue
+		}
+		if strings.HasPrefix(line, openTag) {
+			fmt.Fprintln(w, "<div class=\"sidenote\">")
+			continue
+		}
+		fmt.Fprintln(w, line)
+	}
+	return w.Bytes()
 }
