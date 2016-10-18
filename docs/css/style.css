@@ -259,9 +259,21 @@ a {
 #doc-content,
 #doc-header {
     margin-left: calc((100% - 994px) / 2 + 226px);
-    width: 680px;
     overflow-x: hidden;
     border-bottom: 1px solid rgba(120, 134, 156, .08);
+}
+
+#doc-header {
+	padding-right:40px;
+}
+
+/* By default, all children are 680px */
+#doc-content > * {
+    width: 680px;
+}
+
+#doc-content > section.text-block {
+	width: auto;
 }
 
 /* Lists */
