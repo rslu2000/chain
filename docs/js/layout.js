@@ -61,6 +61,9 @@ function attachSignupFormToDownloadButton() {
 // Modal to sign up for newsletter
 function showSignUpForm() {
 	 var modal = document.getElementById('downloadModal');
+	
+	// Make sure modal is in the body, not where it was originally deployed.
+	$("body").append($(modal))
 
 	// Get the button that opens the modal
 	 var btn = document.getElementById("downloadBtn");
