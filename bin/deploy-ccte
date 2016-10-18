@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eu
+
+DYNOS=${1:-1}
+
+echo 'building container'
+$CHAIN/bin/build-ccte
+
+echo 'scaling app down'
+heroku ps:scale web=0 -a chain-core-ccte
+
+echo 'configuring app'
+heroku config:set \
+  BLOCKCHAIN_ID=`curl https://testnet-info.chain.com|jq -r .blockchain_id` \
+  GENERATOR_NETWORK_TOKEN=`curl https://testnet-info.chain.com|jq -r .generator_access_token` \
+  GENERATOR_URL=`curl https://testnet-info.chain.com|jq -r .generator_url` \
+  -a chain-core-ccte
+
+echo 'deploying container to hk'
+docker push registry.heroku.com/chain-core-ccte/web
+
+echo 'scaling app up'
+heroku ps:scale web=$DYNOS -a chain-core-ccte
