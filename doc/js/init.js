@@ -1,0 +1,5 @@
+$(function () {
+	prepareSidebarMenu()
+	attachSignupFormToDownloadButton()
+	rewrapSidenotes()
+})
