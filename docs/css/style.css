@@ -55,7 +55,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
+    overflow-x: scroll;
     overflow-y: hidden;
     /*-webkit-overflow-scrolling: touch*/
 }
@@ -107,7 +107,7 @@ a {
     color: #00bf97;
 }
 #doc-header a {
-    font-size: 17px;
+    font-size: 20px;
     line-height: 55px;
     padding-left: 30px;
     color: #00bf97;
@@ -178,7 +178,7 @@ a {
 #side-nav ul li a {
     position: relative;
     display: block;
-    font-size: 17px;
+    font-size: 18px;
     color: #d2d3d5;;
     text-decoration: none;
     min-height: 28px;
@@ -190,13 +190,10 @@ a {
 
 #side-nav ul li a:hover {
     font-weight: 500;
-    padding: 4px 4px;
     background: transparent;
     position: relative;
-    -webkit-transition: padding 222ms cubic-bezier(0.6, 0, 0.5, 1);
-    -moz-transition: padding 222ms cubic-bezier(0.6, 0, 0.5, 1);
-    -o-transition: padding 222ms cubic-bezier(0.6, 0, 0.5, 1);
-    transition: padding 222ms cubic-bezier(0.6, 0, 0.5, 1);
+    color: #FFFFFF;
+    font-family: NittiGrotesk-Medium;
 }
 
 #side-nav ul li a.active {
@@ -257,7 +254,6 @@ a {
     padding-top: 33px;
     padding-left: 32px;
     margin: 0 25px 0 0;
-    border-top: 1px solid rgba(120, 134, 156, .08);
     overflow-x: hidden
 }
 
@@ -266,6 +262,7 @@ a {
     margin-left: calc((100% - 994px) / 2 + 226px);
     width: 680px;
     overflow-x: hidden;
+    border-bottom: 1px solid rgba(120, 134, 156, .08);
 }
 
 /* Lists */
@@ -317,6 +314,7 @@ article ol > li:before {
     content: counter(a);
     background: #B9F3EE;
     color: #20252d;
+    font-family: NittiGrotesk-Medium;
     font-size: 13px;
     font-weight: 500;
     line-height: 1;
@@ -339,7 +337,7 @@ h1 {
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 26px;
     padding-top: 40px;
 }
 
@@ -351,7 +349,7 @@ h3 {
 }
 
 h3 {
-    font-size: 22px
+    font-size: 23px
 }
 
 h4,
@@ -364,13 +362,13 @@ h6 {
 }
 
 dl, ol, p, table tbody, ul {
-    font-size: 17px;
+    font-size: 20px;
     color: #373e42;
-    line-height: 24px
+    line-height: 26px
 }
 
 p:not(:first-child) {
-    padding-top: 17px
+    padding-top: 20px
 }
 
 h2 {
@@ -426,10 +424,9 @@ ol li h6 {
     padding-top: 0
 }
 
-section {
-    padding: 39px 0
+#doc-content h2 {
+    border-bottom: none;
 }
-
 section:last-child {
     border-bottom: 0
 }
@@ -446,16 +443,43 @@ footer {
 
 /* Side reference for Protocol guides */
 
-aside.reference {
-    float: right;
-    border-radius: 5px;
-    border-left-width: 2px;
-    width: 262px;
-    padding: 16px;
-    padding-top: 0;
-    margin: 15px 0 20px 40px;
+#content {
+    display: flex;
+    flex-direction: column;
+}
+section.text-block {
+    flex:2;
+    display: flex;
+}
+
+section {
+    margin-top: 70px;
+}
+#doc-content.protocol-content {
+    width: auto;
+    overflow: visible;
+    padding-bottom: 100px;
+    padding-right: 50px;
+    border-top: none;
+}
+
+#doc-content.protocol-content section {
+    margin-top: 20px;
+}
+
+.text-main {
+    flex: 0.95 1;
+    margin-right: 86px;
+
+}
+aside {
     position: relative;
-    z-index: 2
+    flex: 0.5 1;
+
+}
+aside p {
+    font-size: 16px;
+    line-height: 24px;
 }
 
 aside.reference:first-child {
@@ -688,7 +712,7 @@ pre code {
     font-family: Nitti-Normal;
     color: #333;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 19px;
 }
 
@@ -959,7 +983,7 @@ input:focus {
     border-radius: 20px;
     padding: 10px;
     position: relative;
-    left: 0%;
+    left: 50%;
     top: -11px;
     font-family: NittiGrotesk-Medium;
 }
@@ -1086,5 +1110,4 @@ input:focus {
         width: 6px;
         height: 6px;
     }
-
 }
