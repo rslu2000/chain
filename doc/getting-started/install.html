@@ -20,40 +20,73 @@
       <a class="mainsite" href="/" title="Chain"><img src="../images/chain-brand.png"> </a>
       <a class="subsite" href="/docs">developers</a>
     </div>
+    <div class="nav-border"></div>
     <div class="docs-nav">
-      <h1>Getting Started</h1>
-      <ul>
-        <li><a href="/doc/getting-started/install">Install</a></li>
-        <li><a href="/doc/getting-started/protocol-guide.html">Protocol Guide</a></li>
-        <li><a href="/doc/getting-started/configure">Configure</a></li>
-        <li><a href="/doc/getting-started/fundamentals">Fundamentals</a></li>
-        <li><a href="/doc/getting-started/five-minute-guide">5-Minute Guide</a></li>
-      </ul>
-      <h1>Building Applications</h1>
-      <ul>
-        <li><a href="/doc/building-applications/accounts">Accounts</a></li>
-        <li><a href="/doc/building-applications/assets">Assets</a></li>
-        <li><a href="/doc/building-applications/transactions">Transactions</a></li>
-        <li><a href="/doc/building-applications/unspent-outputs">Unspent Outputs</a></li>
-        <li><a href="/doc/building-applications/balances">Balances</a></li>
-        <li><a href="/doc/building-applications/control-programs">Control Programs</a></li>
-        <li><a href="/doc/building-applications/query-filters">Query Filters</a></li>
-        <li><a href="/doc/building-applications/multiparty-trades">Multiparty Trades</a></li>
-        <li><a href="/doc/building-applications/real-time-transaction-processing">Real-time Transaction Processing</a>
+      <ul class="accordion">
+        <li>
+          <a class="toggle" href="javascript:void(0);">Getting Started</a>
+          <ul class="inner">
+            <li><a href="/doc/getting-started/install">Install Core</a></li>
+            <li><a href="/doc/getting-started/install">Install SDK</a></li>
+            <!--<li><a href="/doc/getting-started/protocol-guide.html">Protocol Guide</a></li>-->
+            <li><a href="/doc/getting-started/configure">Configure</a></li>
+            <li><a href="/doc/getting-started/five-minute-guide">5-Minute Guide</a></li>
+            <li><a href="/doc/getting-started/fundamentals">Fundamentals</a></li>
+          </ul>
         </li>
-        <li><a href="/doc/building-applications/batch-operations">Batch operations</a></li>
+        <li>
+          <a class="toggle" href="javascript:void(0);">Building Applications</a>
+          <ul class="inner">
+            <li><a href="/doc/building-applications/assets">Assets</a></li>
+            <li><a href="/doc/building-applications/accounts">Accounts</a></li>
+            <li><a href="/doc/building-applications/transactions">Transactions</a></li>
+            <li><a href="/doc/building-applications/unspent-outputs">Unspent Outputs</a></li>
+            <li><a href="/doc/building-applications/balances">Balances</a></li>
+            <li><a href="/doc/building-applications/control-programs">Control Programs</a></li>
+            <li><a href="/doc/building-applications/query-filters">Query Filters</a></li>
+            <li><a href="/doc/building-applications/batch-operations">Batching</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="toggle" href="javascript:void(0);">Learn More</a>
+          <ul class="inner">
+            <li><a href="/doc/learn-more/global-vs-local-data">Global vs Local Data</a></li>
+            <li><a href="/doc/learn-more/blockchain-operators">Blockchain Operators</a></li>
+            <li><a href="/doc/learn-more/blockchain-participants">Blockchain Participants</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a class="toggle" href="javascript:void(0);">References</a>
+          <ul class="inner">
+            <li><a href="/doc/java/javadoc/index.html" target="_blank">Java SDK</a></li>
+            <li><a href="/doc/reference/api-objects">API Objects</a></li>
+            <li><a href="/doc/reference/chain-protocol">Chain Protocol</a></li>
+            <li><a href="/doc/reference/product-roadmap">Product Roadmap</a></li>
+            <li><a href="/doc/reference/changelog">Changelog</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="toggle" href="javascript:void(0);">Protocol Guides</a>
+          <ul class="inner">
+            <li><a href="/doc/java/javadoc/index.html" target="_blank">Whitepaper</a></li>
+            <li><a href="/doc/reference/api-objects">Consensus</a></li>
+            <li><a href="/doc/reference/chain-protocol">Programs</a></li>
+            <li><a href="/doc/reference/product-roadmap">Extensibility</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="toggle" href="javascript:void(0);">Specifications</a>
+          <ul class="inner">
+            <li><a href="/doc/java/javadoc/index.html" target="_blank">Data Model</a></li>
+            <li><a href="/doc/reference/api-objects">Validation</a></li>
+            <li><a href="/doc/reference/chain-protocol">Consensus</a></li>
+            <li><a href="/doc/reference/product-roadmap">Virtual Machine</a></li>
+            <li><a href="/doc/reference/product-roadmap">ChainKD</a></li>
+          </ul>
+        </li>
       </ul>
-      <h1>Learn More</h1>
-      <ul>
-        <li><a href="/doc/learn-more/global-vs-local-data">Global vs Local Data</a></li>
-        <li><a href="/doc/learn-more/blockchain-operators">Blockchain Operators</a></li>
-        <li><a href="/doc/learn-more/blockchain-participants">Blockchain Partitipants</a></li>
-      </ul>
-      <h1>API Reference</h1>
-      <ul>
-        <li><a href="/doc/java/javadoc/index.html" target="_blank">SDK Javadoc</a></li>
-        <li><a href="/doc/reference/api-objects">API Objects</a></li>
-      </ul>
+
     </div>
   </div>
   <div id="doc-wrapper" tabindex="0">
@@ -98,12 +131,12 @@
           <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
             atque corrupti quos dolores et quas.</p>
 
-          <button type="submit" class="btn btn-success">Download App
-            <img src="../images/download-icon.png" class="btn-icon icon-download">
-          </button>
+          <!--<button type="submit" class="btn btn-success">Download App-->
+            <!--<img src="../images/download-icon.png" class="btn-icon icon-download">-->
+          <!--</button>-->
 
 
-          <a href="https://download.chain.com/mac/Chain_Core.zip" id="downloadBtn1">download</a>
+          <a href="https://download.chain.com/mac/Chain_Core.zip"  class="downloadBtn">download</a>
           <hr class="separator-line">
           <span class="separator-tag">or</span>
 
@@ -128,9 +161,11 @@
           <h2>Download Windows Installer</h2>
           <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
             atque corrupti quos dolores et quas.</p>
-          <button type="submit" class="btn btn-success" id="downloadBtn">Download Installer
-            <img src="../images/download-icon.png" class="btn-icon icon-download">
-          </button>
+          <!--<button type="submit" class="btn btn-success" id="downloadBtn">Download Installer-->
+            <!--<img src="../images/download-icon.png" class="btn-icon icon-download">-->
+          <!--</button>-->
+
+          <a href="https://download.chain.com/windows/Chain_Core_Latest.exe"  class="downloadBtn">download</a>
 
           <hr class="separator-line">
           <span class="separator-tag">or</span>
