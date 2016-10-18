@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/doc/css/prettify.css">
   <script src="/doc/js/jquery.min.js"></script>
   <script src="/doc/js/layout.js"></script>
+    <script src="/doc/js/init.js"></script>
 </head>
 <body>
 <div id="docs">
@@ -69,10 +70,23 @@
       </nav>
     </div>
     <article id="doc-content" class="protocol-content">
-
-      <article id="content" class="sidenotes-able">
+      <article id="content" class="sidenotes-container">
         <h1>Protocol</h1>
         <h2>section 1</h2>
+
+        <p>A blockchain consists of an immutable set of cryptographically linked transactions. Each transaction
+          consists of one or more inputs and outputs. An input defines a source of asset units — either a new
+          issuance, or existing asset units controlled by a control program in an output of a previous transaction. An
+          output defines an amount of asset units from the inputs to be controlled by a new control program or
+          retired. When an output is not retired and has not yet been used as an input to a new transaction, we refer
+          to it as an unspent output.</p>
+
+          <p>A blockchain consists of an immutable set of cryptographically linked transactions. Each transaction
+            consists of one or more inputs and outputs. An input defines a source of asset units — either a new
+            issuance, or existing asset units controlled by a control program in an output of a previous transaction. An
+            output defines an amount of asset units from the inputs to be controlled by a new control program or
+            retired. When an output is not retired and has not yet been used as an input to a new transaction, we refer
+            to it as an unspent output.</p>
         
           <p>A blockchain consists of an immutable set of cryptographically linked transactions. Each transaction
             consists of one or more inputs and outputs. An input defines a source of asset units — either a new
@@ -206,9 +220,7 @@
               output defines an amount of asset units from the inputs to be controlled by a new control program or
               retired. When an output is not retired and has not yet been used as an input to a new transaction, we refer
               to it as an unspent output.</p>
-
-      </article>
-
+          </article>
     </article>
   </div>
 </div>
