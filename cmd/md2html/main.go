@@ -316,19 +316,20 @@ func markdown(source []byte) []byte {
 
 func formatSidenotes(source []byte) []byte {
 	
-	const start = `<p>[sidenote]</p>`
-	const end = `<p>[/sidenote]</p>`
+	const openFrag = `<p>[`
+	const closeFrag = `<p>[/`
+	const tagEndFrag = `]</p>`
 	
 	w := new(bytes.Buffer)
 	scanner := bufio.NewScanner(bytes.NewBuffer(source))
 	for scanner.Scan() {
 		line := scanner.Text()
-		if strings.HasPrefix(line, start) {
-			fmt.Fprintln(w, "<aside class=\"reference\">")
+		if strings.HasPrefix(line, closeFrag) {
+			fmt.Fprintln(w, "</div>")
 			continue
 		}
-		if strings.HasPrefix(line, end) {
-			fmt.Fprintln(w, "</aside>")
+		if strings.HasPrefix(line, openFrag) {
+			fmt.Fprintln(w, strings.Replace(strings.Replace(line, openFrag, "<div class=\"", 1), tagEndFrag, "\">", 1))
 			continue
 		}
 		fmt.Fprintln(w, line)
