@@ -192,7 +192,7 @@ a {
     font-weight: 500;
     background: transparent;
     position: relative;
-    font-family: NittiGrotesk-Medium;
+    color: #FFFFFF;
 }
 
 #side-nav ul li a.active {
@@ -250,12 +250,14 @@ a {
 
 #doc-content {
     position: relative;
-    padding-top: 33px;
+    padding-top: 50px;
     padding-left: 32px;
     margin: 0 25px 0 0;
     overflow-x: scroll
 }
-
+.doc-content * {
+    width: 680px;
+}
 #doc-content,
 #doc-header {
     margin-left: calc((100% - 994px) / 2 + 226px);
@@ -311,7 +313,7 @@ article ol > li,
 article ul > li {
     position: relative;
     margin: 5px 0;
-    padding-left: 28px
+    padding-left: 30px
 }
 
 article ul > li:before {
@@ -713,7 +715,7 @@ pre:not(:last-child) {
 pre {
 
     line-height: normal;
-    background: #fcfcfc;
+    background: #f8f8f8;
     border-radius: 5px;
     position: relative;
     font-size: 0.8125em;
@@ -775,9 +777,8 @@ code {
 
 li > code,
 p code {
-    /*background: #f5f7f7;*/
     border-radius: 5px;
-    padding: 3px 6px;
+    padding: 3px 0;
     margin: 0 1px;
     letter-spacing: -1px;
 }
@@ -1041,6 +1042,13 @@ input:focus {
 
 
 /* Tabs */
+.option-container h2 {
+    border-top: none;
+    margin-top: 0;
+}
+.option-container h2:first-of-type {
+    margin-top: 40px;
+}
 .tabcontent {
     display: none;
 }
