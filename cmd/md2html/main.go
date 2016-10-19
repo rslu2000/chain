@@ -336,13 +336,13 @@ func markdown(source []byte) []byte {
 func preprocessLocalLinks(source []byte) []byte {
 
 	// We use a simple rule - local URLs are those without ":" in them.
-	var localMdLink = regexp.MustCompile(`(\]\([^:)]+)\.md\)`)
+	var localMdLink = regexp.MustCompile(`(\]\([^:)#]+)\.md([)#])`)
 
 	w := new(bytes.Buffer)
 	scanner := bufio.NewScanner(bytes.NewBuffer(source))
 	for scanner.Scan() {
 		line := scanner.Text()
-		fmt.Fprintln(w, localMdLink.ReplaceAllString(line, "$1)"))
+		fmt.Fprintln(w, localMdLink.ReplaceAllString(line, "$1$2"))
 	}
 	return w.Bytes()
 }
