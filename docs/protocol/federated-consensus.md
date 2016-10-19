@@ -1,53 +1,115 @@
 # Federated Consensus
 
 * [Introduction](#introduction)
-* [Threat model](#threat-model)
+* [Algorithm overview](#algorithm-overview)
+* [Integrity guarantees](#integrity-guarantees)
+* [Liveness guarantees](#liveness-guarantees)
 * [Key rotation](#key-rotation)
 * [Membership changes](#membership-changes)
 * [Policy enforcement](#policy-enforcement)
+* [Threat model](#threat-model)
 * [Disaster mitigation](#disaster-mitigation)
 * [Future improvements](#future-improvements)
+
 
 ## Introduction
 
 Federated consensus is a mechanism that ensures that only one blockchain is published and thefore double-spends are prevented. Consensus protocol is mostly segregated from the rest of the blockchain validation rules. Validation rules specify _which_ blockchain is valid, while consensus makes sure there is no more than _just one_ valid blockchain.
 
-In this guide we discuss the design of the federated consensus used in Chain Protocol, its threat model, use cases and possible improvements.
+In this guide we discuss the design of the federated consensus used in Chain Protocol, its goals, use cases, threat model and possible improvements.
 
 
-## Threat model
+## Algorithm overview
 
-TBD: Who trusts block signers with what: block signers, regular nodes, users of compact proofs.
+The federation consists of a single _block generator_ and a group of _block signers_. 
 
-TBD: Who trusts block generator with what: block signers, other nodes.
+Block generator:
+
+* receives transactions from network, 
+* filters out transactions that are invalid,
+* filters out transactions that do not pass local policy checks,
+* aggregates them in a new block,
+* sends the proposed block to block signers for approval.
+
+Each block signer:
+
+* verifies that the proposed block is signed by the generator,
+* verifies that it follows the protocol rules (excluding checks of block signers’ signatures),
+* verifies that it extends their chain (i.e. the block does not fork the chain),
+* verifies that the block contains an acceptable _consensus program_ (that authenticates the next block),
+* signs the block,
+* and, if the required amount of signatures is collected, broadcasts the block to the rest of the network nodes.
+
+Once the block is signed by all block signers and published, all network nodes validate that block (including block signers’ signatures), while the block generator is assembling the next block with more transactions.
+
+[sidenote]
+
+For detailed description of the consensus protocol, see [Federated Consensus Protocol](../spec/consensus.md) specification.
+
+Chain VM supports block introspection instructions that allow customizing consensus programs. See [Chain VM](../spec/vm1.md#block-context) specification for details.
+
+[/sidenote]
+
+Each block is authenticated to the network via _consensus program_ declared in the previous block. Consensus program represents a predicate that must be satisifed by _program arguments_ in the subsequent block. A typical consensus programs implements “M-of-N multisignature” rule where M is the number of required signatures and N is the number of block signers. Public keys are included within the program and the signatures are provided in the arguments list. Blocks may reuse the same consensus program or change it arbitrarily as long as block signers approve the change.
+
+Network nodes validate only block signers’ signatures, excluding block generator’s signature. This allows block signers evolve the consensus mechanism without any additional support from the rest of the network.
+
+
+## Integrity guarantees
+
+Chain Protocol prescribes a number of context-free rules that define which transactions are valid (e.g. the amounts balance, signatures are correct etc). However, additional rules are necessary to ensure that:
+
+* transactions do spend the same asset twice,
+* transactions are final,
+* there is only one version of the blockchain.
+
+All network nodes validate all blocks for double spending by tracking a set of *unspent transaction outputs* (“UTXO set”). Every transaction is allowed to spend only existing unspent outputs. Once the transaction is applied, spent outputs are removed from the UTXO set and the new outputs are added.
+
+Network nodes also verify that blocks link to each other and are correctly signed. If a node detects two correctly signed blocks at one point in history, it stops immediately and reports an integrity violation to the administrator. The node refuses to process transactions from either of two blocks and waits for out-of-band resolution. As a result, network nodes may experience double-spents or have their transactions if both conditions are satisfied:
+
+[sidenote]
+
+Note that a node should fail-stop even if one of two blocks is correctly signed, but contains invalid transactions (e.g. double spends, or transactions not satisfying control and issuance programs). This provides protection for users of compact proofs that do not validate all transactions. Such users rely on block signers’ signatures to verify that a certain transaction is included in the blockchain.
+
+[/sidenote]
+
+1. a quorum of block signers signs two blocks with a common ancestor (“forks the blockchain”),
+2. block signers perform a partition attack to prevent each part of the network seeing both blocks.
+
+Honest block signers are therefore responsible for not signing two forks of the blockchain. They do so by simply refusing to sign an alternative version of a proposed block by a block generator. Dishonest block generator is not able to fork the blockchain. An attempt to do so may lead to a deadlock: block signers will not be able to reach a quorum and will need an out-of-band agreement about the block to finalize and publish.
+
+
+## Liveness guarantees
+
+Simplicity and performance of the consensus protocol comes with a liveness tradeoff. While the block generator is not capable of forking the blockchain, it has control over network liveness: if the block generator crashes or otherwise stops producing new blocks, the blockchain halts. The block generator can also deadlock the network by sending inconsistent blocks to different block signers. Additionally, the block generator has control over the block timestamp, and can produce blocks with artificially “slow” timestamps. 
+
+A quorum of block signers can temporarily stop the network by refusing to sign new blocks. The can also permanently deadlock other nodes by attempting to fork a blockchain, provided these nodes receive blocks from both chains (i.e. if network is not partitioned). If deadlock occurs among block signers or on the entire network level, it must be resolved manually using an out-of-band agreement.
 
 
 ## Key management
 
-TBD: keys and HSMs
+Block generator and block signers store signing keys in the HSM that prevents leakage of long-term cryptographic material. If HSM needs to be upgraded, or key needs to be rotated for any reason, block signers and block generator may agree out of band on a new consensus program and start using it in new blocks beginning at a certain timestamp.
 
-TBD: individual key rotation
+Consensus program is evaluated by Chain VM that supports introspection instructions [NEXTPROGRAM](../spec/vm1.md#nextprogram) and [CHECKPREDICATE](../spec/vm1.md#checkpredicate). These instructions enable more sophisticated schemes such as temporary key delegation or automatic rotation by introducing additional checks directly inside the consensus program.
 
-TBD: key delegation, NEXTPROGRAM and CHECKPREDICATE
+[Blockchain Programs](blockchain-programs.md) paper discusses in detail different ways to use programs and instrospection instructions to build secure schemes on top of blockchain.
 
 
 ## Membership changes
 
-TBD: adding new member to the federation
+Members can be added and removed from the federation of block signers using the same techniques as described in the key management session. As any change to consensus program, it requires a quorum of existing block signers.
 
-TBD: removing a member from the federation
+Extra care must be taken when changing membership in order to avoid changes to liveness or integrity guarantees. For instance, if a member is removed from a 5-of-7 multisignature consensus program and threshold is not lowered, the rule becomes 5-of-6 and the network can tolerate downtime of only one block signer instead of two. However, if the threshold is lowered to 4-of-6, then it can still tolerate two crashes, but only one byzantine failure among block signers. Generally, it is recommended to always maintain the stable federation size, especially if it is relatively small.
 
 
 ## Policy enforcement
 
-TBD: local policy prevents txs from being recorded in the blockchain, but can be easily changed w/o upgrading other nodes.
-
-TBD: each block signer may enforce their own policies regarding their own clients. Nodes may do the same for their clients and filter out non-confirming transactions (even if valid from the protocol perspective).
-
-Since policy enforcement is not a part of the protocol rules, it is more flexible, can be changed at will and may use confidential information that should not be shared with the whole network. The cost of this flexibility is lower security: if some transactions “slip through” one node’s filter, they are recorded forever in the ledger and additional measures limiting subsequent transactions are necessary to mitigate any potential hazard.
+Block generator may apply local policy to filter out non-compliant transactions. Since policy enforcement is not a part of the protocol rules, it is more flexible, can be changed at will and may use confidential information that should not be shared with the whole network. The cost of this flexibility is lower security: if some transactions “slip through” one node’s filter, they are recorded forever in the ledger and additional measures limiting subsequent transactions are necessary to mitigate any potential damage.
 
 
 ## Disaster mitigation
+
+
 
 TBD: VM upgrades with failstop phasing out of the obsolete consensus programs
 
@@ -62,11 +124,21 @@ TBD: hard fork scenarios
 
 ## Future improvements
 
-TBD: double-phase commitment
+Present consensus mechanism may be improved without disrupting the network. This section provides a brief overview of improvements that are desireable and may be implemented in future versions of the Chain Protocol.
+
+#### HSM-enforced integrity
+
+
+
+TBD: p2p protocol for distributing fraud proofs for post-payment tx verification.
+
+TBD: double-phase commitment to enable local policy and avoid deadlocks in disagreement
 
 TBD: round-robin generator (for censorship resistance)
 
 TBD: PBFT
 
 TBD: Bitcoin checkpoints for long-term disaster mitigation
+
+
 
