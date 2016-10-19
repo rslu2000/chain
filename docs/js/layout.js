@@ -87,6 +87,22 @@ function showSignUpForm() {
 }
 
 
+function adjustWidths() {
+	setTimeout(function(){
+		$("#doc-content > table").each(function(){
+			if ($(this).width() > 680) {
+				$(this).css("width", "100%")
+			}
+		})
+		$("#doc-content > pre").each(function(){
+			if ($("code", $(this))[0].scrollWidth > 680) {
+				$(this).css("width", "100%")
+			}
+		})
+	},100)
+}
+
+
 // This finds <p> <div class="sidenote"> pairs and wraps them in <section class="text-block">.
 // Inner paragraphs are wrapped together in <div class="text-main">.
 // The result is:
