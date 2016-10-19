@@ -70,17 +70,11 @@ A *block* is a data structure that batches multiple transactions to be executed.
 
 [sidenote]
 
-A *hash* is the result of running a deterministic one-way hash function on a given string of input data. It is generally infeasible to reverse the hash function to determine an input from an output, or to find two inputs that hash to the same output. This latter property is what makes blockchains immutable, since it makes it impossible to change a block without changing its hash, and thus changing the hashes in the headers of all subsequent blocks.
+A *hash* is the result of running a deterministic one-way hash function on a given input data. A good hash function is collision-resistant: is it infeasible to find two inputs that hash to the same output. This property makes a blockchain immutable, since it is impossible to change a block without changing its hash, and thus changing the hashes in the headers of all subsequent blocks.
 
 [/sidenote]
 
-In addition to containing a hash committing to the transactions included in the block, the block contains a hash committing to the current blockchain state — i.e., the set of remaining unspent outputs. This "snapshot" of the block state makes it easy for a network participant to join an ongoing network.
-
-[sidenote]
-
-Each of these hashes is actually the root of a *Merkle tree*, which enables compact proofs of existence of any given transaction or unspent output, and allows downloading and verifying the elements of the tree concurrently.
-
-[/sidenote]
+A block contains the hash of all its transactions and the hash of the current state — i.e., the set of remaining unspent outputs. This “snapshot” of the blockchain state makes it easy for a network participant to join an ongoing network without having to “replay” the blockchain’s entire history. The hashes are the roots of two *Merkle trees* that enable compact proofs of existence of any given transaction or unspent output, and allow concurrent download and verification of their elements.
 
 To prevent unauthorized participants from creating new blocks, each new block must satisfy a *consensus program*, which is specified in the header of the previous block. The consensus program — much like an issuance or control program — receives  arguments from the new block's *witness* field.
 
