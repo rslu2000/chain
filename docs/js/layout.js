@@ -2,6 +2,7 @@
 
 function activateCurrentSidebarItem() {
 	var p = location.pathname;
+	p = p.replace(/\/+$/,"")
 	var currentItem = $('.docs-nav a[href$="' + (p) + '"]')
  	currentItem.addClass('active');
 	currentItem.parent().parent().addClass("show").show()
@@ -83,6 +84,22 @@ function showSignUpForm() {
 	     modal.style.display = "none";
 	   }
 	 }
+}
+
+
+function adjustWidths() {
+	setTimeout(function(){
+		$("#doc-content > table").each(function(){
+			if ($(this).width() > 680) {
+				$(this).css("width", "100%")
+			}
+		})
+		$("#doc-content > pre").each(function(){
+			if ($("code", $(this))[0].scrollWidth > 680) {
+				$(this).css("width", "100%")
+			}
+		})
+	},100)
 }
 
 

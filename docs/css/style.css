@@ -274,9 +274,13 @@ a {
     width: 680px;
 }
 
-#doc-content > section.text-block {
+#doc-content > section.text-block,
+#doc-content > table {
 	width: auto;
+	min-width:680px;
 }
+
+
 
 /* Lists */
 ul {
