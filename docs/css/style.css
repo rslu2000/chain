@@ -494,9 +494,6 @@ section.text-block {
     display: flex;
 }
 
-section {
-    margin-top: 70px;
-}
 #doc-content.protocol-content {
     width: auto;
     overflow: visible;
