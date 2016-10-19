@@ -1,6 +1,6 @@
 # Download Chain Core SDKs
 
-### Java
+## Java
 
 [Download](../java/chain-sdk-latest.jar)
 
