@@ -13,9 +13,7 @@ function prepareSidebarMenu() {
 	
     $(".toggle").click(function(e) {
       e.preventDefault();
-  
       var sectionLink = $(this);
-  
       if (sectionLink.next().hasClass('show')) {
         sectionLink.next().removeClass('show');
         sectionLink.next().slideUp(350);
@@ -87,21 +85,32 @@ function showSignUpForm() {
 }
 
 
+//function adjustWidths() {
+//	setTimeout(function(){
+//		$("#doc-content > table").each(function(){
+//			if ($(this).width() > 680) {
+//				$(this).css("width", "100%")
+//			}
+//		})
+//		$("#doc-content > pre").each(function(){
+//			if ($("code", $(this))[0].scrollWidth > 680) {
+//				$(this).css("width", "100%")
+//			}
+//		})
+//	},100)
+//}
+
 function adjustWidths() {
 	setTimeout(function(){
 		$("#doc-content > table").each(function(){
-			if ($(this).width() > 680) {
-				$(this).css("width", "100%")
-			}
+				$(this).css("width", "770px")
+
 		})
 		$("#doc-content > pre").each(function(){
-			if ($("code", $(this))[0].scrollWidth > 680) {
-				$(this).css("width", "100%")
-			}
+				$(this).css("width", "770px")
 		})
 	},100)
 }
-
 
 // This finds <p> <div class="sidenote"> pairs and wraps them in <section class="text-block">.
 // Inner paragraphs are wrapped together in <div class="text-main">.
