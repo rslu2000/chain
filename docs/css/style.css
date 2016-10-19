@@ -64,9 +64,7 @@ body {
     position: absolute;
     top: 0
 }
-#side-nav {
 
-}
 .brand {
     overflow: hidden;
     position: absolute;
@@ -145,10 +143,6 @@ a {
     margin-top: 20px;
 }
 
-#side-nav h1:first-of-type {
-    margin-top: 0;
-}
-
 #side-nav h1,
 #side-nav ul li a.toggle {
     display: block;
@@ -173,8 +167,13 @@ a {
 }
 
 #side-nav ul li {
-    overflow: hidden
+    overflow: hidden;
+    margin: 2px 0;
 }
+#side-nav h1:first-of-type {
+    margin-top: 0;
+}
+
 
 #side-nav ul li:last-child {
     margin-bottom: 10px
@@ -193,11 +192,14 @@ a {
     letter-spacing: 0.2px;
 }
 
+#side-nav .nav-header:not(:first-of-type) {
+    margin-top: 40px;
+}
 #side-nav ul li a:hover {
     font-weight: 500;
     background: transparent;
     position: relative;
-    color: #767779;
+    color: #1b84f7;
 }
 
 #side-nav ul li a.active {
@@ -241,6 +243,7 @@ a {
     color: #20252d;
     font-size: 14px;
 }
+
 #sidebar.bordered .nav-border {
     opacity: 1;
 }
@@ -268,6 +271,7 @@ a {
     overflow-x: scroll
 }
 
+
 #doc-content,
 #doc-header {
     margin-left: calc((100% - 994px) / 2 + 226px);
@@ -281,9 +285,9 @@ a {
 }
 
  /*By default, all children are 680px */
-#doc-content > * {
-    width: 770px;
-}
+/*#doc-content > * {*/
+    /*width: 770px;*/
+/*}*/
 
 #doc-content > section.text-block,
 #doc-content > table {
@@ -388,7 +392,7 @@ h3 {
 h4,
 h5,
 h6 {
-    font-size: 20px;
+    font-size: 19px;
     color: #20252D;
     font-weight: 500;
     font-family: NittiGrotesk-Medium;
@@ -413,7 +417,7 @@ p:not(:first-child) {
 h2:first-of-type {
     border-top: none;
     padding-top: 10px;
-    margin-top: 24px;
+    margin-top: 20px;
 }
 .doc-content footer h2 {
     margin-top: 0;
@@ -1099,7 +1103,7 @@ input:focus {
     margin-top: 0;
 }
 .option-container h2:first-of-type {
-    margin-top: 32px;
+    margin-top: 20px;
 }
 .tabcontent {
     display: none;
