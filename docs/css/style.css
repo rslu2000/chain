@@ -255,9 +255,7 @@ a {
     margin: 0 25px 0 0;
     overflow-x: scroll
 }
-.doc-content * {
-    width: 680px;
-}
+
 #doc-content,
 #doc-header {
     margin-left: calc((100% - 994px) / 2 + 226px);
