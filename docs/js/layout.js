@@ -2,6 +2,7 @@
 
 function activateCurrentSidebarItem() {
 	var p = location.pathname;
+	p = p.replace(/\/+$/,"")
 	var currentItem = $('.docs-nav a[href$="' + (p) + '"]')
  	currentItem.addClass('active');
 	currentItem.parent().parent().addClass("show").show()
