@@ -386,7 +386,7 @@ Failure conditions:
 
 #### TOALTSTACK
 
-Code  | Stack Diagram | Cost
+Code  | Stack Diagram      | Cost
 ------|--------------------|----------------------------
 0x6b  | (a → ∅)            | 2
 
@@ -395,8 +395,8 @@ Moves the top item from the data stack to the alt stack.
 
 #### FROMALTSTACK
 
-Code  | Stack Diagram | Cost
-------|--------------------|--------------------|----------------------------
+Code  | Stack Diagram      | Cost
+------|--------------------|----------------------------
 0x6c  | (∅ → a)            | 2
 
 Moves the top item from the alt stack to the data stack.
