@@ -153,18 +153,19 @@ Procedure:
 1. Test that the height of the input block is strictly greater than the height of the last signed block; if not, halt and return nothing.
 2. Verify the generator’s signature using the generator’s verification key in the current blockchain state. If the signature is invalid, halt and return nothing.
 3. [Validate the block](validation.md#validate-block) with respect to the current blockchain state; if invalid, halt and return nothing.
-4. Ensure that reserved values and versions are unused. If any of the following conditions are not satisfied, halt and return false:
+4. Check that the block’s [consensus program](data.md#consensus-program) equals the consensus program in the last signed block; if not, halt and return nothing.
+5. Ensure that reserved values and versions are unused. If any of the following conditions are not satisfied, halt and return false:
     1. The block version must equal 1.
     2. For every transaction in the block:
         1. Transaction version must equal 1.
         2. [Transaction common witness](data.md#transaction-common-witness) string must be empty.
         3. Every [input witness](data.md#transaction-input-witness) must contain only the fields defined in this version of the protocol (no additional data included).
         4. Every [output witness](data.md#transaction-output-witness) must be empty.
-5. Apply local policy, if any, to the block; if the block is prohibited, halt and return nothing.
-6. Compute the [block signature hash](data.md#block-signature-hash) for the block.
-7. Sign the signature hash with the signing key, yielding a [signature](data.md#signature).
-8. Replace the last signed block with the input block.
-9. Return the signature.
+6. Apply local policy, if any, to the block; if the block is prohibited, halt and return nothing.
+7. Compute the [block signature hash](data.md#block-signature-hash) for the block.
+8. Sign the signature hash with the signing key, yielding a [signature](data.md#signature).
+9. Replace the last signed block with the input block.
+10. Return the signature.
 
 ### Make initial block
 
