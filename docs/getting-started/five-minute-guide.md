@@ -1,6 +1,6 @@
 # 5-Minute Guide
 
-## Introduction
+## Overview
 
 This guide will walk you through the basic functions of Chain Core:
 
@@ -12,6 +12,11 @@ This guide will walk you through the basic functions of Chain Core:
 * Issue asset units into an account
 * Spend asset units from one account to another
 * Retire asset units from an account
+
+### Source Code
+All of the code examples in this guide are extracted from a single, runnable Java file.
+
+<a href="../examples/java/FiveMinuteGuide.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
 
 ## Initialize the SDK
 

@@ -23,6 +23,12 @@ This guide will walk you through the basic functions of an account:
 
 This guide assumes you know the basic functions presented in the [5-Minute Guide](../getting-started/five-minute-guide).
 
+### Source Code
+All of the code examples in this guide are extracted from a single, runnable Java file.
+
+<a href="../examples/java/Accounts.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
+
+
 ## Create account
 
 * An `alias` is an optional, user-supplied, unique identifier that you can use to operate on the account. We will use this later to build transactions.
@@ -90,5 +96,3 @@ $code ../examples/java/Accounts.java list-account-balances
 To list all the unspent outputs that comprise the balance of gold in Alice's account, we build an unspent outputs query, filtering to Alice's account alias and the gold asset alias.
 
 $code ../examples/java/Accounts.java list-account-unspent-outputs
-
-[Download Code](../examples/java/Accounts.java)

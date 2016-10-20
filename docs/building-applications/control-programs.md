@@ -6,6 +6,11 @@ A control program is the mechanism that secures asset units on a blockchain. Whe
 
 Each output in a transaction contains a single control program. Each control program consists of set of predicates that must be satisfied in order to spend the output (i.e. use the output as an input to a new transaction).
 
+### Source Code
+All of the code examples in this guide are extracted from a single, runnable Java file.
+
+<a href="../examples/java/ConrolPrograms.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
+
 ## Account control programs
 
 The most basic type of control program is an account control program, which defines a set of keys and a quorum of signatures required to spend asset units. When you create an account, you provide as set of root keys and a quorum. Then each time you deposit assets into an account, Chain Core derives a new set of child public keys from the account root keys and creates a unique, one-time-use account control program requiring the quorum of signatures you specified.

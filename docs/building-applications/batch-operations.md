@@ -1,5 +1,7 @@
 # Batch Operations
 
+## Overview
+
 Batch operations are an advanced feature of the Client API that allow you to bundle many similar operations into a single API call. Not only does this reduce on network overhead, it also allows the Chain Core to process operations in your request in parallel.
 
 Operations that support batching include:
@@ -10,6 +12,11 @@ Operations that support batching include:
 - Building transactions
 - Signing transactions
 - Submitting transactions
+
+### Source Code
+All of the code examples in this guide are extracted from a single, runnable Java file.
+
+<a href="../examples/java/BatchOperations.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
 
 ## Example: creating assets in a batch
 

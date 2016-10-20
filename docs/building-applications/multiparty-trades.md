@@ -1,5 +1,6 @@
 # Multiparty Trades
 
+## Overview
  This guide demonstrates how to use the Client API to create complex transactions that are:
 
 - **Multi-party**: Multiple accounts on the same core or different cores can participate in the same transaction.
@@ -7,6 +8,11 @@
 - **Risk-free**: Within a single transaction, each party can declare exactly what they will pay, and what they expect to receive. The transaction will be rejected by the blockchain unless it is signed by all parties, and unless its incoming and outgoing assets balance each other.
 
 Please make sure you've read [Transaction Basics](../building-applications/transaction-basics) before continuing.
+
+### Source Code
+All of the code examples in this guide are extracted from a single, runnable Java file.
+
+<a href="../examples/java/MultipartyTrades.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
 
 ## Example: Trading within the same core and application
 

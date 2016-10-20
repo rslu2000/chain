@@ -10,7 +10,6 @@ For example, if you wish list transactions where a specific account spends a spe
 inputs(account_alias='alice' AND asset_alias='gold')
 ```
 
-
 ## Properties
 
 Each method accepts filters specific to the key-value (JSON) object returned. Any key can be used as a filter property. To use a key that is nested within other keys, provide the path to the object, including the parent objects. For example:

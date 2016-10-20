@@ -23,6 +23,11 @@ This guide will walk you through the basic functions of an asset:
 
 This guide assumes you know the basic functions presented in the [5-Minute Guide](../getting-started/five-minute-guide).
 
+### Source Code
+All of the code examples in this guide are extracted from a single, runnable Java file.
+
+<a href="../examples/java/Assets.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
+
 ## Create asset
 
 Creating an asset defines the asset object locally in the Chain Core. It does not exist on the blockchain until units are issued in a transaction.

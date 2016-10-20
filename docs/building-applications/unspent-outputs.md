@@ -1,11 +1,16 @@
 # Unspent Outputs Guide
 
-## Introduction
+## Overview
 
 This guide will walk you through the basic functions of an unspent output:
 
 1. List unspent outputs
 2. Spend unspent outputs
+
+### Source Code
+All of the code examples in this guide are extracted from a single, runnable Java file.
+
+<a href="../examples/java/UnspentOutputs.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
 
 ## List unspent outputs
 
