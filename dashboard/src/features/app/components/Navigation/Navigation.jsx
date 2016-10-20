@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import styles from './Navigation.scss'
+import { humanizeDuration } from 'utility/time'
 
 class Navigation extends React.Component {
   render() {
@@ -18,27 +19,26 @@ class Navigation extends React.Component {
     if (showSync) {
       if (snapshot && snapshot.in_progress) { // Currently downloading the snapshot.
         const downloaded = (snapshot.downloaded / snapshot.size) * 100
+        const timeRemaining = syncEstimates.snapshot ? humanizeDuration(syncEstimates.snapshot) : '-'
 
         syncContent = <ul className={styles.navigation}>
-          <li className={styles.navigationTitle}>generator sync</li>
-          <li>Snapshot: {snapshot.height} blocks</li>
+          <li className={styles.navigationTitle}>snapshot sync</li>
+          <li>{snapshot.height} blocks</li>
           <li>{downloaded.toFixed(1)}% downloaded</li>
-
-          {!!syncEstimates.snapshot &&
-            <li>Time remaining: {syncEstimates.snapshot}</li>
-          }
+          <li>Time remaining: {timeRemaining}</li>
         </ul>
       } else { // Using RPC sync. Either there was no snapshot, or we've already stopped downloading it.
         // TODO(jeffomatic): Show a warning if the snapshot did not succeed.
-        const replicaLag = generatorBlockHeight - blockHeight
+        let replicaLag = generatorBlockHeight - blockHeight
+        if (isNaN(replicaLag)) {
+          replicaLag = '-'
+        }
+        const timeRemaining = syncEstimates.replicaLag ? humanizeDuration(syncEstimates.replicaLag) : '-'
 
         syncContent = <ul className={styles.navigation}>
           <li className={styles.navigationTitle}>generator sync</li>
           <li>Blocks behind: {replicaLag}</li>
-
-          {!!syncEstimates.replicaLag &&
-            <li>Time remaining: {syncEstimates.replicaLag}</li>
-          }
+          <li>Time remaining: {timeRemaining}</li>
         </ul>
       }
     }

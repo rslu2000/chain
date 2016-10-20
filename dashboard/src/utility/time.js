@@ -1,11 +1,10 @@
 /**
  * Calculates the average change per second of a variable sampled at various times.
  */
- class SpeedEstimator {
-  constructor({sampleTtl = 60*1000, maxSamples = 60, minSamples = 3} = {}) {
+ export class DeltaSampler {
+  constructor({sampleTtl = 60*1000, maxSamples = 60} = {}) {
     this.sampleTtl = sampleTtl
     this.maxSamples = maxSamples
-    this.minSamples = minSamples
     this.samples = []
   }
 
@@ -24,23 +23,23 @@
 
   /**
    * Returns the average growth of the value per second.
+   * Algorithm: sum the changes
    */
   average() {
     const cutoff = Date.now() - this.sampleTtl
+    const deltas = []
+
     let earliest = null
     let latest = null
-    let validSamples = 0
 
     for (let i = 0; i < this.samples.length; i++) {
       const s = this.samples[i]
       if (s.time < cutoff) continue
       if (earliest === null) earliest = s
-
       latest = s
-      validSamples++
     }
 
-    if (earliest === null || earliest === latest || validSamples < this.minSamples) {
+    if (earliest === latest) {
       return NaN
     }
 
@@ -48,7 +47,7 @@
   }
 }
 
-const humanizeTime = seconds => {
+export const humanizeDuration = seconds => {
   let big, little, bigUnit, littleUnit
 
   if (seconds > 24 * 60 * 60) {
@@ -78,9 +77,4 @@ const humanizeTime = seconds => {
   }
 
   return `${big}${bigUnit} ${little}${littleUnit}`
-}
-
-export {
-  SpeedEstimator,
-  humanizeTime,
 }

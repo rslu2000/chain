@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { testNetUrl } from 'utility/environment'
 import moment from 'moment'
-import { SpeedEstimator, humanizeTime } from 'utility/time'
+import { DeltaSampler } from 'utility/time'
 
 const LONG_TIME_FORMAT = 'YYYY-MM-DD, h:mm:ss a'
 
@@ -83,18 +83,18 @@ export const replicationLag = (state = null, action) => {
   return state
 }
 
-let syncEstimators = null
+let syncSamplers = null
 const resetSyncEstimators = () => {
-  syncEstimators = {
-    snapshot: new SpeedEstimator({sampleTtl: 10 * 1000}),
-    replicaLag: new SpeedEstimator({sampleTtl: 10 * 1000}),
+  syncSamplers = {
+    snapshot: new DeltaSampler({sampleTtl: 10 * 1000}),
+    replicaLag: new DeltaSampler({sampleTtl: 10 * 1000}),
   }
 }
 
 export const syncEstimates = (state = {}, action) => {
   switch (action.type) {
     case 'UPDATE_CORE_INFO': {
-      if (!syncEstimators) {
+      if (!syncSamplers) {
         resetSyncEstimators()
       }
 
@@ -107,19 +107,20 @@ export const syncEstimates = (state = {}, action) => {
       const estimates = {}
 
       if (snapshot && snapshot.in_progress) {
-        const speed = syncEstimators.snapshot.sample(snapshot.downloaded)
-        if (speed) {
-          const duration = (snapshot.size - snapshot.downloaded) / speed
-          if (!!duration) {
-            estimates.snapshot = humanizeTime(duration)
-          }
+        const speed = syncSamplers.snapshot.sample(snapshot.downloaded)
+
+        if (speed != 0) {
+          estimates.snapshot = (snapshot.size - snapshot.downloaded) / speed
         }
       } else {
         const replicaLag = generator_block_height - block_height
-        const speed = syncEstimators.replicaLag.sample(replicaLag)
-        const duration = -1 * replicaLag / speed
-        if (duration > 0) {
-          estimates.replicaLag = humanizeTime(duration)
+        const speed = syncSamplers.replicaLag.sample(replicaLag)
+
+        if (speed != 0) {
+          const duration = -1 * replicaLag / speed
+          if (duration > 0) {
+            estimates.replicaLag = duration
+          }
         }
       }
 
