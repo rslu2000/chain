@@ -4,11 +4,13 @@
 
 Any balance on the blockchain is simply a summation of unspent outputs. For example, the balance of Alice’s account is a summation of all the unspent outputs whose control program was created in Alice’s account.
 
-The Balance.QueryBuilder class is unique in that it does not return an object in the Chain Core, but rather an aggregate sum over the `amount` fields in a defined list of unspent output objects. By default, this returns a list of balances, summed by `asset_id` and `asset_alias`.
-
+The Balance.QueryBuilder class is unique in that it does not return an object in the Chain Core, but rather an aggregate sum over the `amount` fields in a defined list of unspent output objects.
 ### Sum By
 
 The `setSumBy` method enables more complex summations of balances. For example, if you have a network of counterparty-issued IOUs, you may wish to calculate the account balance of all IOUs from different counterparties that represent the same underlying currency.
+
+By default, the Balance.QueryBuilder class sums balances by `asset_id` and `asset_alias`.
+
 
 ## Overview
 
