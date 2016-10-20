@@ -364,7 +364,7 @@ article ul > li {
     /*top: 3px;*/
 /*}*/
 
-#doc-content ul:first-of-type {
+#doc-content h1 + ul:first-of-type {
     margin-top: 30px;
 }
 
