@@ -83,16 +83,21 @@ export const replicationLag = (state = null, action) => {
   return state
 }
 
-let syncEstimators = {}
+let syncEstimators = null
 const resetSyncEstimators = () => {
-  syncEstimators.snapshot = new SpeedEstimator({sampleTtl: 10 * 1000})
-  syncEstimators.replicaLag = new SpeedEstimator({sampleTtl: 10 * 1000})
+  syncEstimators = {
+    snapshot: new SpeedEstimator({sampleTtl: 10 * 1000}),
+    replicaLag: new SpeedEstimator({sampleTtl: 10 * 1000}),
+  }
 }
-resetSyncEstimators()
 
-export const syncEstimates = (state = null, action) => {
+export const syncEstimates = (state = {}, action) => {
   switch (action.type) {
     case 'UPDATE_CORE_INFO': {
+      if (!syncEstimators) {
+        resetSyncEstimators()
+      }
+
       const {
         snapshot,
         generator_block_height,
@@ -124,7 +129,7 @@ export const syncEstimates = (state = null, action) => {
     case 'CORE_DISCONNECT':
     case 'USER_LOG_OUT':
       resetSyncEstimators()
-      return null
+      return {}
 
     default:
       return state
