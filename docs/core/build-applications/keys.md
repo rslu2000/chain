@@ -37,5 +37,3 @@ $code ../examples/java/Keys.java signer-add-key
 Once a transaction is built, send it to the HsmSigner for signing.
 
 $code ../examples/java/Keys.java sign-transaction
-
-[Download Code](../examples/java/Keys.java)
