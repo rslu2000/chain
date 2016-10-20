@@ -284,6 +284,10 @@ a {
 	padding-right:40px;
     border-bottom: 1px solid #e8e8e8;
 }
+#doc-content p:first-of-type {
+    padding-top: 10px;
+    margin-top: 20px;
+}
 
  /*By default, all children are 680px */
 /*#doc-content > * {*/
