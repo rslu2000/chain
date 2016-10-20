@@ -370,7 +370,7 @@ article ul > li {
 
 /* Headers */
 h1 {
-    font-size: 40px;
+    font-size: 36px;
     color: #20252D;
     font-weight: 400;
     border-bottom: 1px solid rgba(120, 134, 156, .15);
@@ -378,7 +378,7 @@ h1 {
 }
 
 h2 {
-    font-size: 26px;
+    font-size: 24px;
     padding-top: 40px;
 }
 
@@ -390,13 +390,13 @@ h3 {
 }
 
 h3 {
-    font-size: 22px
+    font-size: 20px
 }
 
 h4,
 h5,
 h6 {
-    font-size: 19px;
+    font-size: 18px;
     color: #20252D;
     font-weight: 500;
     font-family: NittiGrotesk-Medium;
