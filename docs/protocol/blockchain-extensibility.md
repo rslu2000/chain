@@ -1,7 +1,6 @@
 # Blockchain Extensibility
 
 * [Introduction](#introduction)
-* [Forward and backward compatibility](#forward-and-backward-compatibility)
 * [Hard forks and soft forks](#hard-forks-and-soft-forks)
 * [Safety of hard forks](#safety-of-hard-forks)
 * [Safety of soft forks](#safety-of-soft-forks)
@@ -24,30 +23,20 @@ Upgrading blockchain networks poses serious challenges. While traditional commun
 
 This document covers the extensibility features and versioning semantics of Chain Protocol that facilitate safe evolution of the protocol rules.
 
-## Forward and backward compatibility
-
-Blockchain versioning has much in common with the problem of versioning markup languages built for the web, such as HTML and XML. 
-
-* New versions of browsers need to display outdated websites. This is called "backward-compatibility." 
-* Recently updated websites need to be displayed on outdated browsers. This is called "forward-compatibility." In the web context, it is closely related to the concepts of "graceful degradation" and "progressive enhancements."
-
-A [W3C draft](https://www.w3.org/2001/tag/doc/versioning) describes the difference between backward and forward compatibility as follows:
-
-> As languages evolve, it is possible to speak of backwards and forwards compatibility. A language change is backwards compatible if consumers of the revised language can correctly process all instances of the unrevised language. Backwards compatibility means that a newer version of a consumer can be rolled out in a way that does not break existing producers. A producer can send a text per the unrevised version of a language to a consumer that understands the revised language and still have the text successfully processed. A software example is a word processor at version 5 being able to read and process version 4 documents. A schema example is a schema at version 5 being able to validate version 4 documents. In the case of Web services, this means that new Web services consumers, ones designed for the new version, will be able to process all messages in the old language.
-
-> A language change is forwards compatible if consumers of the unrevised language can correctly process all instances of the revised language. Forwards compatibility means that a newer version of a producer can be deployed in a way that does not break existing consumers. A producer can send a text per the revised version of a language to a consumer that understands the unrevised language and still have the text successfully processed. Of course the older consumer will not implement any new behavior, but a producer can send a text of the revised language and still have the text successfully processed. An example is a word processing software at version 4 being able to read and process version 5 documents. A schema example is a schema at version 4 being able to validate version 5 documents. This means that a producer can send a newer version of a message to an existing consumer and still have the message successfully processed. In the case of Web services, this means that existing Web service consumers, designed for a previous version of the language, will be able to process all messages in the new language.
-
-To use the [terminology](https://www.w3.org/2001/tag/doc/versioning-20070326.html#iddiv370422920) from the W3C draft: protocol upgrades on live networks should be "completely strictly compatible." New versions of a protocol should be "strictly backward compatible" with prior versions—all messages that were *defined* in the old version should be *defined* in the new version. And previous protocols should be "strictly forward compatible" with newer versions—all messages that are *defined* in the new version must have been *accepted* by the old version. [TODO: be a little less cryptic here and maybe include a diagram.]
-
 ## Hard forks and soft forks
 
 There are two ways to upgrade a blockchain network. These are conventionally known as *hard forks* and *soft forks*. [Footnote: See [BIP 99](https://github.com/bitcoin/bips/blob/master/bip-0099.mediawiki) for some background on the Bitcoin community's approach to hard and soft forks.]
 
-A *hard fork* is a change that breaks forward-compatibility — it makes messages that were invalid under the old rules become valid under new rules. Changes to the protocol can be implemented in a straightforward manner, but at the cost of upgrading all participating nodes and all software that works directly with blockchain data structures. In a smaller network, a hard fork may be an efficient way to upgrade: one should set a deadline when the new rules will be activated, then update all necessary software before the deadline. Unfortunately, in larger networks hard forks pose a serious risk of breaking software unexpectedly, or would require a prohibitively distant deadline to give time to review and upgrade all software.
+A *hard fork* is a change that is not compatible with non-upgraded software — it makes messages that were invalid under the old rules become valid under new rules. Changes to the protocol can be implemented in a straightforward manner, but at the cost of upgrading all participating nodes and all software that works directly with blockchain data structures. In a smaller network, a hard fork may be an efficient way to upgrade: one should set a deadline when the new rules will be activated, then update all necessary software before the deadline. Unfortunately, in larger networks hard forks pose a serious risk of breaking software unexpectedly, or would require a prohibitively distant deadline to give time to review and upgrade all software.
 
-A *soft fork* is a compatible change — it rejects messages that were previously valid. This may be a less elegant way to change the protocol, but it allows upgrading the network piece-by-piece without requiring every node to upgrade. A soft fork must be enforced by the block generation and consensus mechanism. For proof-of-work blockchains, this means the miners; for Chain blockchains, this means the block signers. A soft fork requires only block signers to upgrade first and enforce new rules by rejecting non-conforming transactions. Block signers preemptively refuse to sign blocks containing transactions with undefined version numbers, making it safe to introduce new versions (and their associated new behavior) in the future. Once block signers begin enforcing new rules, other nodes can start creating transactions with a new version. Nodes that did not upgrade still validate these transactions, but implicitly rely on block signers to validate their exact meaning. Note that such nodes operate with reduced security regarding validation of new transactions. Nodes can upgrade to new capabilities at their own pace without blocking anyone else’s operation.
+[sidenote]
 
-Contrary to what one might assume, soft forks *should not* break backward compatibility. An upgraded version of a protocol needs to be able to validate earlier blocks. To avoid this problem, the Chain Protocol uses version numbers, as described below.
+Contrary to what one might assume, neither hard forks, nor soft forks are intended to _actually fork_ the blockchain. The word “fork” indicates the change of the protocol rules that _potentially_ may lead to an undesireable fork of the blockchain. While hard forks require careful coordination of all users, soft forks require careful coordination of block signers only.
+
+[/sidenote]
+
+A *soft fork* is a compatible change — it rejects some messages that were previously valid. This may be a less elegant way to change the protocol, but it allows upgrading the network piece-by-piece without requiring every node to upgrade. A soft fork must be enforced by the block generation and consensus mechanism. For proof-of-work blockchains, this means the miners; for Chain blockchains, this means the block signers. A soft fork requires only block signers to upgrade first and enforce new rules by rejecting non-conforming transactions. To make sure future versions of the protocol still validate earlier blocks, block signers preemptively refuse to sign blocks containing transactions with undefined version numbers, making it safe to introduce new versions (and their associated new behavior) in the future. Once block signers begin enforcing new rules, other nodes can start creating transactions with a new version. Nodes that did not upgrade still validate these transactions, but implicitly rely on block signers to validate their exact meaning. Note that such nodes operate with reduced security regarding validation of new transactions. Nodes can upgrade to new capabilities at their own pace without blocking anyone else’s operation.
+
 
 ## Safety of hard forks
 
@@ -96,7 +85,7 @@ Chain Protocol defines four main areas of extensibility:
 3. assets, 
 4. programs.
 
-Every extension area has well-specified upgrade semantics in order to maintain backward compatibility.
+Every extension area has well-specified upgrade semantics in order to maintain compatibility between all versions of the protocol.
 
 Blocks have three extension points:
 
@@ -181,7 +170,7 @@ While it is not easy to add support for new signature algorithms (e.g. changing 
 
 ## Deprecation process
 
-By default, all previously supported features remain supported for backward compatibility in the future. Sometimes features are discovered to be either insecure or inefficient and should be deprecated. Deprecation can be implemented as the block signers’ policy to refuse to include transactions using such features or restricting some aspects of them (size, frequency, etc). If necessary, deprecation can be implemented via a *restrictive upgrade* to the protocol enforced by the entire network. For instance, if a certain signature scheme is deemed insecure, it can be fully banned after a pre-arranged deadline to prevent inclusion of insecure transactions.
+By default, all previously supported features remain supported to keep older software compatible. Sometimes features are discovered to be either insecure or inefficient and should be deprecated. Deprecation can be implemented as the block signers’ policy to refuse to include transactions using such features or restricting some aspects of them (size, frequency, etc). If necessary, deprecation can be implemented via a *restrictive upgrade* to the protocol enforced by the entire network. For instance, if a certain signature scheme is deemed insecure, it can be fully banned after a pre-arranged deadline to prevent inclusion of insecure transactions.
 
 
 ## Examples
