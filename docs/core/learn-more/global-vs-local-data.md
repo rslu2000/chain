@@ -73,6 +73,9 @@ Asset tags are a local asset definition used to [query the blockchain](../buildi
 
 ## Examples
 
+All of the following code samples are extracted from a single, runnable Java file.
+<a href="../examples/java/GlobalVsLocalData.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
+
 ### Create accounts with tags
 
 $code ../examples/java/GlobalVsLocalData.java create-accounts-with-tags
