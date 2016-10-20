@@ -2,22 +2,28 @@
 
 ## Introduction
 
+Any balance on the blockchain is simply a summation of unspent outputs. For example, the balance of Alice’s account is a summation of all the unspent outputs whose control program was created in Alice’s account.
+
 The Balance.QueryBuilder class is unique in that it does not return an object in the Chain Core, but rather an aggregate sum over the `amount` fields in a defined list of unspent output objects. By default, this returns a list of balances, summed by `asset_id` and `asset_alias`.
 
+### Sum By
+
+The `setSumBy` method enables more complex summations of balances. For example, if you have a network of counterparty-issued IOUs, you may wish to calculate the account balance of all IOUs from different counterparties that represent the same underlying currency.
+
 ## Overview
+
+This guide will walk you through a few basic balance queries:
+
+* List account balances
+* Get asset circulation
+* List account balances, summed by a field in the asset definition
 
 ### Sample Code
 All of the code samples in this guide are extracted from a single, runnable Java file.
 <a href="../examples/java/Balances.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 
-## Sum By
-
-The `setSumBy` method enables more complex summations of balances. For example, if you have a network of counterparty-issued IOUs, you may wish to calculate the account balance of all IOUs from different counterparties that represent the same underlying currency.
-
-## Examples
-
-### List the asset IOU balances in Bank1's account
+#### List the asset IOU balances in Bank1's account
 
 #### Query
 

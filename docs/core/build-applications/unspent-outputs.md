@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Each time a transaction is created, one or more new unspent outputs is created. An output is considered unspent when it has not yet been used as an input to a new transaction. All asset units on the blockchain exist in the unspent output set. Any balance on the blockchain is simply a summation of unspent outputs. For example, the balance of Alice's account is a summation of all the unspent outputs whose control program was created in Alice's account.
+Each time a transaction is created, one or more new unspent outputs is created. An output is considered unspent when it has not yet been used as an input to a new transaction. All asset units on the blockchain exist in the unspent output set.
 
 ## Overview
 
