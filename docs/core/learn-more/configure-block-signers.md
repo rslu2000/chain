@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The Chain Core dashboard does not yet support block signer configuration. However, you can use the Chain Core command line tools to manually configure a blockchain with block signers.
+The Chain Core dashboard does not yet support block signer configuration. However, you can use a Chain Core command line tool to manually configure a blockchain with block signers.
 
 ### Initialize Corectl
 
-In the Chain Core Mac app, visit the `Developer` menu and select `Open Terminal`. This will initialize the `corectl` tool.
+In the Chain Core Mac app, visit the `Developer` menu and select `Open Terminal`. This will initialize the `corectl` command line tool.
 
 ## Configuration
 
