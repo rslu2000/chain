@@ -105,14 +105,14 @@ body {
 /* Links */
 a {
     font-family: NittiGrotesk-Normal;
-    color: #1b84f7;
+    color: #00BFAA;
     text-decoration: none;
 }
 #doc-header a {
     font-size: 17px;
     line-height: 55px;
     padding-left: 30px;
-    color: #1b84f7;
+    color: #00BFAA;
     text-decoration: none;
     font-family: NittiGrotesk-Normal;
 }
@@ -199,11 +199,11 @@ a {
     font-weight: 500;
     background: transparent;
     position: relative;
-    color: #1b84f7;
+    color: #00BFAA;
 }
 
 #side-nav ul li a.active {
-    color: #1b84f7;
+    color: #00BFAA  ;
 }
 
 #side-nav h1 a.selected,
@@ -277,6 +277,7 @@ a {
     margin-left: calc((100% - 994px) / 2 + 226px);
     overflow-x: hidden;
     border-bottom: 1px solid rgba(120, 134, 156, .08);
+    width: 700px;
 }
 
 #doc-header {
@@ -289,11 +290,11 @@ a {
     /*width: 770px;*/
 /*}*/
 
-#doc-content > section.text-block,
-#doc-content > table {
-	width: auto;
-	min-width:680px;
-}
+/*#doc-content > section.text-block,*/
+/*#doc-content > table {*/
+	/*width: auto;*/
+	/*min-width:680px;*/
+/*}*/
 
 
 
@@ -363,6 +364,9 @@ article ul > li {
     /*top: 3px;*/
 /*}*/
 
+#doc-content ul:first-of-type {
+    margin-top: 30px;
+}
 
 /* Headers */
 h1 {
@@ -512,6 +516,9 @@ section.text-block {
 #doc-content.protocol-content section {
     margin-top: 20px;
 }
+section.text-block p:first-of-type {
+    margin-top: 12px;
+}
 
 .text-main {
     flex: 1 1;
@@ -525,7 +532,7 @@ div.sidenote {
 
 }
 div.sidenote p {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 24px;
 }
 

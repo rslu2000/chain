@@ -100,17 +100,17 @@ function showSignUpForm() {
 //	},100)
 //}
 
-function adjustWidths() {
-	setTimeout(function(){
-		$("#doc-content > table").each(function(){
-				$(this).css("width", "770px")
-
-		})
-		$("#doc-content > pre").each(function(){
-				$(this).css("width", "770px")
-		})
-	},100)
-}
+//function adjustWidths() {
+//	setTimeout(function(){
+//		$("#doc-content > table").each(function(){
+//				$(this).css("width", "770px")
+//
+//		})
+//		$("#doc-content > pre").each(function(){
+//				$(this).css("width", "770px")
+//		})
+//	},100)
+//}
 
 // This finds <p> <div class="sidenote"> pairs and wraps them in <section class="text-block">.
 // Inner paragraphs are wrapped together in <div class="text-main">.
