@@ -1,22 +1,23 @@
 @font-face {
-  font-family: "Lato";
-  src: url('assets/fonts/LatoLatin-Regular.ttf');
-}
-
-@font-face {
-  font-family: "Lato";
-  font-weight: bold;
-  src: url('assets/fonts/LatoLatin-Bold.ttf');
-}
-
-@font-face {
   font-family: "Nitti";
   src: url('assets/fonts/nitti-normal.woff');
 }
 
 @font-face {
+  font-family: "Nitti";
+  font-weight: bold;
+  src: url('assets/fonts/nitti-medium.woff');
+}
+
+@font-face {
   font-family: "Nitti Grotesk";
   src: url('assets/fonts/nittigrotesk-normal.woff');
+}
+
+@font-face {
+  font-family: "Nitti Grotesk";
+  font-weight: bold;
+  src: url('assets/fonts/nittigrotesk-medium.woff');
 }
 
 html {
