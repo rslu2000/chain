@@ -80,10 +80,10 @@ Note that restricting existing feature and adding a new one is not equivalent to
 
 Chain Protocol defines four main areas of extensibility: 
 
-1. blocks,
-2. transactions, 
-3. assets, 
-4. programs.
+1. Blocks
+2. Transactions
+3. Assets
+4. Programs
 
 Every extension area has well-specified upgrade semantics in order to maintain compatibility between all versions of the protocol.
 
@@ -132,7 +132,7 @@ Chain Protocol implements a versioning scheme that allows users signalling wheth
 
 All upgrades are sequential. Nodes cannot upgrade to a protocol extension without upgrading to all previous ones. Users that do not validate the blockchain fully may cherry-pick which features to validate themselves or delegate trust to block signers or third-party data providers. However, they still must be aware of all intermediate extensions when deciding to opt out of validating some aspects of the protocol. This is reflected in the requirement that block versions monotonically increase: protocol rules that were added once cannot be rolled back in the future. All other version fields while encoded as variable-length integers are free-form and may be treated as integers, short strings, bit fields or a combination thereof.
 
-All *extensive upgrades* to the protocol are signaled by incrementing the block version and changing the versions of all affected data structures that introduce the additional rules. Use of unassigned fields and instructions is *not allowed* without changing the version of the data structure that is being extended and all data structures up in the hierarchy up to the block version. This allows applications to detect addition of new fields, asset and program versions to the protocol and adjust their security assumptions, notify administrators about an upgrade, or take other action as appropriate. This also provides security for users of compact proofs: they are guaranteed that they will notice a protocol upgrade when the previously unused fields become defined.
+All **extensive upgrades** to the protocol are signaled by incrementing the block version and changing the versions of all affected data structures that introduce the additional rules. Use of unassigned fields and instructions is *not allowed* without changing the version of the data structure that is being extended and all data structures up in the hierarchy up to the block version. This allows applications to detect addition of new fields, asset and program versions to the protocol and adjust their security assumptions, notify administrators about an upgrade, or take other action as appropriate. This also provides security for users of compact proofs: they are guaranteed that they will notice a protocol upgrade when the previously unused fields become defined.
 
 Example:
 
@@ -142,7 +142,7 @@ Example:
 4. Block signers make sure only well-defined block versions are used and signed. If the protocol rules change, block signers permanently commit to enforcing the new rules. If the rules did not change, block signers reject transactions that use unassigned extension points or versions.
 5. As a result, the rest of the network receives a clear signal that the protocol rules has changed. Non-upgraded nodes may choose to stop processing payments until upgrade, or apply additional checks & confirmations out of band.
 
-*Restrictive upgrades* (limiting use of defined fields and instructions) only need to increment a block version in order to maintain compatibility of the new rules with the historical blocks. For additional compatibility with transacting software the following scheme is recommended:
+**Restrictive upgrades** (limiting use of defined fields and instructions) only need to increment a block version in order to maintain compatibility of the new rules with the historical blocks. For additional compatibility with transacting software the following scheme is recommended:
 
 1. The restrictions apply only to a new transaction version (or versions).
 2. Previous transaction version is either allowed indefinitely (therefore allowing users to opt-in the new rule), or announced as deprecated and can be restricted in the future (phased out) or immediately (fail-stop scenario).
