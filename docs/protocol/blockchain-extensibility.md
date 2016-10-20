@@ -25,17 +25,23 @@ This document covers the extensibility features and versioning semantics of Chai
 
 ## Hard forks and soft forks
 
-There are two ways to upgrade a blockchain network. These are conventionally known as *hard forks* and *soft forks*. [Footnote: See [BIP 99](https://github.com/bitcoin/bips/blob/master/bip-0099.mediawiki) for some background on the Bitcoin community's approach to hard and soft forks.]
+There are two ways to upgrade a blockchain network. These are conventionally known as *hard forks* and *soft forks*. 
+
+[sidenote] 
+
+See [BIP 99](https://github.com/bitcoin/bips/blob/master/bip-0099.mediawiki) for some background on the Bitcoin community's approach to hard and soft forks.
+
+[/sidenote]
 
 A *hard fork* is a change that is not compatible with non-upgraded software — it makes messages that were invalid under the old rules become valid under new rules. Changes to the protocol can be implemented in a straightforward manner, but at the cost of upgrading all participating nodes and all software that works directly with blockchain data structures. In a smaller network, a hard fork may be an efficient way to upgrade: one should set a deadline when the new rules will be activated, then update all necessary software before the deadline. Unfortunately, in larger networks hard forks pose a serious risk of breaking software unexpectedly, or would require a prohibitively distant deadline to give time to review and upgrade all software.
+
+A *soft fork* is a compatible change — it rejects some messages that were previously valid. This may be a less elegant way to change the protocol, but it allows upgrading the network piece-by-piece without requiring every node to upgrade. A soft fork must be enforced by the block generation and consensus mechanism. For proof-of-work blockchains, this means the miners; for Chain blockchains, this means the block signers. A soft fork requires only block signers to upgrade first and enforce new rules by rejecting non-conforming transactions. To make sure future versions of the protocol still validate earlier blocks, block signers preemptively refuse to sign blocks containing transactions with undefined version numbers, making it safe to introduce new versions (and their associated new behavior) in the future. Once block signers begin enforcing new rules, other nodes can start creating transactions with a new version. Nodes that did not upgrade still validate these transactions, but implicitly rely on block signers to validate their exact meaning. Note that such nodes operate with reduced security regarding validation of new transactions. Nodes can upgrade to new capabilities at their own pace without blocking anyone else’s operation.
 
 [sidenote]
 
 Contrary to what one might assume, neither hard forks, nor soft forks are intended to _actually fork_ the blockchain. The word “fork” indicates the change of the protocol rules that _potentially_ may lead to an undesireable fork of the blockchain. While hard forks require careful coordination of all users, soft forks require careful coordination of block signers only.
 
 [/sidenote]
-
-A *soft fork* is a compatible change — it rejects some messages that were previously valid. This may be a less elegant way to change the protocol, but it allows upgrading the network piece-by-piece without requiring every node to upgrade. A soft fork must be enforced by the block generation and consensus mechanism. For proof-of-work blockchains, this means the miners; for Chain blockchains, this means the block signers. A soft fork requires only block signers to upgrade first and enforce new rules by rejecting non-conforming transactions. To make sure future versions of the protocol still validate earlier blocks, block signers preemptively refuse to sign blocks containing transactions with undefined version numbers, making it safe to introduce new versions (and their associated new behavior) in the future. Once block signers begin enforcing new rules, other nodes can start creating transactions with a new version. Nodes that did not upgrade still validate these transactions, but implicitly rely on block signers to validate their exact meaning. Note that such nodes operate with reduced security regarding validation of new transactions. Nodes can upgrade to new capabilities at their own pace without blocking anyone else’s operation.
 
 
 ## Safety of hard forks
@@ -134,13 +140,17 @@ All upgrades are sequential. Nodes cannot upgrade to a protocol extension withou
 
 All **extensive upgrades** to the protocol are signaled by incrementing the block version and changing the versions of all affected data structures that introduce the additional rules. Use of unassigned fields and instructions is *not allowed* without changing the version of the data structure that is being extended and all data structures up in the hierarchy up to the block version. This allows applications to detect addition of new fields, asset and program versions to the protocol and adjust their security assumptions, notify administrators about an upgrade, or take other action as appropriate. This also provides security for users of compact proofs: they are guaranteed that they will notice a protocol upgrade when the previously unused fields become defined.
 
-Example:
+[sidenote]
+
+**Example:**
 
 1. New VM version is introduced with additional input commitment fields supporting new VM features.
 2. Since the new VM version is used, the transaction version must be changed.
-3. Since the transaction version is changed, block version must be changed too.
-4. Block signers make sure only well-defined block versions are used and signed. If the protocol rules change, block signers permanently commit to enforcing the new rules. If the rules did not change, block signers reject transactions that use unassigned extension points or versions.
-5. As a result, the rest of the network receives a clear signal that the protocol rules has changed. Non-upgraded nodes may choose to stop processing payments until upgrade, or apply additional checks & confirmations out of band.
+3. Transaction version is changed, therefore block version must be increased.
+4. Block signers make sure only well-defined block versions are used and signed. Before the upgrade, block signers reject transactions that use unassigned extension points and version numbers.
+5. When the block version is increased, the rest of the network receives a clear signal that the protocol rules has changed. Non-upgraded nodes may choose to stop processing payments until they upgrade, or apply additional checks and confirmations out of band.
+
+[/sidenote]
 
 **Restrictive upgrades** (limiting use of defined fields and instructions) only need to increment a block version in order to maintain compatibility of the new rules with the historical blocks. For additional compatibility with transacting software the following scheme is recommended:
 
