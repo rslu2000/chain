@@ -43,9 +43,9 @@ Once the block generator receives signatures from enough block signers (as defin
 
 [sidenote]
 
-For a detailed description of the consensus protocol, see the [Federated Consensus Protocol](../spec/consensus.md) specification.
+For a detailed description of the consensus protocol, see the [Federated Consensus Protocol](../specifications/consensus.md) specification.
 
-Chain VM supports block introspection instructions that allow custom consensus programs. See the [Chain VM](../spec/vm1.md#block-context) specification for details.
+Chain VM supports block introspection instructions that allow custom consensus programs. See the [Chain VM](../specifications/vm1.md#block-context) specification for details.
 
 [/sidenote]
 
@@ -91,7 +91,7 @@ A quorum of block signers can temporarily stop the network by refusing to sign n
 
 The block generator and block signers store signing keys in a hardware security module (HSM) that prevents leakage of long-term cryptographic material. If the HSM needs to be upgraded, or keys need to be rotated for any reason, the federation may agree out of band on a new consensus program and start using it in new blocks beginning at a certain timestamp.
 
-The consensus program is evaluated by the Chain VM. By using introspection instructions such as [NEXTPROGRAM](../spec/vm1.md#nextprogram) and [CHECKPREDICATE](../spec/vm1.md#checkpredicate) directly inside the consensus program it is possible to create more sophisticated schemes such as temporary key delegation or automatic rotation.
+The consensus program is evaluated by the Chain VM. By using introspection instructions such as [NEXTPROGRAM](../specifications/vm1.md#nextprogram) and [CHECKPREDICATE](../specifications/vm1.md#checkpredicate) directly inside the consensus program it is possible to create more sophisticated schemes such as temporary key delegation or automatic rotation.
 
 The [Blockchain Programs](blockchain-programs.md) paper discusses in detail different ways to use programs and introspection instructions to build secure blockchain consensus schemes.
 

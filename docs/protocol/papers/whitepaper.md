@@ -95,7 +95,7 @@ A block contains the hash of all its transactions and the hash of the current st
 
 To prevent unauthorized participants from creating new blocks, each new block must satisfy a *consensus program*, which is specified in the header of the previous block. The consensus program — much like an issuance or control program — receives  arguments from the new block’s *witness* field.
 
-For example, a consensus program could specify a public key, and require that the next block’s witness contain a signature by the corresponding private key, using the block hash as a message. This is the basis of the consensus programs used in Chain’s [federated consensus protocol](#5-consensus). The flexibility and power of the [programming language](#3-programs), however, means that the protocol could theoretically support arbitrary consensus algorithms — even complex ones based on “proof-of-work” or “proof-of-stake”.
+For example, a consensus program could specify a public key, and require that the next block’s witness contain a signature by the corresponding private key, using the block hash as a message. This is the basis of the consensus programs used in Chain’s [federated consensus protocol](#4-consensus). The flexibility and power of the [programming language](#3-programs), however, means that the protocol could theoretically support arbitrary consensus algorithms — even complex ones based on “proof-of-work” or “proof-of-stake”.
 
 ## 3. Programs
 
@@ -195,11 +195,11 @@ Assets are typically controlled by one or more cryptographic keys. The Chain Pro
 
 Traditional ledgers achieve a level of privacy by limiting information access to the parties involved and a trusted third party. By contrast, the requirement of a blockchain system to announce all transactions to all network participants precludes this method. Privacy can still be maintained, however, by breaking the flow of information in another place: keeping public keys pseudonymous. The network can see that a transaction occurred, but uninvolved parties lack the information to link the transaction with specific identities.
 
-Chain’s implementation of the Chain Protocol, Chain Core, uses unique public keys for each control program to prevent observers from linking multiple outputs to one account. Individual keys are derived from a single master key to make key management safer. Chain Core implements a [key derivation scheme](../spec/chainkd.md) that allows public and private keys to be derived from the common master key pair independently, therefore permitting creation of unique public keys without access to the master private key.
+Chain’s implementation of the Chain Protocol, Chain Core, uses unique public keys for each control program to prevent observers from linking multiple outputs to one account. Individual keys are derived from a single master key to make key management safer. Chain Core implements a [key derivation scheme](../specifications/chainkd.md) that allows public and private keys to be derived from the common master key pair independently, therefore permitting creation of unique public keys without access to the master private key.
 
 Programs that facilitate multi-party contracts may depend on sensitive data such as deadlines, prices, and interest rates. These can be hidden via Merkleized programs (see [MAST](http://www.mit.edu/~jlrubin/public/pdfs/858report.pdf)) that contain only hashes of each branch, for which only the executed branches need to be revealed during execution. Such a smart contract could allow spending in one of two ways: by providing signatures from all parties on the new transaction (allowing parties to agree to how a contract should be resolved, while preserving privacy), or by revealing and executing the private smart contract code. This is similar to how contracts work in the real world — while enforcement in court typically requires the terms of the contract to be made public, most contracts are settled in private, with the public system only necessary as an implicit backstop.
 
-The Chain Protocol can also be extended with additional confidentiality features, as covered in the [extensibility](8-extensibility) and [roadmap](#10-roadmap) sections.
+The Chain Protocol can also be extended with additional confidentiality features, as covered in [Blockchain Extensibility](blockchain-extensibility.md) and [Protocol Roadmap](roadmap.md).
 
 #### Consensus security
 
@@ -259,9 +259,14 @@ Chain Core is software that implements the Chain Protocol. Using Chain Core, org
 
 ## Further reading
 
-* [Data Model Specification](../spec/data.md)
-* [Virtual Machine Specification](../spec/vm1.md)
-* [Blockchain Extensibility](../protocol/blockchain-extensibility.md)
-* [Key Derivation Specification](../spec/chainkd.md)
-* [Chain Core Documentation](../)
+* Protocol Papers
+  * [Federated Consensus](federated-consensus.md)
+  * [Blockchain Programs](blockchain-programs.md)
+  * [Blockchain Extensibility](blockchain-extensibility.md)
+  * [Protocol Roadmap](roadmap.md)
+* Specifications
+  * [Data Model Specification](../specifications/data.md)
+  * [Virtual Machine Specification](../specifications/vm1.md)
+  * [Key Derivation Specification](../specifications/chainkd.md)
+* [Chain Core Documentation](../../)
 

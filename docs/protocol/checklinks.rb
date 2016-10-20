@@ -10,7 +10,7 @@ CHECK_GLOBAL_LINKS = false
 
 def main
   dataset = {}
-  Dir["*.md"].each do |file|
+  Dir["**/*.md"].each do |file|
     puts "Collecting links and anchors from #{file}..."
     collect_links_and_anchors(file, dataset)
     puts "Checking links in #{file}..."
@@ -56,11 +56,13 @@ def check_links(file, links, dataset = {})
       ref = ref.sub(%r{^\./},"")
       fn, anchor = ref.split("#")
       anchor = "##{anchor}" if anchor
-      if !check_url(fn)
+
+      path = File.expand_path(fn || "nil", File.dirname(file))
+      if !check_url(path)
         puts "! Broken local link in file #{file}: [#{name}](#{ref})"
       elsif anchor
-        collect_links_and_anchors(fn, dataset)
-        check_links(fn, [[name + " (from #{file})", anchor]], dataset)
+        collect_links_and_anchors(path, dataset)
+        check_links(path, [[name + " (from #{file})", anchor]], dataset)
       end
     end
   end
