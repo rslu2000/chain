@@ -527,8 +527,11 @@ section.text-block p:first-of-type {
 }
 
 div.sidenote {
-    position: relative;
-    flex: 0.5 1;
+	background-color: #fafafa;
+	margin:20px;
+	padding:20px;
+	float:right;
+	max-width:40%;
 
 }
 div.sidenote p {
