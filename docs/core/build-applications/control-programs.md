@@ -8,7 +8,7 @@ Each output in a transaction contains a single control program. Each control pro
 
 ### Sample Code
 All of the code samples in this guide are extracted from a single, runnable Java file.
-<a href="../examples/java/ConrolPrograms.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
+<a href="../examples/java/ControlPrograms.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Account control programs
 
