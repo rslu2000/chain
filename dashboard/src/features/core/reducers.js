@@ -84,7 +84,7 @@ export const replicationLag = (state = null, action) => {
 }
 
 let syncSamplers = null
-const resetSyncEstimators = () => {
+const resetSyncSamplers = () => {
   syncSamplers = {
     snapshot: new DeltaSampler({sampleTtl: 10 * 1000}),
     replicaLag: new DeltaSampler({sampleTtl: 10 * 1000}),
@@ -95,7 +95,7 @@ export const syncEstimates = (state = {}, action) => {
   switch (action.type) {
     case 'UPDATE_CORE_INFO': {
       if (!syncSamplers) {
-        resetSyncEstimators()
+        resetSyncSamplers()
       }
 
       const {
@@ -129,7 +129,7 @@ export const syncEstimates = (state = {}, action) => {
 
     case 'CORE_DISCONNECT':
     case 'USER_LOG_OUT':
-      resetSyncEstimators()
+      resetSyncSamplers()
       return {}
 
     default:
