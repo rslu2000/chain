@@ -1,6 +1,5 @@
 $(function () {
 	prepareSidebarMenu()
 	attachSignupFormToDownloadButton()
-	rewrapSidenotes()
-	adjustWidths()
+	//adjustWidths()
 })
