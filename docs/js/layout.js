@@ -10,18 +10,18 @@ function activateCurrentSidebarItem() {
 
 function prepareSidebarMenu() {
 	activateCurrentSidebarItem()
-	
+
     $(".toggle").click(function(e) {
       e.preventDefault();
       var sectionLink = $(this);
       if (sectionLink.next().hasClass('show')) {
         sectionLink.next().removeClass('show');
-        sectionLink.next().slideUp(350);
+        sectionLink.next().slideUp(150);
       } else {
         sectionLink.parent().parent().find('li .inner').removeClass('show');
-        sectionLink.parent().parent().find('li .inner').slideUp(350);
+        sectionLink.parent().parent().find('li .inner').slideUp(150);
         sectionLink.next().toggleClass('show');
-        sectionLink.next().slideToggle(350);
+        sectionLink.next().slideToggle(150);
       }
     })
 }
@@ -58,7 +58,7 @@ function attachSignupFormToDownloadButton() {
 // Modal to sign up for newsletter
 function showSignUpForm() {
 	 var modal = document.getElementById('downloadModal');
-	
+
 	// Make sure modal is in the body, not where it was originally deployed.
 	$("body").append($(modal))
 
@@ -116,7 +116,7 @@ function showSignUpForm() {
 // Inner paragraphs are wrapped together in <div class="text-main">.
 // The result is:
 /*
-	<p> 
+	<p>
 	<p>
 	...
 	<section class="text-block">
@@ -146,9 +146,9 @@ function rewrapSidenotes() {
 		var element = $(this)
 		var klass = element.attr('class')
 		var tag = element[0].nodeName.toLowerCase()
-		
+
 		//console.log("tag: " + element[0].nodeName.toLowerCase())
-		
+
 		if (collectedElements.state == "idle") {
 			if (klass != "sidenote") {
 				// We need to find the first element before the sidenote.
@@ -158,7 +158,7 @@ function rewrapSidenotes() {
 				// If this is an sidenote, start collecting paragraphs
 				collectedElements.sidenote = element
 				collectedElements.state = "collecting"
-				
+
 				//console.log("Begin collecting")
 			}
 		} else if (collectedElements.state == "collecting") {
@@ -171,30 +171,30 @@ function rewrapSidenotes() {
 				// Oops, some other sidenote is detected - let's forget the last added paragraph - it belongs to that sidenote's group.
 				var lastparagraph = collectedElements.paragraphs.pop()
 				var nextsidenote = element
-				
+
 				// 1. Wrap collected elements.
 				// 1.1. Insert sidenote after the last paragraph.
 				//console.log("1.1. Insert after the last paragraph")
 				collectedElements.sidenote.insertAfter(collectedElements.paragraphs[collectedElements.paragraphs.length - 1])
-				
+
 				// 1.2. Wrap all paragraphs.
 				//console.log("1.2. Wrap all paragraphs")
 				$.each(collectedElements.paragraphs, function(index, value) {
 					value.addClass("temp-wrapping-class")
 				});
-				
+
 				$(".temp-wrapping-class").wrapAll("<div class=\"text-main temp-superwrapping-class\"></div>")
-				
+
 				$.each(collectedElements.paragraphs, function(index, value) {
 					value.removeClass("temp-wrapping-class")
 				});
-				
+
 				// 1.3. Wrap paragraph's wrapper and sidenote in a section wrapper.
 				//console.log("1.3. Wrap super wrappers")
 				collectedElements.sidenote.addClass("temp-superwrapping-class")
 				$(".temp-superwrapping-class").wrapAll("<section class=\"text-block\"></section>")
 				$(".temp-superwrapping-class").removeClass("temp-superwrapping-class")
-				
+
 				// 2. Put lastparagraph and nextsidenote into a new collectedElements group
 				collectedElements.state = "collecting"
 				collectedElements.paragraphs = [lastparagraph]
@@ -204,7 +204,7 @@ function rewrapSidenotes() {
 			console.error("Unsupported state. Should never happen." + collectedElements.state)
 		}
 	})
-	
+
 	// wrap remaining items if in "collecting" state
 	if (collectedElements.state == "collecting") {
 		// 1. Wrap collected elements.
@@ -231,6 +231,3 @@ function rewrapSidenotes() {
 		$(".temp-superwrapping-class").removeClass("temp-superwrapping-class")
 	}
 }
-
-
-
