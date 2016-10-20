@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { testNetUrl } from 'utility/environment'
 import moment from 'moment'
+import { SpeedEstimator, humanizeTime } from 'utility/time'
 
 const LONG_TIME_FORMAT = 'YYYY-MM-DD, h:mm:ss a'
 
@@ -82,6 +83,54 @@ export const replicationLag = (state = null, action) => {
   return state
 }
 
+let syncEstimators = {}
+const resetSyncEstimators = () => {
+  syncEstimators.snapshot = new SpeedEstimator({sampleTtl: 10 * 1000})
+  syncEstimators.replicaLag = new SpeedEstimator({sampleTtl: 10 * 1000})
+}
+resetSyncEstimators()
+
+export const syncEstimates = (state = null, action) => {
+  switch (action.type) {
+    case 'UPDATE_CORE_INFO': {
+      const {
+        snapshot,
+        generator_block_height,
+        block_height,
+      } = action.param
+
+      const estimates = {}
+
+      if (snapshot && snapshot.in_progress) {
+        const speed = syncEstimators.snapshot.sample(snapshot.downloaded)
+        if (speed) {
+          const duration = (snapshot.size - snapshot.downloaded) / speed
+          if (!!duration) {
+            estimates.snapshot = humanizeTime(duration)
+          }
+        }
+      } else {
+        const replicaLag = generator_block_height - block_height
+        const speed = syncEstimators.replicaLag.sample(replicaLag)
+        const duration = -1 * replicaLag / speed
+        if (duration > 0) {
+          estimates.replicaLag = humanizeTime(duration)
+        }
+      }
+
+      return estimates
+    }
+
+    case 'CORE_DISCONNECT':
+    case 'USER_LOG_OUT':
+      resetSyncEstimators()
+      return null
+
+    default:
+      return state
+  }
+}
+
 export const replicationLagClass = (state = null, action) => {
   if (action.type == 'UPDATE_CORE_INFO') {
     if (action.param.generator_block_height == null) {
@@ -141,6 +190,11 @@ export const connected = (state = true, action) => {
   return state
 }
 
+const snapshot = (state = null, action) => {
+  if (action.type == 'UPDATE_CORE_INFO') return action.param.snapshot
+  return state
+}
+
 export default combineReducers({
   blockchainID,
   blockHeight,
@@ -162,5 +216,7 @@ export default combineReducers({
   replicationLagClass,
   requireClientToken,
   signer,
+  snapshot,
+  syncEstimates,
   validToken,
 })

@@ -1,9 +1,48 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import styles from './Navigation.scss'
 
 class Navigation extends React.Component {
   render() {
+    const {
+      snapshot,
+      generatorBlockHeight,
+      blockHeight,
+      showSync,
+      syncEstimates,
+    } = this.props
+
+    let syncContent
+
+    if (showSync) {
+      if (snapshot && snapshot.in_progress) { // Currently downloading the snapshot.
+        const downloaded = (snapshot.downloaded / snapshot.size) * 100
+
+        syncContent = <ul className={styles.navigation}>
+          <li className={styles.navigationTitle}>generator sync</li>
+          <li>Snapshot: {snapshot.height} blocks</li>
+          <li>{downloaded.toFixed(1)}% downloaded</li>
+
+          {!!syncEstimates.snapshot &&
+            <li>Time remaining: {syncEstimates.snapshot}</li>
+          }
+        </ul>
+      } else { // Using RPC sync. Either there was no snapshot, or we've already stopped downloading it.
+        // TODO(jeffomatic): Show a warning if the snapshot did not succeed.
+        const replicaLag = generatorBlockHeight - blockHeight
+
+        syncContent = <ul className={styles.navigation}>
+          <li className={styles.navigationTitle}>generator sync</li>
+          <li>Blocks behind: {replicaLag}</li>
+
+          {!!syncEstimates.replicaLag &&
+            <li>Time remaining: {syncEstimates.replicaLag}</li>
+          }
+        </ul>
+      }
+    }
+
     return (
       <div className={styles.main}>
         <ul className={styles.navigation}>
@@ -70,9 +109,20 @@ class Navigation extends React.Component {
             </a>
           </li>
         </ul>
+
+        {syncContent}
       </div>
     )
   }
 }
 
-export default Navigation
+export default connect(
+  (state) => ({
+    blockHeight: state.core.blockHeight,
+    generatorBlockHeight: state.core.generatorBlockHeight,
+    showSync: state.core.configured && !state.core.generator,
+    snapshot: state.core.snapshot,
+    syncEstimates: state.core.syncEstimates,
+  })
+)(Navigation)
+
