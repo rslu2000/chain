@@ -1,8 +1,7 @@
 # Download Chain Core SDKs
 
 ## Java
-
-[Download](../java/chain-sdk-latest.jar)
+<a href="../java/chain-sdk-latest.jar" class="downloadBtn btn success" target="_blank">Download Java SDK</a>
 
 ## Ruby
 
