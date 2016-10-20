@@ -76,8 +76,8 @@ form.submitForm = (formParams) => function(dispatch) {
     return build
       .then(tpl => chain.MockHsm.sign([tpl], getTemplateXpubs(tpl), context()))
       .then(signed => signed[0].submit(context()))
-      .then(() => {
-        dispatch(push('/transactions'))
+      .then(resp => {
+        dispatch(push(`/transactions/${resp.id}`))
         dispatch(form.created())
       })
   }
