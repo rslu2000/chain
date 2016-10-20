@@ -835,7 +835,6 @@ p code {
 /* Buttons */
 a.button,
 button {
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, .07), 0 3px 8px 0 rgba(0, 0, 0, .1);
     border-radius: 4px;
     height: 32px;
     font-size: 18px;
@@ -859,7 +858,6 @@ button {
 }
 a.btn.success {
     width: 139px;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, .07), 0 3px 8px 0 rgba(0, 0, 0, .1);
     border-radius: 4px;
     font-weight: 500;
     line-height: 39px;
@@ -877,7 +875,7 @@ a.btn.success {
     margin-top: 24px;
 }
 .next-btn {
-    margin-top: 10px;
+    margin-top: 30px;
 }
 .btn:hover,
 .btn:active,
@@ -885,6 +883,11 @@ a.btn.success {
     outline: none;
     cursor: pointer;
     margin-top: 10px;
+    background-color: #00d9c1;
+    cursor: pointer;
+    outline: 0;
+    transition: background-color 0.5s ease;
+    border-color: #00d9c1;
 }
 a.btn:hover,
 a.btn:active,
@@ -892,16 +895,15 @@ a.btn:focus {
     outline: none;
     cursor: pointer;
     margin-top: 24px;
+    background-color: #00d9c1;
+    cursor: pointer;
+    outline: 0;
+    transition: background-color 0.5s ease;
+    border-color: #00d9c1;
 }
 
 .btn-success,
-.btn-success:hover,
-.btn-success:active,
-.bn-success:focus,
-a.btn-success,
-a.btn-success:hover,
-a.btn-success:active,
-a.bn-success:focus {
+a.btn-success {
     color: #ffffff;
     font-size: 18px;
     background-color: #00BFAA;
@@ -909,6 +911,16 @@ a.bn-success:focus {
     height: 50px;
     padding: 5px 30px;
 }
+.btn-success:hover,
+.btn-success:active,
+.bn-success:focus,
+a.btn-success:hover,
+a.btn-success:active,
+a.bn-success:focus {
+    background-color: #00d9c1;
+    border-color: #00d9c1;
+}
+
 a.btn-success,
 a.btn-success:hover,
 a.btn-success:active,
@@ -930,7 +942,7 @@ a.bn-success:focus {
     font-weight: bold;
     line-height: 23px;
 }
-}
+
 
 .btn-success-ghost {
     background: transparent;
@@ -946,6 +958,7 @@ a.bn-success:focus {
     -o-transition: padding 222ms cubic-bezier(0.6, 0, 0.5, 1);
     transition: padding 222ms cubic-bezier(0.6, 0, 0.5, 1);
     background: #00BFAA;
+    border-color: #00BFAA;
     color: #FFFFFF;
     box-shadow: none;
 }
@@ -978,7 +991,8 @@ img {
     top: 0px;
     right: 10px;
 }
-.icon-download {
+.icon-download,
+.icon-next {
     top: 3px;
 }
 .os-icon {
