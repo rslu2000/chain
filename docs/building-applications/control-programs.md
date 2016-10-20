@@ -6,9 +6,9 @@ A control program is the mechanism that secures asset units on a blockchain. Whe
 
 Each output in a transaction contains a single control program. Each control program consists of set of predicates that must be satisfied in order to spend the output (i.e. use the output as an input to a new transaction).
 
-### Source Code
-All of the code examples in this guide are extracted from a single, runnable Java file.
-<a href="../examples/java/ConrolPrograms.java" class="downloadBtn btn success" target="\_blank">View Source Code</a>
+### Sample Code
+All of the code samples in this guide are extracted from a single, runnable Java file.
+<a href="../examples/java/ConrolPrograms.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Account control programs
 

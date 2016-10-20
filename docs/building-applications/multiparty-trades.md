@@ -9,9 +9,9 @@
 
 Please make sure you've read [Transaction Basics](../building-applications/transaction-basics) before continuing.
 
-### Source Code
-All of the code examples in this guide are extracted from a single, runnable Java file.
-<a href="../examples/java/MultipartyTrades.java" class="downloadBtn btn success" target="\_blank">View Source Code</a>
+### Sample Code
+All of the code samples in this guide are extracted from a single, runnable Java file.
+<a href="../examples/java/MultipartyTrades.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Example: Trading within the same core and application
 

@@ -13,9 +13,9 @@ Operations that support batching include:
 - Signing transactions
 - Submitting transactions
 
-### Source Code
-All of the code examples in this guide are extracted from a single, runnable Java file.
-<a href="../examples/java/BatchOperations.java" class="downloadBtn btn success" target="\_blank">View Source Code</a>
+### Sample Code
+All of the code samples in this guide are extracted from a single, runnable Java file.
+<a href="../examples/java/BatchOperations.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Example: creating assets in a batch
 

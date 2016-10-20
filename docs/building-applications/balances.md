@@ -6,9 +6,9 @@ The Balance.QueryBuilder class is unique in that it does not return an object in
 
 ## Overview
 
-### Source Code
-All of the code examples in this guide are extracted from a single, runnable Java file.
-<a href="../examples/java/Balances.java" class="downloadBtn btn success" target="\_blank">View Source Code</a>
+### Sample Code
+All of the code samples in this guide are extracted from a single, runnable Java file.
+<a href="../examples/java/Balances.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 
 ## Sum By
