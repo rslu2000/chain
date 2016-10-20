@@ -1,49 +1,47 @@
-## Chain Core Documentation
+## Chain Core
 
 * Get Started
-  *  [Install](getting-started/install.md)
-  *  [SDKs](getting-started/sdk.md)
-  *  [Configure](getting-started/configure.md)
-  *  [5-Minute Guide](getting-started/five-minute-guide.md)
-  *  [Fundamentals](getting-started/fundamentals.md)
+  * [Introduction](core/getting-started/introduction.md)
+  * [Install](index.partial.html)
+  * [SDKs](core/getting-started/sdk.md)
+  * [Configure](core/getting-started/configure.md)
+  * [5-Minute Guide](core/getting-started/five-minute-guide.md)
+  * [Fundamentals](core/getting-started/fundamentals.md)
 
-* Building Applications
-  *  [Assets](building-applications/assets.md)
-  *  [Accounts](building-applications/accounts.md)
-  *  [Transactions](building-applications/transactions.md)
-  *  [Unspent Outputs](building-applications/unspent-outputs.md)
-  *  [Balances](building-applications/balances.md)
-  *  [Control Programs](building-applications/control-programs.md)
-  *  [Query Filters](building-applications/query-filters.md)
-  *  Batching
+* Build Applications
+  * [Keys](core/building-applications/keys.md)
+  * [Assets](core/building-applications/assets.md)
+  * [Accounts](core/building-applications/accounts.md)
+  * [Transactions](core/building-applications/transactions.md)
+  * [Unspent Outputs](core/building-applications/unspent-outputs.md)
+  * [Balances](core/building-applications/balances.md)
+  * [Control Programs](core/building-applications/control-programs.md)
+  * [Query Filters](core/building-applications/query-filters.md)
+  * Batching
 
 * Learn More
-  *  [Global vs Local Data](learn-more/global-vs-local-data.md)
-  *  [Blockchain Operators](learn-more/blockchain-operators.md)
-  *  [Blockchain Participants](learn-more/blockchain-participants.md)
+  * [Global vs Local Data](core/learn-more/global-vs-local-data.md)
+  * [Blockchain Operators](core/learn-more/blockchain-operators.md)
+  * [Blockchain Participants](core/learn-more/blockchain-participants.md)
 
 * Reference
-  *  [Java SDK](#)
-  *  [API Objects](reference/api-objects.md)
-  *  [Chain Protocol](#chain-protocol-documentation)
-  *  [Product Roadmap](getting-started/product-roadmap.md)
-  *  Changelog
+  * [Java SDK](#)
+  * [API Objects](core/reference/api-objects.md)
+  * [Product Roadmap](core/getting-started/product-roadmap.md)
+  * [Changelog](#)
 
----
+## Chain Protocol
 
-## Chain Protocol Documentation
-
-* Chain Protocol
-  *  [Whitepaper](whitepaper/whitepaper-01-introduction.md)
-
-* Guides
-  *  [Reaching consensus](protocol-guides/consensus-guide.md)
-  *  [Programming assets](protocol-guides/contracts-guide.md)
-  *  [Blockchain extensibility](protocol-guides/blockchain-extensibility.md)
+* Papers
+  * [Whitepaper](protocol/papers/whitepaper.md)
+  * [Federated Consensus](protocol/papers/federated-consensus.md)
+  * [Blockchain Programs](protocol/papers/blockchain-programs.md)
+  * [Blockchain Extensibility](protocol/papers/blockchain-extensibility.md)
+  * [Protocol Roadmap](protocol/papers/roadmap.md)
 
 * Specifications
-  *  [Data model](https://github.com/chain/cp1/blob/main/data.md)
-  *  [Validation](https://github.com/chain/cp1/blob/main/validation.md)
-  *  [Consensus](https://github.com/chain/cp1/blob/main/consensus.md)
-  *  [Virtual machine](https://github.com/chain/cp1/blob/main/vm1.md)
-  *  [Key derivation](https://github.com/chain/cp1/blob/main/chainkd.md)
+  * [Data Model](protocol/specifications/data.md)
+  * [Validation](protocol/specifications/validation.md)
+  * [Consensus](protocol/specifications/consensus.md)
+  * [Virtual Machine](protocol/specifications/vm1.md)
+  * [ChainKD](protocol/specifications/chainkd.md)
