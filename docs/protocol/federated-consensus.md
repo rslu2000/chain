@@ -4,11 +4,9 @@
 * [Algorithm overview](#algorithm-overview)
 * [Integrity guarantees](#integrity-guarantees)
 * [Liveness guarantees](#liveness-guarantees)
-* [Key rotation](#key-rotation)
+* [Key management](#key-management)
 * [Membership changes](#membership-changes)
 * [Policy enforcement](#policy-enforcement)
-* [Threat model](#threat-model)
-* [Disaster mitigation](#disaster-mitigation)
 * [Future improvements](#future-improvements)
 
 
@@ -81,7 +79,9 @@ Honest block signers are therefore responsible for not signing two forks of the 
 
 ## Liveness guarantees
 
-Simplicity and performance of the consensus protocol comes with a liveness tradeoff. While the block generator is not capable of forking the blockchain, it has control over network liveness: if the block generator crashes or otherwise stops producing new blocks, the blockchain halts. The block generator can also deadlock the network by sending inconsistent blocks to different block signers. Additionally, the block generator has control over the block timestamp, and can produce blocks with artificially “slow” timestamps. 
+Simplicity and performance of the consensus protocol comes with a liveness tradeoff. While the block generator is not capable of forking the blockchain, it has control over network liveness: if the block generator crashes or otherwise stops producing new blocks, the blockchain halts. The block generator can also deadlock the network by sending inconsistent blocks to different block signers. Additionally, the block generator has control over the block timestamp, and can produce blocks with artificially “slow” timestamps.
+
+Having block signers responsible for preventing blockchain forks, block generator itself can be made highly available using traditional replication methods, without using a Byzantine-fault-tolerant agreement protocol.
 
 A quorum of block signers can temporarily stop the network by refusing to sign new blocks. The can also permanently deadlock other nodes by attempting to fork a blockchain, provided these nodes receive blocks from both chains (i.e. if network is not partitioned). If deadlock occurs among block signers or on the entire network level, it must be resolved manually using an out-of-band agreement.
 
@@ -107,38 +107,30 @@ Extra care must be taken when changing membership in order to avoid changes to l
 Block generator may apply local policy to filter out non-compliant transactions. Since policy enforcement is not a part of the protocol rules, it is more flexible, can be changed at will and may use confidential information that should not be shared with the whole network. The cost of this flexibility is lower security: if some transactions “slip through” one node’s filter, they are recorded forever in the ledger and additional measures limiting subsequent transactions are necessary to mitigate any potential damage.
 
 
-## Disaster mitigation
-
-
-
-TBD: VM upgrades with failstop phasing out of the obsolete consensus programs
-
-TBD: failstop softforks
-
-TBD: local policy violations
-
-TBD: crypto algorithm disaster (QC/backdoors/bugs)
-
-TBD: hard fork scenarios
-
-
 ## Future improvements
 
-Present consensus mechanism may be improved without disrupting the network. This section provides a brief overview of improvements that are desireable and may be implemented in future versions of the Chain Protocol.
-
-#### HSM-enforced integrity
+Consensus mechanism may be improved without disrupting the network. This section provides a brief overview of improvements that are desireable and may be introduced in future versions of Chain Protocol and Chain Core software.
 
 
+#### Double-phase commitment 
 
-TBD: p2p protocol for distributing fraud proofs for post-payment tx verification.
+The current consensus mechanism does not allow block signers to enforce their own local policies and refuse to sign otherwise valid blocks. If a signer wants to re-negotiate the block content with a block generator, other signers who already signed the first version of that block cannot safely sign another version as this undermines integrity guarantees.
 
-TBD: double-phase commitment to enable local policy and avoid deadlocks in disagreement
+However, if block signers use two rounds of signing: with _private signatures_ first and then, after reaching quorum, signing with _public signatures_, then they are able to reject proposed blocks and re-sign alternative versions any number of times. Only _public signatures_ must be used only on one block.
 
-TBD: round-robin generator (for censorship resistance)
 
-TBD: PBFT
+#### Fraud proofs protocol
 
-TBD: Bitcoin checkpoints for long-term disaster mitigation
+Nodes may implement a stronger protection against blockchain forks by not relying exclusively on a quorum of block signers. In addition to existing fail-stop rules, nodes may communicate directly with other nodes using a peer-to-peer protocol to verify that they see the same chain of block headers. When a fork is detected, nodes let each other know about it. And if any given node cannot reach a well-known peer, it may pause processing blockchain assuming that network partition attack could be under way. This makes such attacks more difficult: faulty block signers must isolate not one node, but a whole group of interconnected nodes to prevent them from learning about existance of an alternative chain. 
 
+#### Byzantine fault tolerance
+
+Consensus mechanism based on a single block generator is not ideal for all scenarios. To improve liveness guarantees while not compromizing security, a more sophisticated byzantine agreement protocol is requred. Existing proposals such as PBFT, Tendermint and Byzcoin demonstrate potential in this area.
+
+#### Bitcoin checkpoints
+
+The present consensus mechanism, as well as more sophisticated byzantine consensus protocols, assume that quorum (majority) of federation members are honest and their keys are well-protected. However, if keys used in the older blocks ever become compromised, it is possible to fork the blockchain in the arbitrary point in the past.
+
+One way to offer a long-term blockchain integrity is to periodically commit recent block hash to Bitcoin blockchain. This way, every node may additionally verify that a specific version of blockchain is checkpointed in Bitcoin and therefore even a compromised quorum of keys cannot produce a valid fork. As a result, the quorum of block signers must be trusted to not fork the network for only a limited time interval, on the order of hours, instead of years.
 
 
