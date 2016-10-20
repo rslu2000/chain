@@ -9,8 +9,7 @@ This guide will walk you through the basic functions of an unspent output:
 
 ### Source Code
 All of the code examples in this guide are extracted from a single, runnable Java file.
-
-<a href="../examples/java/UnspentOutputs.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
+<a href="../examples/java/UnspentOutputs.java" class="downloadBtn btn success" target="\_blank">View Source Code</a>
 
 ## List unspent outputs
 

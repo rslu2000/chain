@@ -25,8 +25,7 @@ This guide assumes you know the basic functions presented in the [5-Minute Guide
 
 ### Source Code
 All of the code examples in this guide are extracted from a single, runnable Java file.
-
-<a href="../examples/java/Accounts.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
+<a href="../examples/java/Accounts.java" class="downloadBtn btn success" target="\_blank">View Source Code</a>
 
 
 ## Create account

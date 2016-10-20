@@ -15,8 +15,7 @@ This guide will walk you through the basic functions of Chain Core:
 
 ### Source Code
 All of the code examples in this guide are extracted from a single, runnable Java file.
-
-<a href="../examples/java/FiveMinuteGuide.java" class="downloadBtn btn btn-success" target="\_blank">View Source Code</a>
+<a href="../examples/java/FiveMinuteGuide.java" class="downloadBtn btn success" target="\_blank">View Source Code</a>
 
 ## Initialize the SDK
 
