@@ -567,10 +567,13 @@ div.sidenote ul li:before {
     height: 4px
 }
 */
-code,
-strong {
+code {
     font-weight: 500;
     color: #20252D
+}
+
+strong {
+    font-weight: 600;
 }
 
 
