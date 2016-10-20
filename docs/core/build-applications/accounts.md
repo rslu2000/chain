@@ -4,7 +4,7 @@
 
 An account is an object in Chain Core that facilitates the management of asset units on a blockchain by creating, tracking, and spending transaction outputs. Each output of a transaction contains a control program that defines of a set of conditions that must be satisfied in order spend the output. The simplest type of control program - an account control program - defines a set of private keys and a quorum of signatures that must be provided to spend an output.
 
-When you create an account, you provide as set of root keys and a quorum that will be used to generate a new account control program each time you wish to deposit asset units into the account. For more information, see [Control Programs](../building-applications/control-programs#account-control-programs).
+When you create an account, you provide as set of root keys and a quorum that will be used to generate a new account control program each time you wish to deposit asset units into the account. For more information, see [Control Programs](control-programs.md#account-control-programs).
 
 The account object does not exist on the blockchain - it is local to Chain Core. Only the control programs created in the account are visible on the blockchain. However, when a new transactions is processed by Chain Core, it is annotated with local account data to enable powerful queries. For more information, see [Global vs. Local Data](../learn-more/global-vs-local-data).
 

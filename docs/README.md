@@ -1,12 +1,12 @@
 ## Chain Core
 
 * Get Started
-  * [Introduction](core/getting-started/introduction.md)
+  * [Introduction](core/get-started/introduction.md)
   * [Install](index.partial.html)
-  * [SDKs](core/getting-started/sdk.md)
-  * [Configure](core/getting-started/configure.md)
-  * [5-Minute Guide](core/getting-started/five-minute-guide.md)
-  * [Fundamentals](core/getting-started/fundamentals.md)
+  * [SDKs](core/get-started/sdk.md)
+  * [Configure](core/get-started/configure.md)
+  * [5-Minute Guide](core/get-started/five-minute-guide.md)
+  * [Fundamentals](core/get-started/fundamentals.md)
 
 * Build Applications
   * [Keys](core/building-applications/keys.md)
@@ -27,7 +27,7 @@
 * Reference
   * [Java SDK](#)
   * [API Objects](core/reference/api-objects.md)
-  * [Product Roadmap](core/getting-started/product-roadmap.md)
+  * [Product Roadmap](core/get-started/product-roadmap.md)
   * [Changelog](#)
 
 ## Chain Protocol
