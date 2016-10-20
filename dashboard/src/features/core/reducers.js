@@ -191,7 +191,9 @@ export const connected = (state = true, action) => {
 }
 
 const snapshot = (state = null, action) => {
-  if (action.type == 'UPDATE_CORE_INFO') return action.param.snapshot
+  if (action.type == 'UPDATE_CORE_INFO') {
+    return action.param.snapshot || null // snapshot may be undefined, which Redux doesn't like.
+  }
   return state
 }
 
