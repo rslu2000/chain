@@ -1,14 +1,5 @@
 # Transaction Basics
 
-This guide describes the structure of transactions, and how to use the Client API and SDK to create them. There are code examples for several types of basic transactions, including:
-
-* Asset issuance
-* Simple payment
-* Multi-asset payment
-* Asset retirement
-
-If you haven't already, you should first check out the [5-Minute Guide](../getting-started/five-minute-guide). For advanced transaction features, see [Multiparty Trades](../building-applications/multiparty-trades).
-
 ## Introduction
 
 A blockchain consists of an immutable set of cryptographically linked transactions. Each transaction contains one or more **inputs**, and one or more **outputs**.
@@ -34,6 +25,22 @@ As a result, spending a single input often requires two outputs--one output for 
 ### Combining unspent outputs
 
 Some payments may require more asset units than are available in any single unspent output you control. When spending from an account, the Client API will automatically select unspent outputs to satisfy your payment as long as the account controls enough units of the asset in total.
+
+
+## Overview
+This guide describes the structure of transactions, and how to use the Client API and SDK to create them. There are code examples for several types of basic transactions, including:
+
+* Asset issuance
+* Simple payment
+* Multi-asset payment
+* Asset retirement
+
+If you haven't already, you should first check out the [5-Minute Guide](../../getting-started/five-minute-guide). For advanced transaction features, see [Multiparty Trades](../multiparty-trades).
+
+### Sample Code
+All of the code samples in this guide are extracted from a single, runnable Java file.
+
+<a href="../examples/java/TransactionBasics.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Creating transactions
 
@@ -143,6 +150,4 @@ $code ../examples/java/TransactionBasics.java retire
 
 ### Multiparty trades
 
-For examples of advanced transactions, such as trading multiple assets across multiple cores, see [Multiparty Trades](../building-applications/multiparty-trades)
-
-[Download Code](../examples/java/TransactionBasics.java)
+For examples of advanced transactions, such as trading multiple assets across multiple cores, see [Multiparty Trades](../building-applications/multiparty-trades).
