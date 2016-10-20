@@ -105,5 +105,3 @@ Finally, assuming there are no errors during submission, we should see the follo
 Transaction 0 submitted, ID: 25dea2cb088586b46184556ffedc4c481b5e34b28e6f6f176731a9aecd1286ea
 Transaction 1 submitted, ID: 10666b27f303ed52f90381edd945fff5298251867dc398e7fe4bc3e2d5ccba52
 ```
-
-[Download Code](../examples/java/BatchOperations.java)

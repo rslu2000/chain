@@ -133,5 +133,3 @@ $code ../examples/java/Assets.java list-acme-balance
 To list all the control programs that hold a portion of the circulation of Acme Common stock, we build an unspent outputs query, filtering to the Acme Common stock `asset_alias`.
 
 $code ../examples/java/Assets.java list-acme-common-unspents
-
-[Download Code](../examples/java/Assets.java)

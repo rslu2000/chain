@@ -103,5 +103,3 @@ $code ../examples/java/Balances.java account-balance-sum-by-currency
   }
 ]
 ```
-
-[Download Code](../examples/java/Balances.java)

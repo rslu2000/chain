@@ -39,5 +39,3 @@ $code ../examples/java/ControlPrograms.java retire
 ## Custom control programs
 
 The Chain Core virtual machine supports custom control programs built from the supported set of [program predicates](#). We are [currently developing](../getting-started/product-roadmap) a high level language that will enable developers to write custom control programs in Chain Core. Additionally, we work directly with our enterprise customers to design, audit, and implement custom control programs for production deployment. For more information, visit [Chain Core for Enterprise](#) or [contact us](#).
-
-[Download Code](../examples/java/ControlPrograms.java)

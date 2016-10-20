@@ -88,5 +88,3 @@ $code ../examples/java/GlobalVsLocalData.java build-tx-with-tx-ref-data
 ### Create transaction with action-level reference data
 
 $code ../examples/java/GlobalVsLocalData.java build-tx-with-action-ref-data
-
-[Download Code](../examples/java/GlobalVsLocalData.java)

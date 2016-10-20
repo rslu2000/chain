@@ -68,5 +68,3 @@ $code ../examples/java/FiveMinuteGuide.java spend
 Build, sign, and submit a transaction that retires units of the `gold` asset from the `bob` account.
 
 $code ../examples/java/FiveMinuteGuide.java retire
-
-[Download Code](../examples/java/FiveMinuteGuide.java)

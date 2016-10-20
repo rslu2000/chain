@@ -58,5 +58,3 @@ $code ../examples/java/MultipartyTrades.java sign-trade-bob
 Finally, with the balanced transaction signed by both parties, Bob can submit the transaction to the blockchain network:
 
 $code ../examples/java/MultipartyTrades.java submit-trade-bob
-
-[Download Code](../examples/java/MultipartyTrades.java)
