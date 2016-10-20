@@ -81,6 +81,8 @@ By default, the HSMSigner will sign the transaction in such a way that it cannot
 
 To enable this functionality, you must call the `allowAdditionalActions` method when signing the transaction. The transaction will then be signed in such a way that all currently built actions must occur for the transaction to be valid, but your counterparty can add additional actions to complete the transaction. You can then sign the transaction with the guarantee that your actions cannot be changed by your counterparty.
 
+For more information, see [multiparty trades](./multiparty-trades).
+
 ## Submit transaction
 
 Once a transaction is balanced and all inputs are signed, you can submit it to the blockchain using the `Transaction.submit()` method. Chain Core waits until the transaction in included in a block to respond with a success.
