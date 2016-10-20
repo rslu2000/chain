@@ -1,5 +1,9 @@
 # Unspent Outputs Guide
 
+## Introduction
+
+Each time a transaction is created, one or more new unspent outputs is created. An output is considered unspent when it has not yet been used as an input to a new transaction. All asset units on the blockchain exist in the unspent output set. Any balance on the blockchain is simply a summation of unspent outputs. For example, the balance of Alice's account is a summation of all the unspent outputs whose control program was created in Alice's account.
+
 ## Overview
 
 This guide will walk you through the basic functions of an unspent output:
@@ -12,10 +16,6 @@ All of the code samples in this guide are extracted from a single, runnable Java
 <a href="../examples/java/UnspentOutputs.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## List unspent outputs
-
-All asset units on the blockchain exist in the unspent output set. Any balance on the blockchain is simply a summation of unspent outputs. For example, the balance of Alice's account is a summation of all the unspent outputs whose control program was created with Alice's account.
-
-### Examples
 
 List all unspent outputs in Alice's account:
 
