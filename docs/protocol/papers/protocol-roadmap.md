@@ -8,17 +8,17 @@ Chain Protocol 1 is aimed at laying a foundation for future upgrades and large-s
 
 * Explicit limits on number and size of blockchain entities (size of the blocks, number  of transactions etc).
 * Fine-tuned runtime cost limits for the control and issuance programs.
-* Improved consensus algorithm.
+* Improvemenets to consensus algorithm.
 
 ### Privacy
 
-* Homomorphically encrypted amounts and asset identifiers: providing secrecy for balances and financial parameters of the transactions.
-* Controlled traceability of the asset flow: hiding the link between transaction inputs and the outputs of the preceding transactions.
+* Homomorphically encrypted amounts and asset identifiers to provide secrecy for balances and financial parameters of the transactions.
+* Controlled traceability of the transactions; hiding the link between transaction inputs and the previous transactions’ outputs.
 
-### Programmability
+### Programs
 
-* Generalizing virtual machine for controlling assets on-chain and off-chain.
-* Support for arithmetic on homomorphically encrypted values to improve confidentiality of on-chain programs.
+* Generalizing virtual machine for on-chain and off-chain predicate evaluation.
+* Support for arithmetic on homomorphically encrypted values (to improve confidentiality of on-chain programs).
 * High-level programming language and formal verification toolkit.
 
 ### Scalability
