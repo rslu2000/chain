@@ -790,7 +790,7 @@ pre code {
 }
 
 code.language-bash {
-    padding-left: calc(1.875rem + 10px);
+    padding-left: calc(1.5rem + 10px);
 }
 
 code.language-bash::before {
