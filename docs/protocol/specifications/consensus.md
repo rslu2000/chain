@@ -53,12 +53,16 @@ Entry Point                                              | When used
 
 ### Initialize generator
 
-Input            | Outputs       | Affects
------------------|---------------|--------------
-Current time     | None          | Current blockchain state
-                 |               | Transaction pool
+**Input:** current time.
 
-Procedure:
+**Outputs:** none.
+
+**Affects:**
+
+1. current blockchain state,
+2. transaction pool.
+
+**Algorithm:**
 
 1. Create a [consensus program](data.md#consensus-program) using the signer keys specified in the [network parameters](validation.md#network-parameters). The contents of this program are a matter of local policy.
 2. [Make an initial block](#make-initial-block) with the current time and the created consensus program.
@@ -71,12 +75,13 @@ Procedure:
 
 A new node starts here when joining a new network (with height = 1).
 
-Input            | Output        | Affects
------------------|---------------|--------------
-Block            | Boolean       | Current blockchain state
+**Input:** block.
 
+**Output:** true or false.
 
-Procedure:
+**Affects:** current blockchain state.
+
+**Algorithm:**
 
 1. [Make an initial block](#make-initial-block) with the input block’s timestamp and [consensus program](data.md#consensus-program).
 2. The created block must equal the input block; if not, halt and return false.
@@ -90,14 +95,17 @@ Procedure:
 
 The block generator collects transactions to include in each block it generates. When another node or client has prepared a transaction, it sends the transaction to the generator, which follows this algorithm.
 
-Inputs                       | Output        | Affects
------------------------------|---------------|--------------
-Transaction                  | Boolean       | Transaction pool
-Current time                 |               |
-Current blockchain state     |               |
+**Inputs:**
 
+1. transaction,
+2. current time,
+3. current blockchain state.
 
-Procedure:
+**Output:** true or false.
+
+**Affects:** transaction pool.
+
+**Algorithm:**
 
 1. [Validate the transaction](validation.md#validate-transaction) with respect to the current blockchain state, but using system timestamp instead of the latest block timestamp; if invalid, halt and return false.
 2. If the transaction contains at least one [issuance input with asset version 1](data.md#asset-version-1-issuance-commitment) and a non-empty nonce:
@@ -109,15 +117,21 @@ Procedure:
 
 The generator runs this periodically or when the transaction pool reaches a certain size, according to the [network parameters](validation.md#network-parameters). It must broadcast the resulting fully-signed block to all other nodes.
 
-Inputs                   | Output        | Affects
--------------------------|---------------|--------------
-Current blockchain state | Block         | Transaction pool
-Transaction pool         |               | Last generated block
-Current time             |               |
-Last generated block     |               |
+**Inputs:**
 
+1. current blockchain state,
+2. transaction pool,
+3. current time,       
+4. last generated block.
 
-Procedure:
+**Output:** block.
+
+**Affects:**
+
+1. transaction pool,
+2. last generated block.
+
+**Algorithm:**
 
 1. If the last generated block exists with height greater than the current blockchain state, halt and return it.
 2. [Make Block](#make-block) with the current blockchain state, the transaction pool, and the current time.
@@ -139,16 +153,20 @@ See also the note in the [Make Block](#make-block) algorithm.
 
 ### Sign block
 
-Inputs                   | Output                               | Affects
--------------------------|--------------------------------------|------------------------
-Block                    | [Signature](data.md#signature) or nothing   | Last signed block
-Generator’s signature    |                                      |
-Current blockchain state |                                      |
-Last signed block        |                                      |
-Signing key              |                                      |
 
+**Inputs:**
 
-Procedure:
+1. block,
+2. generator’s signature,
+3. current blockchain state,
+4. last signed block,
+5. signing key.
+
+**Output:** [signature](data.md#signature) or nothing.
+
+**Affects:** last signed block.
+
+**Algorithm:**
 
 1. Test that the height of the input block is strictly greater than the height of the last signed block; if not, halt and return nothing.
 2. Verify the generator’s signature using the generator’s verification key in the current blockchain state. If the signature is invalid, halt and return nothing.
@@ -169,12 +187,14 @@ Procedure:
 
 ### Make initial block
 
-Inputs                       | Output
------------------------------|------------
-Consensus program            | Block
-Time                         |
+**Inputs:**
 
-Procedure:
+1. Consensus program
+2. Time
+
+**Output**: a block.
+
+**Algorithm:**
 
 1. Return a block with the following values:
     1. Version: 1.
@@ -192,15 +212,15 @@ Procedure:
 
 ### Make block
 
-Inputs                       | Output
------------------------------|-----------
-Blockchain state             | Block
-Set of transactions          |
-Time                         |
+**Inputs:**
 
+1. blockchain state,
+2. set of transactions,
+3. time.
 
+**Output:** block.
 
-Procedure:
+**Algorithm:**
 
 1. Let S be the blockchain state.
 2. Let T be an empty list of transactions.

@@ -17,7 +17,6 @@
   * [Apply block](#apply-block)
   * [Apply transaction](#apply-transaction)
   * [Evaluate predicate](#evaluate-predicate)
-* [References](#references)
 
 
 ## Introduction
@@ -32,7 +31,7 @@ Each algorithm specifies its interface to the outside world under the labels *in
 
 ### Optimization
 
-A conforming implementation must behave as if it is following the procedures described below. However, for the sake of efficiency or convenience, it is permitted to take other actions instead as long as they yield the same result. For example, a conforming implementation might "memoize" the result of a computation rather than recomputing it multiple times, or it might perform the steps of a procedure in a different but equivalent order.
+A conforming implementation must behave as if it is following the algorithms described below. However, for the sake of efficiency or convenience, it is permitted to take other actions instead as long as they yield the same result. For example, a conforming implementation might "memoize" the result of a computation rather than recomputing it multiple times, or it might perform the steps of an algorithm in a different but equivalent order.
 
 ### Serializability
 
@@ -84,11 +83,16 @@ Entry Point                                              | When used
 
 A new node starts here when joining a new network (with height = 1).
 
-Input            | Output        | Affects
------------------|---------------|--------------
-Block            | Boolean       | Current blockchain state
+**Inputs:**
 
-Procedure:
+1. consensus program,
+2. time.
+
+**Output:** true or false.
+
+**Affects:** current blockchain state.
+
+**Algorithm:**
 
 1. [Make an initial block](#make-initial-block) with the input block’s timestamp and [consensus program](data.md#consensus-program).
 2. The created block must equal the input block; if not, halt and return false.
@@ -102,11 +106,13 @@ Procedure:
 
 A new node starts here when joining a running network (with height > 1). In that case, it does not validate all historical blocks, and the correctness of the blockchain state must be established out of band, for example, by comparing the [block ID](data.md#block-id) to a known-good value.
 
-Input                       | Output        | Affects
-----------------------------|---------------|--------------
-Blockchain state            | Boolean       | Current blockchain state
+**Input:** blockchain state.
 
-Procedure:
+**Output:** true or false.
+
+**Affects:** current blockchain state.
+
+**Algorithm:**
 
 1. Compute the [assets merkle root](data.md#assets-merkle-root) of the state.
 2. The block commitment in the input state must contain the computed assets merkle root; if not, halt and return false.
@@ -116,12 +122,14 @@ Procedure:
 
 ### Make initial block
 
-Inputs                       | Output
------------------------------|------------
-Consensus program            | Block
-Time                         |
+**Inputs:**
 
-Procedure:
+1. consensus program,
+2. time.
+
+**Output**: block.
+
+**Algorithm:**
 
 1. Return a block with the following values:
     1. Version: 1.
@@ -140,13 +148,16 @@ Procedure:
 
 ### Accept block
 
-Inputs                       | Output                               | Affects
------------------------------|--------------------------------------|------------------------
-Block                        | Boolean                              | Current blockchain state
-Current blockchain state     |                                      |
+**Inputs:**
 
+1. block,
+2. current blockchain state.
 
-Procedure:
+**Output:** true or false.
+
+**Affects:** Current blockchain state.
+
+**Algorithm:**
 
 1. [Evaluate](#evaluate-predicate) the [consensus program](data.md#consensus-program) of the blockchain state as a predicate using VM version 1 with the program arguments of the block witness initializing the data stack.
 2. [Validate the block](#validate-block) with respect to the current blockchain state; if invalid, halt and return false.
@@ -158,11 +169,11 @@ Procedure:
 
 ### Check block is well-formed
 
-Input                        | Output
------------------------------|------------
-Block                        | Boolean
+**Input:** block.
 
-Procedure:
+**Output:** true or false.
+
+**Algorithm:**
 
 1. Test that the block can be parsed as a [block data structure](data.md#block); if not, halt and return false.
 2. Test that the block contains the list of transactions (e.g. serialized with [flags](data.md#block-serialization-flags) 0x03); otherwise, halt and return false.
@@ -174,21 +185,21 @@ Procedure:
 
 ### Validate block
 
-Inputs                       | Output
------------------------------|--------------
-Block                        | Boolean
-Blockchain state             |
+**Inputs:**
 
+1. block,
+2. blockchain state.
 
+**Output:** true or false.
 
-Procedure:
+**Algorithm:**
 
 1. Test that the [block is well-formed](#check-block-is-well-formed); if not, halt and return false.
 2. Test that the block’s version is greater or equal the block version in the blockchain state; if not, halt and return false.
 3. Test that the block contains the [block witness](data.md#block-witness) and the list of transactions (e.g. serialized with [flags](data.md#block-serialization-flags) 0x03); otherwise, halt and return false.
 4. If the block’s version is 1:
-    1. Test that the [block commitment](data.md#block-commitment) contains only the fields defined in this version of the protocol; if it contains additional fields, halt and return false.
-    2. Test that the [block witness](data.md#block-witness) contains only a program arguments field; if it contains additional fields, halt and return false.
+    * Test that the [block commitment](data.md#block-commitment) contains only the fields defined in this version of the protocol; if it contains additional fields, halt and return false.
+    * Test that the [block witness](data.md#block-witness) contains only a program arguments field; if it contains additional fields, halt and return false.
 5. Test that the block’s [height](data.md#block) is one greater than the height of the blockchain state; if not, halt and return false.
 6. Test that the block’s [previous block ID](data.md#block) is equal to the [block ID](data.md#block-id) of the state; if not, halt and return false.
 7. Test that the block’s timestamp is greater than the timestamp of the blockchain state; if not, halt and return false.
@@ -206,13 +217,14 @@ Procedure:
 
 A transaction is said to be *valid* with respect to a particular blockchain state if it is well formed and if the outputs it attempts to spend exist in the state, and it satisfies the predicates in those outputs. The transaction may or may not be valid with respect to a different blockchain state.
 
-Inputs                       | Output
------------------------------|------------
-Transaction                  | Boolean
-Blockchain state             |
+**Inputs:**
 
+1. transaction,
+2. blockchain state.
 
-Procedure:
+**Output:** true or false.
+
+**Algorithm:**
 
 1. Test that the [transaction is well-formed](#check-transaction-is-well-formed); if not, halt and return false.
 2. If the block version in the blockchain state is 1:
@@ -235,12 +247,14 @@ Procedure:
 
 ### Validate transaction input
 
-Inputs                       | Output
------------------------------|-----------------------
-Transaction input with asset version 1 | Boolean
-Blockchain state             |
+**Inputs:**
 
-Procedure:
+1. transaction input with asset version 1,
+2. blockchain state.
+
+**Output:** true or false.
+
+**Algorithm:**
 
 1. If the input is an *issuance*:
     1. Test that the *initial block ID* declared in the witness matches the initial block ID of the current blockchain; if not, halt and return false.
@@ -256,11 +270,11 @@ Procedure:
 
 ### Check transaction is well-formed
 
-Input                        | Output
------------------------------|-------------
-Transaction                  | Boolean
+**Input:** transaction.
 
-Procedure:
+**Output:** true or false.
+
+**Algorithm:**
 
 1. Test that the transaction can be parsed as a [transaction data structure](data.md#transaction); if not, halt and return false.
 2. Test that the transaction has at least one input; if not, halt and return false.
@@ -289,12 +303,14 @@ Note: requirement for the input and output sums to be below 2<sup>63</sup> impli
 
 ### Apply block
 
-Inputs                       | Output
------------------------------|----------------------
-Block                        | Blockchain state
-Blockchain state             |
+**Inputs:**
 
-Procedure:
+1. block,
+2. blockchain state.
+
+**Output:** blockchain state.
+
+**Algorithm:**
 
 1. Let S be the input blockchain state.
 2. For each transaction in the block:
@@ -307,12 +323,14 @@ Procedure:
 
 ### Apply Transaction
 
-Inputs                       | Output
------------------------------|------------------------
-Transaction                  | Blockchain state
-Blockchain state             |
+**Inputs:**
 
-Procedure:
+1. transaction,
+2. blockchain state.
+
+**Output:** blockchain state.
+
+**Algorithm:**
 
 1. For each spend input with asset version 1 in the transaction:
     1. Delete the previous output (referenced by the input’s [outpoint](data.md#outpoint)) from S, yielding a new state S′.
@@ -329,30 +347,20 @@ Procedure:
 
 ### Evaluate predicate
 
-Inputs                       | Output
------------------------------|----------------
-VM version                   | Boolean
-Program                      |
-List of program arguments    |
+**Inputs:**
 
-Procedure:
+1. VM version,
+2. program,
+3. list of program arguments.
+
+**Output:** true or false.
+
+**Algorithm:**
 
 1. If the [VM version](vm1.md#versioning) is > 1, halt and return true.
 2. [Create a VM with initial state](vm1.md#vm-state). Use the run limit specified in the [network parameters](#network-parameters)
 3. [Prepare VM](vm1.md#prepare-vm) by pushing the program arguments onto the VM’s data stack in order subtracting [standard memory cost](vm1.md#standard-memory-cost) of each argument from the run limit.
 4. Set the VM’s program to the predicate program and execute [Verify Predicate](vm1.md#verify-predicate) operation. If it fails, halt and return false.
 5. Return true.
-
-
-
-
-## References
-
-* [FIPS180] ["Secure Hash Standard", United States of America, National Institute of Standards and Technology, Federal Information Processing Standard (FIPS) 180-2](http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf).
-* [FIPS202] [Federal Inf. Process. Stds. (NIST FIPS) - 202 (SHA3)](https://dx.doi.org/10.6028/NIST.FIPS.202)
-* [LEB128] [Little-Endian Base-128 Encoding](https://developers.google.com/protocol-buffers/docs/encoding)
-* [CFRG1] [Edwards-curve Digital Signature Algorithm (EdDSA) draft-irtf-cfrg-eddsa-05](https://tools.ietf.org/html/draft-irtf-cfrg-eddsa-05)
-* [RFC 6962](https://tools.ietf.org/html/rfc6962#section-2.1)
-
 
 
