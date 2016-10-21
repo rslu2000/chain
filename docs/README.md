@@ -27,7 +27,6 @@
   * [Java SDK](#)
   * [API Objects](core/reference/api-objects.md)
   * [Product Roadmap](core/reference/product-roadmap.md)
-  * [Changelog](#)
 
 ## Chain Protocol
 

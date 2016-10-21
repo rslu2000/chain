@@ -74,6 +74,9 @@ def check_url(url)
   elsif !CHECK_GLOBAL_LINKS && url =~ /^https?:/
     return true
   else
+    if File.directory?(url)
+      return true
+    end
     x = open(url).read rescue nil
     !!x
   end

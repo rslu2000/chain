@@ -3,7 +3,7 @@
 ## Introduction
 There are two APIs in Chain Core: the **client API** and the **network API**.
 
-The client API is used by the SDKs and the dashboard to communicate with Chain Core. The network API is used by [network operators](./blockchain-operators).
+The client API is used by the SDKs and the dashboard to communicate with Chain Core. The network API is used by [network operators](blockchain-operators.md).
 
 Each API is authenticated using access tokens with HTTP basic auth. For convenience, _**when accessing from localhost, neither API requires authentication**_.
 
