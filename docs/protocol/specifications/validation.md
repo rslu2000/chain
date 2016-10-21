@@ -39,20 +39,6 @@ A conforming implementation must be serializable with respect to these algorithm
 
 This requirement also implies that all side effects together must be atomic for each algorithm.
 
-## Network parameters
-
-Some rules of the protocol use built-in constants that must not change (or can change towards more, not less restricting values) in order to maintain compatibility between all nodes.
-
-Limit values are designed to prevent denial-of-service attacks for unauthenticated content.
-
-Most constants have a default value that can be adjusted for every specific network.
-
-Parameter                    | Description                                                                                    | Default Value
------------------------------|------------------------------------------------------------------------------------------------|----------------
-**Block Signing Keys**       | A set of initial block signing public keys used in the [initial block](#make-initial-block).   | N/A
-**VM 1 Run Limit**           | Maximum run limit for [evaluating predicates](#evaluate-predicate) using VM version 1.         | 50000
-
-
 ### Node state
 
 All nodes store a *current blockchain state*, which can be replaced with a new blockchain state.
@@ -358,8 +344,8 @@ Note: requirement for the input and output sums to be below 2<sup>63</sup> impli
 **Algorithm:**
 
 1. If the [VM version](vm1.md#versioning) is > 1, halt and return true.
-2. [Create a VM with initial state](vm1.md#vm-state). Use the run limit specified in the [network parameters](#network-parameters)
-3. [Prepare VM](vm1.md#prepare-vm) by pushing the program arguments onto the VM’s data stack in order subtracting [standard memory cost](vm1.md#standard-memory-cost) of each argument from the run limit.
+2. [Create a VM with initial state](vm1.md#vm-state).
+3. [Prepare VM](vm1.md#prepare-vm).
 4. Set the VM’s program to the predicate program and execute [Verify Predicate](vm1.md#verify-predicate) operation. If it fails, halt and return false.
 5. Return true.
 
