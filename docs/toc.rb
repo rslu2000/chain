@@ -1,4 +1,4 @@
-Levels = [2]
+Levels = [2,3]
 
 Dir["**/*.md"].each do |mdfile|
   puts "TOC for #{mdfile}:\n\n"

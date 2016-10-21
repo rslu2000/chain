@@ -10,11 +10,12 @@ Each output in a transaction contains a single control program. Each control pro
 
 This guide will walk you through the basic types of control programs available in Chain Core:
 
-* Account control programs
-* Retirement control programs
-* Custom control programs
+* [Account control programs](#account-control-programs)
+* [Retirement control programs](#retirement-control-programs)
+* [Custom control programs](#custom-control-programs)
 
 ### Sample Code
+
 All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/ControlPrograms.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
@@ -46,4 +47,5 @@ $code ../examples/java/ControlPrograms.java retire
 
 ## Custom control programs
 
-The Chain Core virtual machine supports custom control programs built from the supported set of [program predicates](#). We are [currently developing](../get-started/product-roadmap.md) a high level language that will enable developers to write custom control programs in Chain Core. Additionally, we work directly with our enterprise customers to design, audit, and implement custom control programs for production deployment. For more information, visit [Chain Core for Enterprise](#) or [contact us](#).
+The [Chain Virtual Machine](../../protocol/specifications/vm1.md) supports custom control programs built from the supported set of [program predicates](../../protocol/papers/blockchain-programs.md#predicates). We are
+currently developing a [high level language](../../protocol/papers/blockchain-programs.md#ivy) that will enable developers to write custom control programs in Chain Core. Additionally, we work directly with our enterprise customers to design, audit, and implement custom control programs for production deployment. For more information, visit the [Enterprise page](https://chain.com/enterprise).

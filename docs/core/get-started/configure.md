@@ -4,9 +4,9 @@
 
 When you first launch your Chain Core and visit the dashboard at `http://HOST:1999/` (where HOST is the name of the computer where Chain Core is running), you will be presented with three options:
 
-1. Create a new blockchain
-2. Connect to an existing blockchain
-3. Connect to the Chain testnet
+1. [Create a new blockchain](#create-a-new-blockchain)
+2. [Connect to an existing blockchain](#connect-to-an-existing-blockchain)
+3. [Connect to the Chain testnet](#connect-to-the-chain-testnet)
 
 Choosing one of these options configures your Chain Core. You can reset it to its initial unconfigured state at any time by visiting Core Settings in the dashboard.
 

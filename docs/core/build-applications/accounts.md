@@ -1,16 +1,5 @@
 # Accounts
 
-* [Introduction](#introduction)
-* [Overview](#overview)
-* [Create account](#create-account)
-* [List accounts by tags](#list-accounts-by-tags)
-* [Transfer asset units between local accounts](#transfer-asset-units-between-local-accounts)
-* [Receive asset units from an external party](#receive-asset-units-from-an-external-party)
-* [Transfer asset units to an external party](#transfer-asset-units-to-an-external-party)
-* [List account transactions](#list-account-transactions)
-* [List account balances](#list-account-balances)
-
-
 ## Introduction
 
 An account is an object in Chain Core that tracks ownership of assets on a blockchain by creating and tracking control programs.
@@ -27,13 +16,13 @@ The account object does not exist on the blockchain - it is local to Chain Core.
 
 This guide will walk you through the basic functions of an account:
 
-* Create account
-* List accounts by tags
-* Transfer asset units between local accounts (within the same Chain Core)
-* Receive asset units from an external party
-* Transfer asset units to an external party
-* List account transactions
-* List account balances
+* [Create account](#create-account)
+* [List accounts by tags](#list-accounts-by-tags)
+* [Transfer asset units between local accounts](#transfer-asset-units-between-local-accounts) (within the same Chain Core)
+* [Receive asset units from an external party](#receive-asset-units-from-an-external-party)
+* [Transfer asset units to an external party](#transfer-asset-units-to-an-external-party)
+* [List account transactions](#list-account-transactions)
+* [List account balances](#list-account-balances)
 
 This guide assumes you know the basic functions presented in the [5-Minute Guide](../get-started/five-minute-guide.md).
 

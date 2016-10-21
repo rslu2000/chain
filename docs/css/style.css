@@ -309,7 +309,8 @@ ul {
     list-style: none
 }
 
-#doc-content h1 + ul:first-of-type {
+#doc-content h1 + ul:first-of-type,
+#doc-content h1 + ol:first-of-type {
     margin-top: 30px;
 }
 
@@ -790,7 +791,7 @@ pre code {
 }
 
 code.language-bash {
-    padding-left: calc(1.875rem + 10px);
+    padding-left: calc(1.5rem + 10px);
 }
 
 code.language-bash::before {
@@ -1109,7 +1110,7 @@ input:focus {
 
 /* Dividers */
 .separator-line {
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
     margin-top: 60px;
 }
 .divider {
@@ -1119,13 +1120,17 @@ input:focus {
     margin: 20px 0;
 }
 .separator-tag {
+    display: block;
+    width:40px;
+    height:40px;
     background: #b9f3ee;
     border-radius: 20px;
-    padding: 10px;
+    line-height: 40px;
     position: relative;
     left: 50%;
-    top: -11px;
+    top: -21px;
     font-family: NittiGrotesk-Medium;
+    text-align: center;
 }
 
 
@@ -1177,11 +1182,16 @@ input:focus {
 }
 
 .download-options li a:active {
-    background-color: #fafcfc
+    background-color: #fafcfc;
 }
 
 .download-options li a:hover {
     background: #fcfcfc;
+}
+
+.download-options li a.active,
+.download-options li a.active:hover {
+	background: #f9fefe;
 }
 
 .download-options li a h3 {

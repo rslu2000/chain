@@ -1,4 +1,4 @@
-# An Introduction to the Chain Protocol
+# Chain Protocol Whitepaper
 
 1. [Introduction](#1-introduction)
 2. [Motivation](#2-motivation)
@@ -21,9 +21,11 @@ Each network is secured by a federation of “block signers.” The system is se
 
 Chain Core is an enterprise software product that implements the Chain Protocol. An open-source [developer edition](https://github.com/chain/chain) is freely available, and Chain operates a Chain blockchain network as a freely accessible testnet. 
 
-Section [2](#2-motivation) explains the background and motivation for the design of the protocol. Sections [3](#3-data-model), [4](#4-programs), and [5](#5-consensus) describe key concepts — assets, transactions, programs, blockchain and consensus protocol — and discuss how programmed rules are enforced and double-spending is prevented.
+In the [second section](#2-motivation), we explain the background and motivation for the design of the protocol.
 
-Subsequent sections discuss various aspects of the blockchain network: [security](#6-security), [scalability](#7-scalability), [extensibility](#8-extensibility) and [interoperability with other networks](#9-interoperability).
+Next, we describe key concepts — [assets, transactions, blocks](#3-data-model), [programs](#4-programs) and [consensus protocol](#5-consensus) — and discuss how programmed rules are enforced and double-spending is prevented.
+
+Finally, we discuss various aspects of the blockchain network: [security](#6-security), [scalability](#7-scalability), [extensibility](#8-extensibility) and [interoperability with other networks](#9-interoperability).
 
 
 ## 2. Motivation
@@ -202,7 +204,7 @@ Chain’s implementation of the Chain Protocol, Chain Core, uses unique public k
 
 Programs that facilitate multi-party contracts may depend on sensitive data such as deadlines, prices, and interest rates. These can be hidden via Merkleized programs (see [MAST](http://www.mit.edu/~jlrubin/public/pdfs/858report.pdf)) that contain only hashes of each branch, for which only the executed branches need to be revealed during execution. Such a smart contract could allow spending in one of two ways: by providing signatures from all parties on the new transaction (allowing parties to agree to how a contract should be resolved, while preserving privacy), or by revealing and executing the private smart contract code. This is similar to how contracts work in the real world — while enforcement in court typically requires the terms of the contract to be made public, most contracts are settled in private, with the public system only necessary as an implicit backstop.
 
-The Chain Protocol can also be extended with additional confidentiality features, as covered in [Blockchain Extensibility](blockchain-extensibility.md) and [Protocol Roadmap](roadmap.md).
+The Chain Protocol can also be extended with additional confidentiality features, as covered in [Blockchain Extensibility](blockchain-extensibility.md) and [Protocol Roadmap](protocol-roadmap.md).
 
 #### Consensus security
 
@@ -265,7 +267,7 @@ Chain Core is software that implements the Chain Protocol. Using Chain Core, org
 * [Federated Consensus](federated-consensus.md)
 * [Blockchain Programs](blockchain-programs.md)
 * [Blockchain Extensibility](blockchain-extensibility.md)
-* [Protocol Roadmap](roadmap.md)
+* [Protocol Roadmap](protocol-roadmap.md)
 * [Data Model Specification](../specifications/data.md)
 * [Virtual Machine Specification](../specifications/vm1.md)
 * [Key Derivation Specification](../specifications/chainkd.md)

@@ -1,5 +1,12 @@
 # Query Filters
 
+* [Overview](#overview)
+* [Properties](#properties)
+* [Operators](#operators)
+* [Scope](#scope)
+* [Queries](#queries)
+* [List transactions](#list-transactions)
+
 ## Overview
 
 Filters enable complex queries to Chain Core to retrieve lists of objects. A filter is comprised of one or more **terms** (joined with AND / OR). Each term contains a **property**, **operator**, and **value**. Each term targets a specific field in the key-value (JSON) object (see [API Objects](../reference/api-objects.md)). Terms can be grouped together in a **scope** to target a specific array of sub-objects within an object.

@@ -8,8 +8,8 @@ Each time a transaction is created, one or more new unspent outputs is created. 
 
 This guide will walk you through the basic functions of an unspent output:
 
-1. List unspent outputs
-2. Spend unspent outputs
+* [List unspent outputs](#list-unspent-outputs)
+* [Spend unspent outputs](#spend-unspent-outputs)
 
 ### Sample Code
 All code samples in this guide are extracted from a single Java file.

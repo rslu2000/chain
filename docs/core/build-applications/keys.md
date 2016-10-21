@@ -1,11 +1,5 @@
 # Keys
 
-* [Introduction](#introduction)
-* [Overview](#overview)
-* [Create key](#create-key)
-* [Load key](#load-key)
-* [Signing transactions](#signing-transactions)
-
 ## Introduction
 
 Cryptographic private keys are the primary authorization mechanism on a blockchain. They control both the issuance and transfer of assets. Each transaction is signed using the specific private keys required for the issuance or transfer it proposes, and the signature is checked against the corresponding public keys recorded in the earlier transaction being spent, or the asset type being issued, in order to determine the new transaction’s validity.
@@ -20,11 +14,12 @@ For development environments, Chain Core provides a convenient MockHSM. The Mock
 
 This guide will walk you through the basic key operations:
 
-* Create key (in the MockHSM)
-* Load key (into the HSM Signer)
-* Sign a transaction (with the MockHSM)
+* [Create key](#create-key) (in the MockHSM)
+* [Load key](#load-key) (into the HSM Signer)
+* [Sign transaction](#sign-transaction) (with the MockHSM)
 
 ### Sample Code
+
 All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/Keys.java" class="downloadBtn btn success" target="_blank">View Sample Code</a>
 
@@ -40,7 +35,7 @@ To be able to sign transactions, load the key into the HSM Signer, which will co
 
 $code ../examples/java/Keys.java signer-add-key
 
-## Signing transactions
+## Sign transaction
 
 Once a transaction is built, send it to the HsmSigner for signing.
 

@@ -1,15 +1,5 @@
 # Assets
 
-* [Introduction](#introduction)
-* [Overview](#overview)
-* [Create asset](#create-asset)
-* [List assets](#list-assets)
-* [Issue asset units to a local account](#issue-asset-units-to-a-local-account)
-* [Issue asset units to an external party](#issue-asset-units-to-an-external-party)
-* [List asset transactions](#list-asset-transactions)
-* [Get asset circulation](#get-asset-circulation)
-
-
 ## Introduction
 
 An asset is a type of value that can be issued on a blockchain. All units of a given asset are fungible.
@@ -24,13 +14,13 @@ Each asset can optionally include an asset definition consisting of arbitrary ke
 
 This guide will walk you through the basic functions of an asset:
 
-* Create asset
-* List assets (by asset definition, tags, and origin)
-* Issue asset units to a local account (in the same Chain Core)
-* Issue asset units to an external party
-* Retire asset units
-* List transactions (for issuance, transfer, and retirement)
-* Get asset circulation
+* [Create asset](#create-asset)
+* [List assets](#list-assets) (by asset definition, tags, and origin)
+* [Issue asset units to a local account](#issue-asset-units-to-a-local-account) (in the same Chain Core)
+* [Issue asset units to an external party](#issue-asset-units-to-an-external-party)
+* [Retire asset units](#retire-asset-units)
+* [List transactions](#list-asset-transactions) (for issuance, transfer, and retirement)
+* [Get asset circulation](#get-asset-circulation)
 
 This guide assumes you know the basic functions presented in the [5-Minute Guide](../get-started/five-minute-guide.md).
 
@@ -92,7 +82,7 @@ We will issue 2000 units of Acme Common stock to an external party.
 
 $code ../examples/java/Assets.java external-issue
 
-### Retire asset units
+## Retire asset units
 
 To retire units of an asset from an account, we can build a transaction using an `account_alias` and `asset_alias`.
 

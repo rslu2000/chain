@@ -6,12 +6,12 @@ Batch operations are an advanced feature of the Client API that allow you to bun
 
 Operations that support batching include:
 
-- Creating assets
-- Creating accounts
-- Creating control programs
-- Building transactions
-- Signing transactions
-- Submitting transactions
+* Creating assets
+* Creating accounts
+* Creating control programs
+* Building transactions
+* Signing transactions
+* Submitting transactions
 
 ### Sample Code
 All code samples in this guide are extracted from a single Java file.
