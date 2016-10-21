@@ -2,5 +2,5 @@ $(function () {
 	prepareSidebarMenu()
 	attachSignupFormToDownloadButton()
 	fixupSidenotes()
-	prepareNextStepButton()
+	prepareUpNextButton()
 })

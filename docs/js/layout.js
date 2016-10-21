@@ -29,7 +29,7 @@ function prepareSidebarMenu() {
     })
 }
 
-function prepareNextStepButton() {
+function prepareUpNextButton() {
 	// 1. Figure which item in the sidebar is current.
 	// 2. Find the next one.
 	// 3. Take its link and title.
@@ -47,16 +47,14 @@ function prepareNextStepButton() {
 			return
 		}
 		if (i == (currentIndex+1)) {
-			var nextStep = $("#next-step")
-			nextStep.show()
+			var upNext = $("#up-next")
+			upNext.show()
 			var title = a.attr("title")
 			if (!title || title == "") { 
 				title = a.text()
 			}
-			$("button span", nextStep).text(title)
-			$("button", nextStep).click(function(){
-				window.location.href = url
-			})
+			$("a > span", upNext).text(title)
+			$("a", upNext).attr('href', url)
 			return
 		}
 	})	
