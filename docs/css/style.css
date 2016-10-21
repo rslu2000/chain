@@ -489,12 +489,18 @@ p:not(:first-child) {
     border-top: 1px solid rgba(120, 134, 156, .15);
 }
 
-#doc-content h1 + h2,
-#doc-content .separator-tag + h2 {
+#doc-content h1 + h2 {
     border-top: none;
     padding-top: 20px;
     margin-top: 20px;
 }
+
+#doc-content .separator-tag + h2 {
+    border-top: none;
+    padding-top: 10px;
+    margin-top: 0;
+}
+
 .doc-content footer h2 {
     margin-top: 0;
     padding-top: 40px;
