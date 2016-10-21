@@ -57,14 +57,20 @@ This guide will walk you through several examples of queries:
 * Balances
 * Keys
 
+### Sample Code
+
+All code samples in this guide are extracted from a single Java file.
+
+<a href="../examples/java/Queries.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
+
 ## Transactions
 List all transactions involving Alice's account:
 
-$code ../examples/java/QueryFilters.java list-alice-transactions
+$code ../examples/java/Queries.java list-alice-transactions
 
 List all transactions involving the local Core:
 
-$code ../examples/java/QueryFilters.java list-local-transactions
+$code ../examples/java/Queries.java list-local-transactions
 
 ## Assets
 ## Accounts

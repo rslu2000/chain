@@ -4,7 +4,7 @@ import com.chain.api.*;
 import com.chain.http.*;
 import com.chain.signing.*;
 
-class QueryFilters {
+class Queries {
   public static void main(String[] args) throws Exception {
     Client client = new Client();
 
