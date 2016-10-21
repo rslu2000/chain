@@ -20,8 +20,8 @@ Note: We do not yet configure the Chain Core. We first create a block signing ke
 
 #### Create a block signing key
 
-```
-$ corectl create-block-keypair
+```bash
+corectl create-block-keypair
 ```
 
 This prints out the pubkey as a hex string.
@@ -34,8 +34,8 @@ cce1791bf3d8bb5e506ec7159bad6a696740712197894336c027dec9fbfb9313
 
 Note: `foo` is a user-supplied network token id
 
-```
-$ corectl create-token -net foo
+```bash
+corectl create-token -net foo
 ```
 
 This prints out the network token, which can be included as basic auth in the URL when accessing the Chain Core network API.
@@ -62,9 +62,12 @@ Configure Chain Core as block generator, with the additional block signer, requi
 
 * The `-s` flag includes this generator as a block signer.
 
+```bash
+corectl config-generator -s <quorum> <signer1-pubkey> <signer1-url-with-network-token>
 ```
-$ corectl config-generator -s <quorum> <signer1-pubkey> <signer1-url-with-network-token>
-$ corectl config-generator -s 2 cce1791bf3d8bb5e506ec7159bad6a696740712197894336c027dec9fbfb9313 https://foo:25f658b749f154a790c8a3aeb57ea98968f51a991c4771fb072fcbb2fa63b6f7@<signer-url>
+
+```bash
+corectl config-generator -s 2 cce1791bf3d8bb5e506ec7159bad6a696740712197894336c027dec9fbfb9313 https://foo:25f658b749f154a790c8a3aeb57ea98968f51a991c4771fb072fcbb2fa63b6f7@<signer-url>
 ```
 
 This prints out the blockchain id
@@ -75,8 +78,8 @@ ec95cfab939d7b8dde46e7e1dcd7cb0a7c0cea37148addd70a4a4a5aaab9616c
 
 #### Create a network token for the signer
 
-```
-$ corectl create-token -net signer
+```bash
+corectl create-token -net signer
 ```
 
 This prints out the network token,  which can be included as basic auth in the URL when accessing the Chain Core network API.
@@ -101,14 +104,16 @@ Blockchain ID: ec95cfab939d7b8dde46e7e1dcd7cb0a7c0cea37148addd70a4a4a5aaab9616c
 
 Configure Chain Core as block signer.
 
-```
-$ corectl config\
+```bash
+corectl config\
     -t <block generator network token> \
     -k <block signing public key> \
     <blockchain id> \
     <block genrator URL>
+```
 
-$ corectl config\
+```bash
+corectl config\
     -t signer:ea8b749f154a790c8a3aeb57bb2fa98968f51a991c4771fb072fc25f6563b6f7 \
     -k cce1791bf3d8bb5e506ec7159bad6a696740712197894336c027dec9fbfb9313 \
     ec95cfab939d7b8dde46e7e1dcd7cb0a7c0cea37148addd70a4a4a5aaab9616c \
