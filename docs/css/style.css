@@ -292,6 +292,14 @@ article p:first-of-type {
     margin-top: 20px;
 }
 
+article strong {
+    font-weight: 600;
+}
+
+article li strong,
+article p strong {
+	color: #1e2224;
+}
 
 
 /* # Lists */
@@ -386,15 +394,20 @@ sub { top:  0.5em; }
 /* # Sidenotes */
 
 article div.sidenote {
+	float:right;
+	max-width:40%;
+}
+
+/* Option 1: grey box */
+article div.sidenote {
 	background-color: #fafafa;
 	margin-top:12px;
 	margin-left:45px;
 	margin-bottom:20px;
 	padding:20px 24px;
-	float:right;
-	max-width:40%;
 }
 
+/* Option 2: green border */
 article div.sidenote {
 	border-left: 4px solid #B9F4EE;
 	background:none;
@@ -411,7 +424,9 @@ article div.sidenote > p:first-of-type {
 	padding-top:0;
 }
 
-article div.sidenote p {
+article div.sidenote p,
+article div.sidenote ul,
+article div.sidenote ol {
     font-size: 14px;
     line-height: 20px;
 }
@@ -565,9 +580,6 @@ section.text-block p:first-of-type {
 
 }
 
-strong {
-    font-weight: 600;
-}
 
 
 
@@ -688,7 +700,6 @@ article thead tr th {
 
 code {
     font-weight: 500;
-    xcolor: #20252D;
     font-family: Nitti-Normal;
     font-size: 95%;
 }
