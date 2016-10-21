@@ -1186,6 +1186,7 @@ input:focus {
     border: 1px solid #ddd;
     background: #fff;
     color: #23d5bf;
+    position: relative;
 
 }
 .next-step:hover {
@@ -1193,4 +1194,15 @@ input:focus {
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     background-color: #fcfcfc;
+}
+
+.next-step .btn-icon {
+    top: 19px;
+    right: 50px;
+    position: absolute;
+    transition: all 0.2s linear;
+}
+.next-step:hover .btn-icon {
+    right: 40px;
+    transform: translateX(10px);
 }
