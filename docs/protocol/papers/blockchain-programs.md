@@ -36,7 +36,7 @@ This document discusses design and use cases for custom programs on the blockcha
 
 ## Chain Virtual Machine
 
-A program is written in bytecode — instructions for the Chain Virtual Machine (CVM). The CVM is a stack machine: each instruction performs operations on a *data stack*, usually working on the items on top of the stack. All items on the data stack are strings of bytes (although some instructions convert them to and from numbers or booleans in order to perform operations on them). The CVM also has an *alt stack* to simplify stack manipulation.
+A program is written in bytecode — instructions for the Chain Virtual Machine (CVM). The CVM is a stack machine: each instruction performs operations on a *data stack*, usually working on the items on top of the stack. All items on the data stack are strings of bytes, although some instructions convert them to and from numbers or booleans in order to perform operations on them. The CVM also has an *alt stack* to simplify stack manipulation.
 
 [sidenote]
 
@@ -46,15 +46,13 @@ Bitcoin, similarly, uses scripts as predicates in order to determine whether a g
 
 ### Run limit
 
-The CVM’s instruction set is Turing complete. To prevent unbounded use of computational resources, the protocol allows networks to set a *run limit* that a program is not allowed to exceed. Each instruction consumes some of the limit as it runs, according to its *run cost*.
-
-Processing-intensive instructions, such as signature checks, are more expensive.
+The CVM’s instruction set is Turing complete. To prevent unbounded use of computational resources, the protocol allows networks to set a *run limit* that a program is not allowed to exceed. Each instruction consumes some of the limit as it runs, according to its *run cost*. Processing-intensive instructions, such as signature checks, are more expensive.
 
 The run cost also takes into account the stack's current memory usage. Adding an item to the stack has a cost based on the size of the item; removing an item from the stack refunds that cost.
 
 [sidenote]
 
-Both Bitcoin and Ethereum have restrictions that prevent script execution from using excessive time or memory. Chain’s runlimit mechanism is similar to Ethereum’s “gas,” except that there is no on-chain accounting for the execution cost of a transaction.
+Both Bitcoin and Ethereum have restrictions that prevent script execution from using excessive time or memory. Chain’s run limit mechanism is similar to Ethereum’s “gas,” except that there is no on-chain accounting for the execution cost of a transaction.
 
 [/sidenote]
 
@@ -62,15 +60,11 @@ Both Bitcoin and Ethereum have restrictions that prevent script execution from u
 
 The CVM has some overlaps and similarities with Bitcoin Script, but adds opcodes to support additional functionality, including loops, state transitions (through transaction introspection), and script evaluation.
 
-This is an informal summary of the functionality provided by CVM instructions. For a complete list and more precise definitions, see the VM specification.
+What follows is a summary of the functionality provided by CVM instructions. For a complete list and more precise definitions, see the [VM specification](../specifications/vm1.md).
 
 #### Stack manipulation instructions
 
-`PUSHDATA` instructions push a specified bytestring to the data stack.
-
-`DROP`, `DUP`, `SWAP`, `PICK`, and other move stack items around.
-
-`TOALTSTACK` and `FROMALTSTACK` move items between the data and alt stacks, which can make some stack manipulations easier.
+Programs may encode bytestrings to push on data stack using a range of `PUSHDATA` instructions. Instructions `DROP`, `DUP`, `SWAP`, `PICK` and others allow moving stack items around. More complex stack manipulations can be assisted by `TOALTSTACK` and `FROMALTSTACK` instructions that move items between the data stack and an auxilliary alt stack.
 
 #### String manipulation instructions
 
@@ -82,15 +76,15 @@ While all items on the stack are strings, some instructions interpret items as n
 
 #### Logical and boolean instructions
 
-Items on the stack can also be interpreted as booleans, based on whether all .
+Items on the stack can also be interpreted as booleans. Empty strings and strings consisting of zero bytes are coerced to `false`, all others are coerced to `true`.
 
 #### Cryptographic instructions
 
-The `SHA1`, `SHA256`, `SHA3`, and `RIPEMD` instructions execute those standard hash functions.
+The `SHA256` and `SHA3` instructions execute corresponding hash functions and output 32-byte strings.
 
 The `CHECKSIG` instruction checks the validity of an Ed25519 signature against a given public key and message.
 
-`CHECKMULTISIG` checks an `m-of-n` signature.
+`CHECKMULTISIG` checks an “M-of-N” signing condition using `M` signatures and `N` public keys.
 
 #### Control flow instructions
 
