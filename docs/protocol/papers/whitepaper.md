@@ -1,4 +1,4 @@
-# **An Introduction to the Chain Protocol**
+# An Introduction to the Chain Protocol
 
 1. [Introduction](#1-introduction)
 2. [Motivation](#2-motivation)
