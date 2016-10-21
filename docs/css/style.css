@@ -430,8 +430,13 @@ article div.sidenote > p:first-of-type {
 article div.sidenote p,
 article div.sidenote ul,
 article div.sidenote ol {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 20px;
+	color: #515b61;
+}
+
+article div.sidenote strong {
+	color: #444c51;
 }
 
 article div.sidenote p:not(:first-child) {
@@ -725,7 +730,7 @@ p > code {
     border-radius: 2px;
     padding: 2px 2px;
     margin: 0 1px;
-    background: #f7faf9; /*f8f8f8*/
+    background: #f7fbf9; /*f8f8f8*/
 }
 
 
