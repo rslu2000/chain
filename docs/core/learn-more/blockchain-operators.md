@@ -9,10 +9,10 @@ This guide will walk you through the two types of blockchain operators:
 
 As well as the basic functions of the blockchain operators:
 
-1. Creating a new blockchain
-2. Creating blocks
-3. Permissioning the network
-4. Adding/removing blockchain operators
+1. [Creating a new blockchain](#creating-a-new-blockchain)
+2. [Creating blocks](#creating-blocks)
+3. [Permissioning the network](#network-permissions)
+4. [Adding/removing blockchain operators](#adding-removing-blockchain-operators)
 
 ## Overview
 
@@ -38,7 +38,7 @@ To create a new blockchain, the blockchain operators must coordinate to create t
 5. The block generator creates the initial consensus program (from its public key and the public keys and quorum of the block signers) in Chain Core settings.
 6. The block generator creates the first block, including the initial consensus program, which is automatically distributed to each block signer.
 
-Note: The Chain Core dashboard does not yet support block signer configuration. However, you can use the Chain Core command line tools to configure block generator and block signers manually. See the [block signing guide](configure-block-signers.md)
+Note: The Chain Core dashboard does not yet support block signer configuration. However, you can use the Chain Core command line tools to configure block generator and block signers manually. See the [block signing guide](configure-block-signers.md).
 
 ### Creating blocks
 

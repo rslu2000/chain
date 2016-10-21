@@ -4,15 +4,15 @@
 
 This guide will walk you through the three types of blockchain participants:
 
-1. Asset issuer
-2. Account manager
-3. Blockchain observer
+1. [Asset issuer](#asset-issuers)
+2. [Account manager](#account-managers)
+3. [Blockchain observer](#blockchain-observers)
 
 As well as the basic network functions of all blockchain participants:
 
-1. Connecting to a blockchain
-2. Receiving blocks
-3. Submitting transactions
+1. [Connecting to a blockchain](#connecting-to-a-blockchain)
+2. [Receiving blocks](#receiving-blocks)
+3. [Submitting transactions](#submitting-transactions)
 
 ## Blockchain participants
 
