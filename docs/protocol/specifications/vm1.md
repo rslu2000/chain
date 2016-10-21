@@ -29,7 +29,7 @@ The Chain Protocol uses a bytecode language to express short programs used to au
 
 Programs are executed in a stack-based [virtual machine](#vm-state). First, the program arguments are pushed on the stack one after the other (so that the last argument is on the top of the stack). Then the VM executes the actual predicate program (control program, issuance program or consensus program). If execution halts early (because of a disabled opcode, [FAIL](#fail), a [VERIFY](#verify) failure, or exceeding the run limit), validation fails. Otherwise the top stack value is inspected. If it’s zero, validation fails, otherwise validation succeeds.
 
-Each opcode has a built-in [run cost](#instruction-cost) that counts against a built-in *run limit* to protect the network from resource exhaustion (see [Network Parameters](validation.md#network-parameters)). Future VM versions will provide more fine-grained control over run limit by operators and users of the network.
+Each opcode has a built-in [run cost](#instruction-cost) that counts against a built-in *run limit* to protect the network from resource exhaustion. Currently, the protocol [mandates](#vm-state) a specific run limit. Future VM versions will provide more fine-grained control over run limit by operators and users of the network.
 
 ## Versioning
 
@@ -100,7 +100,7 @@ Execution of any of the following instructions results in immediate failure:
     a. Block
     b. (Transaction, Input Index)
 
-**Initial State** has empty stacks, uninitialized program, PC set to zero, and *run limit* set to initial value set as a [network parameter](validation.md#network-parameters).
+**Initial State** has empty stacks, uninitialized program, PC set to zero, and *run limit* set to 10,000.
 
 **Program** is a sequence of opcodes and associated data, encoded as bytecode.
 
