@@ -712,23 +712,22 @@ article thead tr th {
 code {
     font-weight: 500;
     font-family: Nitti-Normal;
-    font-size: 95%;
+    font-size: 94%;
 }
 
-/*li > code,
-p code {
-    border-radius: 5px;
-    letter-spacing: -1px;
-    padding: 3px 4px;
-    margin: 0 1px;
-    letter-spacing: -1.2px;
-    background: #f8f8f8;
-}
-*/
 li > code,
-p code {
-    letter-spacing: -0.06em;
+p > code {
+    letter-spacing: -0.05em;
 }
+
+li > code,
+p > code {
+    border-radius: 2px;
+    padding: 2px 2px;
+    margin: 0 1px;
+    background: #f7faf9; /*f8f8f8*/
+}
+
 
 
 .code:not(:first-child) {
