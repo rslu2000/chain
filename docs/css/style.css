@@ -1208,9 +1208,9 @@ input:focus {
     top: 19px;
     right: 50px;
     position: absolute;
-    transition: all 0.2s linear;
+    transition: all 0.3s linear;
 }
 .next-step:hover .btn-icon {
     right: 40px;
-    transform: translateX(10px);
+    transform: translateX(6px);
 }
