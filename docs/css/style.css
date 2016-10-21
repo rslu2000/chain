@@ -1182,11 +1182,16 @@ input:focus {
 }
 
 .download-options li a:active {
-    background-color: #fafcfc
+    background-color: #fafcfc;
 }
 
 .download-options li a:hover {
     background: #fcfcfc;
+}
+
+.download-options li a.active,
+.download-options li a.active:hover {
+	background: #f9fefe;
 }
 
 .download-options li a h3 {
