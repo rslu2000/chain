@@ -102,16 +102,9 @@ func main() {
 			return
 		}
 
-		ctx := r.Context()
-		if t, err := time.ParseDuration(r.Header.Get(rpc.HeaderTimeout)); err == nil {
-			var cancel func()
-			ctx, cancel = context.WithTimeout(ctx, t)
-			defer cancel()
-		}
-
-		err = cache.after(ctx, height)
+		err = cache.after(r.Context(), height)
 		if err != nil {
-			core.WriteHTTPError(ctx, w, err)
+			core.WriteHTTPError(r.Context(), w, err)
 			return
 		}
 
