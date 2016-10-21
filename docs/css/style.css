@@ -496,7 +496,7 @@ p:not(:first-child) {
     border-top: 1px solid rgba(120, 134, 156, .15);
 }
 
-h2:first-of-type {
+#doc-content h2:first-of-type {
     border-top: none;
     padding-top: 10px;
     margin-top: 20px;
