@@ -2,20 +2,6 @@
 
 ## Introduction
 
-This guide will walk you through the two types of blockchain operators:
-
-1. Block generator
-2. Block signer
-
-As well as the basic functions of the blockchain operators:
-
-1. [Creating a new blockchain](#creating-a-new-blockchain)
-2. [Creating blocks](#creating-blocks)
-3. [Permissioning the network](#network-permissions)
-4. [Adding/removing blockchain operators](#adding-removing-blockchain-operators)
-
-## Overview
-
 The operators of a blockchain perform four basic functions:
 
 1. Determine who can participate in the blockchain
@@ -26,6 +12,15 @@ The operators of a blockchain perform four basic functions:
 One of the blockchain operators is designated as the block generator. The others are designated as block signers. Together, they are responsible for creating new blocks.
 
 Each block contains a consensus program that defines the requirements for creating the next valid block. The consensus program specifies the public key of the block generator (whose signature is required on the next block) and the public keys of a set of block signers with a quorum of signatures that are required on the next block.
+
+## Overview
+
+This guide will walk you through the basic functions of the blockchain operators:
+
+1. [Creating a new blockchain](#creating-a-new-blockchain)
+2. [Creating blocks](#creating-blocks)
+3. [Permissioning the network](#network-permissions)
+4. [Adding/removing blockchain operators](#adding-removing-blockchain-operators)
 
 ### Creating a new blockchain
 

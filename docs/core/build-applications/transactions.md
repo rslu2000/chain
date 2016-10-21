@@ -97,7 +97,7 @@ Method             | Description
 setStartTime       | Sets the latest transaction timestamp to include in results.       
 setEndTime         | Sets the earliest transaction timestamp to include in results.     
 setFilter          | Sets a filter on the results.                                      
-addFilterParameter | Defines a value for the first undefined placeholder in the filter. 
+addFilterParameter | Defines a value for the first undefined placeholder in the filter.
 setAscending       | Orders the results from earliest to latest timestamp.              
 
 ### Filters

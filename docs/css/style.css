@@ -108,7 +108,7 @@ a,
 article a,
 #side-nav ul li a.active,
 #side-nav ul li a:hover {
-	color: #00b6a2; /*#00BFAA;*/
+	color: #00BFAA;
 }
 
 a {
@@ -278,7 +278,6 @@ a {
 #doc-header {
     margin-left: calc((100% - 994px) / 2 + 226px);
     overflow-x: hidden;
-    border-bottom: 1px solid rgba(120, 134, 156, .08);
     width: 700px;
 }
 
@@ -1167,14 +1166,14 @@ input:focus {
     justify-content: space-between;
     flex-wrap: wrap;
     list-style: none;
-    margin-top: 16px !important;
+    margin-top: 24px !important;
     margin-bottom: 25px
 }
 
 .download-options li {
     flex-shrink: 0;
     width: 30%;
-    margin: 0 0 23px;
+    margin: 0 0 10px;
     padding: 0;
     height: 115px;
     line-height: 115px;
