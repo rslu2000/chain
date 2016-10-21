@@ -716,16 +716,19 @@ article thead tr th {
 code {
     font-weight: 500;
     font-family: Nitti-Normal;
-    font-size: 95%;
+    font-size: 90%;
 }
 
 li > code,
 p > code {
-    border-radius: 2px;
+    border-radius: 3px;
     padding: 2px 2px;
     margin: 0 -1px;
-	color: #353c3f;
-    background: #f6f8f7;
+    color: #353c3f;
+    font-family: Nitti-Medium;
+    color: #404446;
+    letter-spacing: -0.8px;
+    background: #fafafa;
 }
 
 
