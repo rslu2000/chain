@@ -48,9 +48,9 @@ Limit values are designed to prevent denial-of-service attacks for unauthenticat
 
 Most constants have a default value that can be adjusted for every specific network.
 
-Network Parameter            | Description                                                                                    | Default Value
+Parameter                    | Description                                                                                    | Default Value
 -----------------------------|------------------------------------------------------------------------------------------------|----------------
-**Block Signing Keys**       | A set of initial block signing public keys used in the [initial block](#make-initial-block)    | N/A
+**Block Signing Keys**       | A set of initial block signing public keys used in the [initial block](#make-initial-block).   | N/A
 **VM 1 Run Limit**           | Maximum run limit for [evaluating predicates](#evaluate-predicate) using VM version 1.         | 50000
 
 
