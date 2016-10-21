@@ -64,10 +64,13 @@
         <li>
           <a class="toggle" href="javascript:void(0);">Reference</a>
           <ul class="inner">
-            <li><a href="/docs/java/javadoc/index.html" target="_blank">Java SDK</a></li>
+            <li><a href="/docs/java/javadoc/index.html" target="_blank" class="skip-next-up">Java SDK</a></li>
             <li><a href="/docs/core/reference/api-objects">API Objects</a></li>
-            <li><a href="/docs/core/reference/product-roadmap">Product Roadmap</a></li>
+            <li><a href="/docs/core/reference/product-roadmap" class="skip-next-up">Product Roadmap</a></li>
+            <!--
+            Uncomment when we release 1.1 and actually have some changelog.
             <li><a href="/docs/core/reference/changelog">Changelog</a></li>
+            -->
           </ul>
         </li>
          <!--<li class="divider"></li>-->
@@ -85,11 +88,11 @@
         <li>
           <a class="toggle" href="javascript:void(0);">Specifications</a>
           <ul class="inner">
-            <li><a href="/docs/protocol/specifications/data">Data Model</a></li>
-            <li><a href="/docs/protocol/specifications/validation">Validation</a></li>
-            <li><a href="/docs/protocol/specifications/consensus">Consensus</a></li>
-            <li><a href="/docs/protocol/specifications/vm1">Virtual Machine</a></li>
-            <li><a href="/docs/protocol/specifications/chainkd">ChainKD</a></li>
+            <li><a href="/docs/protocol/specifications/data" title="Data Model Specification">Data Model</a></li>
+            <li><a href="/docs/protocol/specifications/validation" title="Validation Specification">Validation</a></li>
+            <li><a href="/docs/protocol/specifications/consensus"  title="Consensus Specification">Consensus</a></li>
+            <li><a href="/docs/protocol/specifications/vm1" title="Virtual Machine Specification">Virtual Machine</a></li>
+            <li><a href="/docs/protocol/specifications/chainkd" title="Chain Key Derivation Specification">ChainKD</a></li>
           </ul>
         </li>
       </ul>
@@ -102,7 +105,7 @@
 
       <footer>
         <div id="up-next" style="display:none">
-          <h2>Up next</h2>
+          <h2 data-backtitle="Back to">Up next</h2>
 
           <a href="" class="next-step"><span>Placeholder</span>
             <img src="/docs/images/arrow-right.png" class="btn-icon icon-next">
