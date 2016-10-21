@@ -7,6 +7,7 @@ You can use transaction feeds to process transactions as they arrive on the bloc
 ### Sample Code
 
 All code samples in this guide are extracted from a single Java file.
+
 <a href="../examples/java/RealTimeTransactionProcessing.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Example

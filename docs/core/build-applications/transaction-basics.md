@@ -26,7 +26,6 @@ As a result, spending a single input often requires two outputs--one output for 
 
 Some payments may require more asset units than are available in any single unspent output you control. When spending from an account, the Chain Core will automatically select unspent outputs to satisfy your payment as long as the account controls enough units of the asset in total.
 
-
 ## Overview
 
 This guide describes the structure of transactions, and how to use the Chain Core API and SDK to create and use them. There are code examples for several types of basic transaction, including:
@@ -41,6 +40,7 @@ If you haven't already, you should first check out the [5-Minute Guide](../get-s
 ### Sample Code
 
 All code samples in this guide are extracted from a single Java file.
+
 <a href="../examples/java/TransactionBasics.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Creating transactions
