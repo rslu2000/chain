@@ -82,10 +82,9 @@ p {
   border-color: $highlight-default;
   height: 40px;
   color: $text-main-color;
-  border-radius: 2px;
+  border-radius: $border-radius-standard;
   background-color: $highlight-default;
   padding: 0 20px;
-  box-shadow: none;
 }
 .btn:hover,
 .btn:active,
