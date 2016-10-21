@@ -27,9 +27,10 @@ This guide will walk you through the basic functions of an account:
 This guide assumes you know the basic functions presented in the [5-Minute Guide](../get-started/five-minute-guide.md).
 
 ### Sample Code
-All code samples in this guide are extracted from a single Java file.
-<a href="../examples/java/Accounts.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
+All code samples in this guide are extracted from a single Java file.
+
+<a href="../examples/java/Accounts.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Create account
 

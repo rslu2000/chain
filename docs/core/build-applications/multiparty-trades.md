@@ -13,6 +13,7 @@ Please make sure you've read [Transaction Basics](../build-applications/transact
 ### Sample Code
 
 All code samples in this guide are extracted from a single Java file.
+
 <a href="../examples/java/MultipartyTrades.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Example: Trading within the same core and application
