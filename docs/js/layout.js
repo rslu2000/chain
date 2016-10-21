@@ -46,15 +46,22 @@ function prepareUpNextButton() {
 			currentIndex = i
 			return
 		}
-		if (i == (currentIndex+1)) {
+		if (i > currentIndex && !a.hasClass("skip-next-up")) {
 			var upNext = $("#up-next")
 			upNext.show()
+			
+			if (currentIndex < 0) {
+				$("h2", upNext).text($("h2", upNext).data("backtitle"))
+			}
+			
 			var title = a.attr("title")
 			if (!title || title == "") { 
 				title = a.text()
 			}
 			$("a > span", upNext).text(title)
 			$("a", upNext).attr('href', url)
+			
+			currentIndex = 9999; // reset this so we don't use the following items
 			return
 		}
 	})	
