@@ -819,7 +819,8 @@ article li > .code:last-child {
     margin-top: 10px;
 }
 a.btn.success {
-    width: 155px;
+    min-width: 155px;
+    max-width: 200px;
     border-radius: 4px;
     font-weight: 500;
     line-height: 39px;
@@ -834,6 +835,7 @@ a.btn.success {
     height: 39px;
     padding: 5px 30px;
     text-align: center;
+    transition: all 0.2s linear;
 }
 a.btn:hover,
 a.btn:active,
@@ -846,6 +848,11 @@ a.btn:focus {
     outline: 0;
     transition: background-color 0.5s ease;
     border-color: #00d9c1;
+}
+
+
+a.btn:hover .icon-download {
+    transform: translateY(2px);
 }
 
 
