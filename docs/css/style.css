@@ -289,10 +289,10 @@ a {
 
 /* # Article Paragraphs */
 
-article p:first-of-type {
+/*article p:first-of-type {
     padding-top: 10px;
     margin-top: 20px;
-}
+}*/
 
 article strong {
     font-weight: 600;
@@ -430,13 +430,8 @@ article div.sidenote > p:first-of-type {
 article div.sidenote p,
 article div.sidenote ul,
 article div.sidenote ol {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 20px;
-	color: #515b61;
-}
-
-article div.sidenote strong {
-	color: #444c51;
 }
 
 article div.sidenote p:not(:first-child) {
@@ -451,13 +446,11 @@ h1 {
     font-weight: 400;
     border-bottom: 1px solid rgba(120, 134, 156, .15);
     padding-bottom: 8px;
- 	clear: both;
 }
 
 h2 {
     font-size: 24px;
     padding-top: 40px;
- 	clear: both;
 }
 
 h2,
@@ -490,18 +483,18 @@ p:not(:first-child) {
     padding-top: 12px
 }
 
-#doc-content h2 {
+.doc-content h2 {
     margin-top: 40px;
     padding-top: 40px;
     border-top: 1px solid rgba(120, 134, 156, .15);
 }
 
-#doc-content h2:first-of-type {
+h2:first-of-type {
     border-top: none;
     padding-top: 10px;
     margin-top: 20px;
 }
-#doc-content footer h2 {
+.doc-content footer h2 {
     margin-top: 0;
     padding-top: 40px;
     border-top: 1px solid rgba(120, 134, 156, .15);
@@ -567,14 +560,6 @@ section:after {
 
 footer {
     padding: 39px 0
-}
-
-/* Custom overrides */
-
-#doc-content.docs_protocol_papers_protocol-roadmap > h2 {
-	padding-top:20px;
-	margin-top:0px;
-	border-top:none;
 }
 
 /* Side reference for Protocol guides */
@@ -719,22 +704,23 @@ article thead tr th {
 code {
     font-weight: 500;
     font-family: Nitti-Normal;
-    font-size: 94%;
+    font-size: 95%;
 }
 
-li > code,
-p > code {
-    letter-spacing: -0.05em;
-}
-
-li > code,
-p > code {
-    border-radius: 2px;
-    padding: 2px 2px;
+/*li > code,
+p code {
+    border-radius: 5px;
+    letter-spacing: -1px;
+    padding: 3px 4px;
     margin: 0 1px;
-    background: #f7fbf9; /*f8f8f8*/
+    letter-spacing: -1.2px;
+    background: #f8f8f8;
 }
-
+*/
+li > code,
+p code {
+    letter-spacing: -0.06em;
+}
 
 
 .code:not(:first-child) {
@@ -1196,16 +1182,11 @@ input:focus {
 }
 
 .download-options li a:active {
-    background-color: #fafcfc;
+    background-color: #fafcfc
 }
 
 .download-options li a:hover {
     background: #fcfcfc;
-}
-
-.download-options li a.active,
-.download-options li a.active:hover {
-	background: #f9fefe;
 }
 
 .download-options li a h3 {
