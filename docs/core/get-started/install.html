@@ -1,21 +1,22 @@
+
       <div class="option-container">
         <h1>Install Chain Core Developer Edition</h1>
         <h2>Choose operating system</h2>
-        <ul class="download-options tab">
-          <li class="download-option">
-            <a href="javascript:void(0)" class="tablinks active" onclick="openOS(event, 'mac')">
+        <ul id="download-options" class="tab">
+          <li class="download-option" id="download-option-mac">
+            <a href="javascript:void(0)" class="tablinks active" onclick="selectOSTab(event.currentTarget, 'mac')">
               <div class="os-icon os-icon-mac"></div>
               <h3 data-no-anchor="">Mac</h3>
             </a>
           </li>
-          <li class="download-option">
-            <a href="javascript:void(0)" class="tablinks" onclick="openOS(event, 'windows')">
+          <li class="download-option" id="download-option-windows">
+            <a href="javascript:void(0)" class="tablinks" onclick="selectOSTab(event.currentTarget, 'windows')">
               <div class="os-icon os-icon-windows"></div>
               <h3 data-no-anchor="">Windows</h3>
             </a>
           </li>
-          <li class="download-option">
-            <a href="javascript:void(0)" class="tablinks" onclick="openOS(event, 'linux')">
+          <li class="download-option" id="download-option-linux">
+            <a href="javascript:void(0)" class="tablinks" onclick="selectOSTab(event.currentTarget, 'linux')">
               <div class="os-icon os-icon-linux"></div>
               <h3 data-no-anchor="">Linux</h3>
             </a>
@@ -28,7 +29,7 @@
 
         <div id="mac" class="tabcontent" style="display: block;">
           <h2>Download Mac app</h2>
-          <p>Download and run <strong>Chain Core.app</strong>. There is no step three.</p>
+          <p>Download and run <strong>Chain Core</strong> app. There is no step three.</p>
 
           <p>
             <a href="https://download.chain.com/mac/Chain_Core.zip"  class="downloadBtn btn success">
@@ -58,7 +59,7 @@
 
         <div id="windows" class="tabcontent">
           <h2>Download Windows installer</h2>
-          <p>Download and run <strong>Chain_Core_Latest.exe</strong>. After installation you will be able to use <code>cored</code> and <code>corectl</code> binaries directly from your command line.</p>
+          <p>Download and run <strong>Chain Core Installer</strong>. After installation, open <strong>Start menu</strong> and run <strong>Chain Core</strong>.</p>
 
           <p>
             <a href="https://download.chain.com/windows/Chain_Core_Latest.exe"  class="downloadBtn btn success">

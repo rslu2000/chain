@@ -76,8 +76,28 @@ function prepareUpNextButton() {
 	}
 }
 
+function selectOSForDownload() {
+	if ($("#download-options")[0]) {
+		var ua = navigator.userAgent.toUpperCase()
+		
+		var isMac     = ua.indexOf('MAC') !== -1;
+		var isWindows = ua.indexOf('WIN') !== -1;
+		var isLinux   = ua.indexOf('LINUX') !== -1;
+		
+		if (isMac) { 
+			selectOSTab($('#download-option-mac a')[0], 'mac');
+		} else if (isWindows) { 
+			selectOSTab($('#download-option-windows a')[0], 'windows');
+		} else if (isLinux) { 
+			selectOSTab($('#download-option-linux a')[0], 'linux');
+		} else {
+			
+		}
+	}
+}
+
 // switcher between the navtabs for operating systems
-function openOS(evt, osName) {
+function selectOSTab(target, osName) {
   // Declare all variables
   var i, tabcontent, tablinks;
 
@@ -95,7 +115,7 @@ function openOS(evt, osName) {
 
   // Show the current tab, and add an "active" class to the link that opened the tab
   document.getElementById(osName).style.display = "block";
-  evt.currentTarget.className += " active";
+  target.className += " active";
 }
 
 function attachSignupFormToDownloadButton() {
