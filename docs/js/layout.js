@@ -39,6 +39,23 @@ function prepareUpNextButton() {
 	p = p.replace(/\/+$/,"")
 	var toc = $('.docs-nav .inner a')
 	var currentIndex = -100
+	
+	var setUpNext = function(a, url, ci) {
+		var upNext = $("#up-next")
+		upNext.show()
+		
+		if (ci < 0) {
+			$("h2", upNext).text($("h2", upNext).data("backtitle"))
+		}
+		
+		var title = a.attr("title")
+		if (!title || title == "") { 
+			title = a.text()
+		}
+		$("a > span", upNext).text(title)
+		$("a", upNext).attr('href', url)
+	}
+	
 	toc.each(function(i){
 		var a = $(this)
 		var url = a.attr("href")
@@ -46,25 +63,17 @@ function prepareUpNextButton() {
 			currentIndex = i
 			return
 		}
-		if (i > currentIndex && !a.hasClass("skip-next-up")) {
-			var upNext = $("#up-next")
-			upNext.show()
-			
-			if (currentIndex < 0) {
-				$("h2", upNext).text($("h2", upNext).data("backtitle"))
-			}
-			
-			var title = a.attr("title")
-			if (!title || title == "") { 
-				title = a.text()
-			}
-			$("a > span", upNext).text(title)
-			$("a", upNext).attr('href', url)
-			
+		if (currentIndex >= 0 && i > currentIndex && !a.hasClass("skip-next-up")) {
+			setUpNext(a, url, currentIndex)
 			currentIndex = 9999; // reset this so we don't use the following items
 			return
 		}
 	})	
+	
+	if (currentIndex < 9999) {
+		var a = toc.first()
+		setUpNext(a, a.attr("href"), -1)
+	}
 }
 
 // switcher between the navtabs for operating systems
