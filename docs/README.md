@@ -36,7 +36,7 @@
   * [Federated Consensus](protocol/papers/federated-consensus.md)
   * [Blockchain Programs](protocol/papers/blockchain-programs.md)
   * [Blockchain Extensibility](protocol/papers/blockchain-extensibility.md)
-  * [Protocol Roadmap](protocol/papers/roadmap.md)
+  * [Protocol Roadmap](protocol/papers/protocol-roadmap.md)
 
 * Specifications
   * [Data Model](protocol/specifications/data.md)
