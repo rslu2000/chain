@@ -21,9 +21,11 @@ Each network is secured by a federation of “block signers.” The system is se
 
 Chain Core is an enterprise software product that implements the Chain Protocol. An open-source [developer edition](https://github.com/chain/chain) is freely available, and Chain operates a Chain blockchain network as a freely accessible testnet. 
 
-Section [2](#2-motivation) explains the background and motivation for the design of the protocol. Sections [3](#3-data-model), [4](#4-programs), and [5](#5-consensus) describe key concepts — assets, transactions, programs, blockchain and consensus protocol — and discuss how programmed rules are enforced and double-spending is prevented.
+In the [second section](#2-motivation), we explain the background and motivation for the design of the protocol.
 
-Subsequent sections discuss various aspects of the blockchain network: [security](#6-security), [scalability](#7-scalability), [extensibility](#8-extensibility) and [interoperability with other networks](#9-interoperability).
+Next, we describe key concepts — [assets, transactions, blocks](#3-data-model), [programs](#4-programs) and [consensus protocol](#5-consensus) — and discuss how programmed rules are enforced and double-spending is prevented.
+
+Finally, we discuss various aspects of the blockchain network: [security](#6-security), [scalability](#7-scalability), [extensibility](#8-extensibility) and [interoperability with other networks](#9-interoperability).
 
 
 ## 2. Motivation
