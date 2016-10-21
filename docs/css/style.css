@@ -483,15 +483,15 @@ p:not(:first-child) {
     padding-top: 12px
 }
 
-.doc-content h2 {
+#doc-content h2 {
     margin-top: 40px;
     padding-top: 40px;
     border-top: 1px solid rgba(120, 134, 156, .15);
 }
 
-h2:first-of-type {
+#doc-content h2:first-of-type {
     border-top: none;
-    padding-top: 10px;
+    padding-top: 20px;
     margin-top: 20px;
 }
 .doc-content footer h2 {
