@@ -1,10 +1,5 @@
 # Global vs Local Data
 
-* [Introduction](#introduction)
-* [User-supplied global data](#user-supplied-global-data)
-* [User-supplied local data](#user-supplied-local-data)
-* [Examples](#examples)
-
 ## Introduction
 
 There are two types of data in Chain Core — global data that is committed to the blockchain and local data that is private to the Chain Core. Transactions and assets are the only global objects. All other objects are local.
