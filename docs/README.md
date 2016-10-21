@@ -26,7 +26,7 @@
 * Reference
   * [Java SDK](#)
   * [API Objects](core/reference/api-objects.md)
-  * [Product Roadmap](core/get-started/product-roadmap.md)
+  * [Product Roadmap](core/reference/product-roadmap.md)
   * [Changelog](#)
 
 ## Chain Protocol

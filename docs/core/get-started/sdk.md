@@ -7,8 +7,8 @@ The Chain Core Java SDK enables your application to communicate with Chain Core.
 
 ## Ruby
 
-Coming soon. See the [product roadmap](https://chain.com/roadmap) for details.
+Coming soon. See the [product roadmap](../reference/product-roadmap.md) for details.
 
 ## Node.JS
 
-Coming soon. See the [product roadmap](https://chain.com/roadmap) for details.
+Coming soon. See the [product roadmap](../reference/product-roadmap.md) for details.
