@@ -103,16 +103,22 @@ body {
 
 
 /* Links */
+a, 
+#doc-header a,
+article a,
+#side-nav ul li a.active,
+#side-nav ul li a:hover {
+	color: #00b6a2; /*#00BFAA;*/
+}
+
 a {
     font-family: NittiGrotesk-Normal;
-    color: #00BFAA;
     text-decoration: none;
 }
 #doc-header a {
     font-size: 17px;
     line-height: 55px;
     padding-left: 30px;
-    color: #00BFAA;
     text-decoration: none;
     font-family: NittiGrotesk-Normal;
 }
@@ -199,12 +205,8 @@ a {
     font-weight: 500;
     background: transparent;
     position: relative;
-    color: #00BFAA;
 }
 
-#side-nav ul li a.active {
-    color: #00BFAA  ;
-}
 
 #side-nav h1 a.selected,
 #side-nav ul li a.selected {
