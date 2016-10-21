@@ -245,7 +245,6 @@ Input Witness     | Extensible string   | Optional [input witness](#transaction-
 **Asset Version 1** defines two types of input commitments. The type is specified by a single-byte prefix.
 
 1. **Issuance Commitment:** (type 0x00) introduces new units of an asset defined by its issuance program.
-
 2. **Spend Commitment:** (type 0x01) references already existing value stored in an unspent output.
 
 Nodes must reject transactions with unknown type values for asset version 1.
