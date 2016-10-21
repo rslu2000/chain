@@ -284,21 +284,13 @@ a {
 	padding-right:40px;
     border-bottom: 1px solid #e8e8e8;
 }
-#doc-content p:first-of-type {
+
+/* # Article Paragraphs */
+
+article p:first-of-type {
     padding-top: 10px;
     margin-top: 20px;
 }
-
- /*By default, all children are 680px */
-/*#doc-content > * {*/
-    /*width: 770px;*/
-/*}*/
-
-/*#doc-content > section.text-block,*/
-/*#doc-content > table {*/
-	/*width: auto;*/
-	/*min-width:680px;*/
-/*}*/
 
 
 
@@ -306,6 +298,11 @@ a {
 ul {
     list-style: none
 }
+
+#doc-content h1 + ul:first-of-type {
+    margin-top: 30px;
+}
+
 #doc-header ul {
     text-align: right
 }
@@ -386,39 +383,43 @@ sup { top: -0.5em; }
 sub { top:  0.5em; }
 
 
+/* # Sidenotes */
 
-/*article ul > li:before {
-    content: "";
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    left: 10px;
-    top: 8px;
-    border-radius: 50%;
-    background: #dbdce0;
-}
-article ol > li:before {
-    counter-increment: a;
-    content: counter(a);
-    background: #efefef;
-    color: #20252d;
-    font-family: NittiGrotesk-Medium;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1;
-    text-align: center;
-    padding: 4px 0;
-    height: 13px;
-    width: 20px;
-    border-radius: 10px;
-    position: absolute;
-    left: 0;
-    top: 3px;
-}*/
 
-#doc-content h1 + ul:first-of-type {
-    margin-top: 30px;
+article div.sidenote {
+	background-color: #fafafa;
+	margin-top:12px;
+	margin-left:45px;
+	margin-bottom:20px;
+	padding:20px 24px;
+	float:right;
+	max-width:40%;
 }
+
+article div.sidenote {
+	border-left: 4px solid #B9F4EE;
+	background:none;
+	padding-top:0;
+	padding-bottom:0;
+	padding-left:16px;
+	margin-left:50px;
+	margin-bottom:30px;
+}
+
+article div.sidenote > p:first-of-type {
+	margin-top:0;
+	padding-top:0;
+}
+
+article div.sidenote p {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+article div.sidenote p:not(:first-child) {
+    padding-top: 0px
+}
+
 
 /* Headers */
 h1 {
@@ -564,55 +565,6 @@ section.text-block p:first-of-type {
 
 }
 
-div.sidenote {
-	background-color: #fafafa;
-	margin:20px;
-	padding:20px;
-	float:right;
-	max-width:40%;
-
-}
-div.sidenote p {
-    font-size: 16px;
-    line-height: 24px;
-}
-
-/*div.sidenote:first-child {
-    margin-top: 0;
-}
-*/
-div.sidenote h3 {
-    font-size: 15px;
-    color: #373e42;
-    font-weight: 500;
-}
-
-div.sidenote p:not(:first-child) {
-    padding-top: 0px
-}
-
-/*
-div.sidenote p,
-div.sidenote ul {
-    color: #373e42;
-    line-height: 18px
-}
-
-div.sidenote ul li {
-    padding-left: 25px
-}
-
-div.sidenote ul li:before {
-    top: 7px;
-    width: 4px;
-    height: 4px
-}
-*/
-code {
-    font-weight: 500;
-    color: #20252D
-}
-
 strong {
     font-weight: 600;
 }
@@ -658,7 +610,11 @@ h3 .tag {
     font-size: 12px
 }
 
-/* Table */
+
+
+
+/* # Tables */
+
 article table {
     width: 100%;
     border-collapse: separate;
@@ -729,6 +685,30 @@ article thead tr th {
 
 
 /* Pre and Code */
+
+code {
+    font-weight: 500;
+    xcolor: #20252D;
+    font-family: Nitti-Normal;
+    font-size: 95%;
+}
+
+/*li > code,
+p code {
+    border-radius: 5px;
+    letter-spacing: -1px;
+    padding: 3px 4px;
+    margin: 0 1px;
+    letter-spacing: -1.2px;
+    background: #f8f8f8;
+}
+*/
+li > code,
+p code {
+    letter-spacing: -0.06em;
+}
+
+
 .code:not(:first-child) {
     margin-top: 18px
 }
@@ -802,20 +782,6 @@ article li > .code {
 
 article li > .code:last-child {
     margin-bottom: 18px
-}
-code {
-    font-family: Nitti-Normal;
-    font-size: 15px;
-}
-
-li > code,
-p code {
-    border-radius: 5px;
-    letter-spacing: -1px;
-    padding: 3px 4px;
-    margin: 0 1px;
-    letter-spacing: -1.2px;
-    background: #f8f8f8;
 }
 
 
