@@ -294,7 +294,8 @@ article h1 + p:first-of-type {
 }
 
 article strong {
-    font-weight: 600;
+    font-weight: normal;
+    font-family: NittiGrotesk-Bold;
 }
 
 article li strong,
