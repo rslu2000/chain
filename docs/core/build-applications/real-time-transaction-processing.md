@@ -104,13 +104,13 @@ A transaction feed provides transactions in the order they are arranged on the b
 
 #### Efficiency
 
-Under the hood, the SDK reads data from a transaction feed using a long-polling mechanism. This ensures that network calls between your application and the Chain Core are kept to a minimum.
+Under the hood, the SDK reads data from a transaction feed using a long-polling mechanism. This ensures that network round trips between your application and the Chain Core are kept to a minimum.
 
 #### When to call `ack`
 
 Calling `ack` for each cycle of your processing loop is the safest strategy, but it's not the only strategy. If you'd prefer to cut down on API calls to the Chain Core, you can call `ack` less frequently. The less frequently you call `ack`, the more risk you'll have of repeating some processing if your program terminates unexpectedly.
 
-Transaction feeds provide *at-least-once* delivery of transactions. Regardless of how frequently you call `ack`, it's a good idea to design your transaction processing to be **idempotent**, so that your application can re-process a given transaction without adverse effects.
+Transaction feeds provide *at-least-once* delivery of transactions; occasionally, a transaction may be delivered multiple times. Regardless of how frequently you call `ack`, it's a good idea to design your transaction processing to be **idempotent**, so that your application can process a given transaction twice or more without adverse effects.
 
 #### Concurrency
 
