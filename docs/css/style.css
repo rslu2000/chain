@@ -385,10 +385,6 @@ sub { top:  0.5em; }
 
 /* # Sidenotes */
 
-/*article p that has div.sidenote after it {
-	float:left;
-}*/
-
 article div.sidenote {
 	background-color: #fafafa;
 	margin-top:12px;
@@ -402,11 +398,12 @@ article div.sidenote {
 article div.sidenote {
 	border-left: 4px solid #B9F4EE;
 	background:none;
-	padding-top:0;
-	padding-bottom:0;
+	padding-top:0px;
+	padding-bottom:0px;
 	padding-left:16px;
+	padding-right:0;
 	margin-left:50px;
-	margin-bottom:30px;
+	margin-bottom:20px;
 }
 
 article div.sidenote > p:first-of-type {
@@ -420,7 +417,7 @@ article div.sidenote p {
 }
 
 article div.sidenote p:not(:first-child) {
-    padding-top: 0px
+    padding-top: 7px;
 }
 
 

@@ -84,6 +84,18 @@ function showSignUpForm() {
 	 }
 }
 
+function fixupSidenotes() {
+	$(function(){
+		// Sidenotes want to be logically under the paragraph to which they belong, but we want to render them to float right to them.
+		// CSS only allows us to make sidenote float to the right of the *next* element, not the previous one.
+		// To fix this, we simply relocate sidenote in runtime before it's preceding sibling.
+		$(".sidenote").each(function(){
+			var sidenote = $(this)
+			sidenote.insertBefore(sidenote.prev())
+		})
+	})
+}
+
 
 //function adjustWidths() {
 //	setTimeout(function(){

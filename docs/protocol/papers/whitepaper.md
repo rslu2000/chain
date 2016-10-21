@@ -73,9 +73,9 @@ This “witness” field is not included in the transaction ID, and is therefore
 
 [/sidenote]
 
-![Spending Transaction Output](whitepaper-spend.png)
-
 Each transaction, and each individual input and output, includes a *reference data* field for arbitrary application-level uses. The Chain Protocol specifies how reference data is committed to the blockchain, but does not mandate any structure or semantics for its contents.
+
+![Spending Transaction Output](whitepaper-spend.png)
 
 #### Blocks
 
