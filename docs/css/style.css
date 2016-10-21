@@ -1239,6 +1239,9 @@ input:focus {
 .docs-nav ul .inner {
     padding-left: 1em;
     overflow: hidden;
+}
+
+.docs-nav.folded-by-default ul .inner {
     display: none;
 }
 .docs-nav ul .inner.show {

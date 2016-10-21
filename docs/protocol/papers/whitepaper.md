@@ -13,7 +13,7 @@
 
 ## 1. Introduction
 
-In this paper, we present the Chain Protocol: a blueprint for a multi-asset shared ledger designed for large-scale financial networks. It supports the coexistence and interoperability of multiple independent networks, with different operators, sharing a common format and capabilities. Using the principle of least authority, control over assets is separated from control over ledger synchronization.
+In this paper, we present the Chain Protocol: a design for a shared, multi-asset, cryptographic ledger. It supports the coexistence and interoperability of multiple independent networks, with different operators, sharing a common format and capabilities. Using the principle of least authority, control over assets is separated from control over ledger synchronization.
 
 The Chain Protocol allows any network participant to define and issue assets by writing custom “issuance programs.” Once issued, units of an asset are controlled by “control programs.” These programs are expressed in a flexible and Turing-complete programming language that can be used to build sophisticated smart contracts.
 
@@ -254,7 +254,7 @@ The Chain Protocol uses standard cryptographic tools such as SHA-2 and SHA-3 has
 
 ## 10. Conclusion
 
-This paper has presented the Chain Protocol: a blueprint for a shared, multi-asset, cryptographic ledger that can underpin modern financial networks. The protocol is designed for large scale applications, offering a scalable and extensible data model with a flexible yet robust programming environment.
+This paper has presented the Chain Protocol: a design for a shared, multi-asset, cryptographic ledger that can underpin modern financial networks. The protocol is designed for large scale applications, offering a scalable and extensible data model with a flexible yet robust programming environment.
 
 The Chain Protocol allows participants to issue and control assets programmatically using digital signatures and custom rules. Transactions issuing and controlling assets are collected into a cryptographic chain of blocks forming a shared ledger. Block signers follow a [federated consensus protocol](#5-consensus) to replicate a single copy of the ledger across all nodes to prevent reversal of transactions and double-spending. 
 
