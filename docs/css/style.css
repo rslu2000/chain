@@ -483,7 +483,7 @@ p:not(:first-child) {
     padding-top: 12px
 }
 
-.doc-content h2 {
+#doc-content h2 {
     margin-top: 40px;
     padding-top: 40px;
     border-top: 1px solid rgba(120, 134, 156, .15);
@@ -494,7 +494,7 @@ h2:first-of-type {
     padding-top: 10px;
     margin-top: 20px;
 }
-.doc-content footer h2 {
+#doc-content footer h2 {
     margin-top: 0;
     padding-top: 40px;
     border-top: 1px solid rgba(120, 134, 156, .15);
@@ -560,6 +560,14 @@ section:after {
 
 footer {
     padding: 39px 0
+}
+
+/* Custom overrides */
+
+#doc-content.docs_protocol_papers_protocol-roadmap > h2 {
+	padding-top:20px;
+	margin-top:0px;
+	border-top:none;
 }
 
 /* Side reference for Protocol guides */

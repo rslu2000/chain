@@ -4,24 +4,24 @@ Chain Protocol 1 is aimed at laying a foundation for future upgrades and large-s
 
 **Disclaimer:** this roadmap does not represent a commitment to specific features, deadlines or order of implementation. It also mostly focuses on protocol-level features and does not cover specific improvements to Chain Core or any additional software.
 
-### Denial of service mitigation
+## Denial of service mitigation
 
 * Explicit limits on number and size of blockchain entities (size of the blocks, number  of transactions etc).
 * Fine-tuned runtime cost limits for the control and issuance programs.
 * Improvemenets to consensus algorithm.
 
-### Privacy
+## Privacy
 
 * Homomorphically encrypted amounts and asset identifiers to provide secrecy for balances and financial parameters of the transactions.
 * Controlled traceability of the transactions; hiding the link between transaction inputs and the previous transactions’ outputs.
 
-### Programs
+## Programs
 
 * Generalizing virtual machine for on-chain and off-chain predicate evaluation.
 * Support for arithmetic on homomorphically encrypted values (to improve confidentiality of on-chain programs).
 * High-level programming language and formal verification toolkit.
 
-### Scalability
+## Scalability
 
 * Reducing the amount of data to be stored by the nodes by requiring clients use more sophisticated proofs.
 * More elaborate support for compact proofs to improve security of clients that do not validate the blockchain entirely.

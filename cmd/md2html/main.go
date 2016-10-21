@@ -17,7 +17,8 @@ import (
 	"github.com/russross/blackfriday"
 )
 
-var defaultLayout = []byte("{{Body}}")
+var layoutPlaceholder = []byte("{{Body}}")
+var documentNamePlaceholder = []byte("{{Filename}}")
 
 func main() {
 	var dest = ":8080"
@@ -135,17 +136,18 @@ func convert(dest string) {
 }
 
 func renderHTML(path string) ([]byte, error) {
-	output, err := ioutil.ReadFile(path)
+	content, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
 
-	layoutSrc, err := layout(path)
+	html, err := layout(path)
 	if err != nil {
 		return nil, err
 	}
-
-	return bytes.Replace(layoutSrc, defaultLayout, output, 1), nil
+	
+	html = bytes.Replace(html, layoutPlaceholder, content, 1)
+	return html, nil
 }
 
 func printe(err error) {
@@ -162,7 +164,7 @@ func render(f string) ([]byte, error) {
 
 	src = interpolateCode(src, path.Dir(f))
 
-	layout, err := layout(f)
+	html, err := layout(f)
 	if err != nil {
 		return nil, err
 	}
@@ -171,13 +173,18 @@ func render(f string) ([]byte, error) {
 	src = markdown(src)
 	src = formatSidenotes(src)
 
-	return bytes.Replace(layout, defaultLayout, src, 1), nil
+	html = bytes.Replace(html, layoutPlaceholder, src, 1)
+	pathClass := strings.Replace(strings.TrimSuffix(strings.TrimPrefix(strings.TrimPrefix(f, "./"), "../"), ".md"), "/", "_", -1)
+	html = bytes.Replace(html, documentNamePlaceholder, []byte(pathClass), -1)
+	
+	return html, nil
 }
 
 // Returns the contents of a layout.html file
 // starting in the directory of p and ending at the command's
 // working directory.
-// If no layout.html file is found defaultLayout is returned.
+// If no layout.html file is found layoutPlaceholder is returned 
+// as a default layout.
 func layout(p string) ([]byte, error) {
 	// Don't search for layouts beyond the working dir
 	wd, err := os.Getwd()
@@ -200,7 +207,7 @@ func layout(p string) ([]byte, error) {
 		}
 	}
 
-	return defaultLayout, nil
+	return layoutPlaceholder, nil
 }
 
 func interpolateCode(md []byte, hostPath string) []byte {
