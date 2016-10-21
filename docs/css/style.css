@@ -108,7 +108,7 @@ a,
 article a,
 #side-nav ul li a.active,
 #side-nav ul li a:hover {
-	color: #00b6a2; /*#00BFAA;*/
+	color: #00BFAA;
 }
 
 a {
