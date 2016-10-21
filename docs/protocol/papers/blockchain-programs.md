@@ -17,15 +17,21 @@
 
 ## Introduction
 
-Chain Protocol blockchains are designed to be flexible and programmable, supporting custom logic at every level.
+Chain Protocol enables flexible control over assets by supporting custom logic at three levels:
 
-* Issuance programs specify the rules for issuing new units of an asset.
-* Control programs specify the rules for spending existing units of an asset.
-* Consensus programs specify the rules for accepting new blocks.
+* **Issuance programs**, that specify the rules for issuing new units of an asset.
+* **Control programs**, that specify the rules for spending existing units of an asset.
+* **Consensus programs**, that specify the rules for accepting new blocks.
 
-Programs authenticate the data structure in which they are used. They run deterministically, use capped memory and time requirements, and can be evaluated in parallel.
+Each program authenticates the data structure in which it is used. Programs run deterministically, use capped memory and time requirements, and can be evaluated in parallel.
 
-Programs are flexible enough to allow implementing a wide range of financial instruments (such as options, bonds, and swaps), security schemes (for storing assets), and “smart contract” applications such as offers, order books, and auctions.
+Programs are flexible enough to allow implementing:
+
+* a wide range of financial instruments (such as options, bonds, and swaps), 
+* sophisticated security schemes for holding assets,
+* and “smart contract” applications such as offers, order books, and auctions.
+
+This document discusses design and use cases for custom programs on the blockchain.
 
 ## Chain Virtual Machine
 
