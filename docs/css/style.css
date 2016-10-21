@@ -411,14 +411,11 @@ article div.sidenote {
 
 /* Option 2: green border */
 article div.sidenote {
-	border-left: 4px solid #B9F4EE;
+    padding: 10px 10px 10px 15px;
 	background:none;
-	padding-top:0px;
-	padding-bottom:0px;
-	padding-left:16px;
-	padding-right:0;
 	margin-left:50px;
 	margin-bottom:20px;
+    border: 1px solid #e8e8e8;
 }
 
 article div.sidenote > p:first-of-type {
@@ -721,23 +718,13 @@ code {
     font-size: 95%;
 }
 
-/*li > code,
-p code {
-    border-radius: 5px;
-    letter-spacing: -1px;
-    padding: 3px 4px;
-    margin: 0 1px;
-    letter-spacing: -1.2px;
-    background: #f8f8f8;
-}
-*/
 li > code,
 p > code {
     border-radius: 2px;
     padding: 2px 2px;
     margin: 0 -1px;
 	color: #353c3f;
-    background: #f6f8f7; /*f8f8f8*/
+    background: #f6f8f7;
 }
 
 
