@@ -45,23 +45,11 @@ func serve(addr string) {
 			http.ServeFile(w, r, path)
 			return
 		}
+
 		b, err := render(path + ".md")
 		if os.IsNotExist(err) {
-			// Try the index and wrap it in a layout
-			partialIndexPath := strings.TrimSuffix(path, "/") + "/index.html"
-			b, err = ioutil.ReadFile(partialIndexPath)
-			if os.IsNotExist(err) {
-				http.NotFound(w, r)
-				return
-			}
-
-			l, err := layout(partialIndexPath)
-			if err != nil {
-				http.NotFound(w, r)
-				return
-			}
-
-			b = bytes.Replace(l, defaultLayout, b, 1)
+			indexPath := strings.TrimSuffix(path, "/") + "/index.html"
+			b, err = renderIndex(indexPath)
 		}
 
 		if err != nil {
@@ -79,28 +67,62 @@ func convert(dest string) {
 		if f.IsDir() {
 			return nil
 		}
-		match, err := filepath.Match("*.md", f.Name())
+
+		isMarkdown, err := filepath.Match("*.md", f.Name())
 		printe(err)
-		if !match {
-			b, err := ioutil.ReadFile(path)
+
+		if isMarkdown {
+			b, err := render(path)
 			if err != nil {
+				printe(err)
 				return err
 			}
-			err = os.MkdirAll(filepath.Dir(filepath.Join(dest, path)), 0777)
-			if err != nil {
-				return err
-			}
-			return ioutil.WriteFile(filepath.Join(dest, path), b, 0644)
+
+			path = dest + "/" + path
+			printe(os.MkdirAll(filepath.Dir(path), 0777))
+			printe(ioutil.WriteFile(strings.TrimSuffix(path, ".md"), b, 0644))
+			fmt.Printf("converted: %s\n", path)
+			return nil
 		}
-		b, err := render(path)
+
+		isIndex, err := filepath.Match("index.html", f.Name())
 		printe(err)
-		path = dest + "/" + path
-		printe(os.MkdirAll(filepath.Dir(path), 0777))
-		printe(ioutil.WriteFile(strings.TrimSuffix(path, ".md"), b, 0644))
-		fmt.Printf("converted: %s\n", path)
-		return nil
+
+		var b []byte
+		if isIndex {
+			b, err = renderIndex(path)
+		} else {
+			b, err = ioutil.ReadFile(path)
+		}
+
+		if err != nil {
+			printe(err)
+			return err
+		}
+
+		err = os.MkdirAll(filepath.Dir(filepath.Join(dest, path)), 0777)
+		if err != nil {
+			printe(err)
+			return err
+		}
+
+		return ioutil.WriteFile(filepath.Join(dest, path), b, 0644)
 	})
 	printe(err)
+}
+
+func renderIndex(path string) ([]byte, error) {
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	layoutSrc, err := layout(path)
+	if err != nil {
+		return nil, err
+	}
+
+	return bytes.Replace(layoutSrc, defaultLayout, b, 1), nil
 }
 
 func printe(err error) {
