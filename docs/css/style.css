@@ -289,10 +289,10 @@ a {
 
 /* # Article Paragraphs */
 
-/*article p:first-of-type {
+article h1 + p:first-of-type {
     padding-top: 10px;
     margin-top: 20px;
-}*/
+}
 
 article strong {
     font-weight: 600;
@@ -489,12 +489,19 @@ p:not(:first-child) {
     border-top: 1px solid rgba(120, 134, 156, .15);
 }
 
-h2:first-of-type {
+#doc-content h1 + h2 {
     border-top: none;
-    padding-top: 10px;
+    padding-top: 20px;
     margin-top: 20px;
 }
-#doc-content footer h2 {
+
+#doc-content .separator-tag + h2 {
+    border-top: none;
+    padding-top: 10px;
+    margin-top: 0;
+}
+
+.doc-content footer h2 {
     margin-top: 0;
     padding-top: 40px;
     border-top: 1px solid rgba(120, 134, 156, .15);
@@ -855,7 +862,6 @@ a.btn.success {
     height: 39px;
     padding: 5px 30px;
     text-align: center;
-    margin-top: 24px;
 }
 .next-btn {
     margin-top: 30px;
@@ -877,7 +883,6 @@ a.btn:active,
 a.btn:focus {
     outline: none;
     cursor: pointer;
-    margin-top: 24px;
     background-color: #00d9c1;
     cursor: pointer;
     outline: 0;
