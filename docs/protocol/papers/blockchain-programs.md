@@ -20,7 +20,7 @@ Bitcoin, similarly, uses scripts as predicates in order to determine whether a g
 
 ### Run limit
 
-The CVM’s instruction set is Turing-complete. To prevent unbounded use of computational resources, the protocol allows networks to set a *run limit* that a program is not allowed to exceed. Each instruction consumes some of the limit as it runs, according to its *run cost*.
+The CVM’s instruction set is Turing complete. To prevent unbounded use of computational resources, the protocol allows networks to set a *run limit* that a program is not allowed to exceed. Each instruction consumes some of the limit as it runs, according to its *run cost*.
 
 Processing-intensive instructions, such as signature checks, are more expensive.
 

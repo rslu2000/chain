@@ -15,7 +15,7 @@
 
 In this paper, we present the Chain Protocol: a design for a shared, multi-asset, cryptographic ledger. It supports the coexistence and interoperability of multiple independent networks, with different operators, sharing a common format and capabilities. Using the principle of least authority, control over assets is separated from control over ledger synchronization.
 
-The Chain Protocol allows any network participant to define and issue assets by writing custom “issuance programs.” Once issued, units of an asset are controlled by “control programs.” These programs are expressed in a flexible and Turing-complete programming language that can be used to build sophisticated smart contracts.
+The Chain Protocol allows any network participant to define and issue assets by writing custom “issuance programs.” Once issued, units of an asset are controlled by “control programs.” These programs are expressed in a flexible and Turing complete programming language that can be used to build sophisticated smart contracts.
 
 Each network is secured by a federation of “block signers.” The system is secure against forks as long as a quorum of block signers follows the protocol. For efficiency, block creation is delegated to a single “block generator.” Any node on the network can validate blocks and submit transactions to the network.
 
@@ -118,7 +118,7 @@ A *program* is written in *bytecode* — instructions for the Chain Virtual Mach
 
 When validating a program, the CVM initializes the data stack with *program arguments* passed from the witness. The program is then executed, and either succeeds or fails.
 
-The CVM’s instruction set is Turing-complete. To prevent unbounded use of computational resources, the protocol allows networks to set a *run limit* that a program is not allowed to exceed. Each instruction consumes some of the limit as it runs, according to its *run cost*.
+The CVM’s instruction set is Turing complete. To prevent unbounded use of computational resources, the protocol allows networks to set a *run limit* that a program is not allowed to exceed. Each instruction consumes some of the limit as it runs, according to its *run cost*.
 
 [sidenote]
 
