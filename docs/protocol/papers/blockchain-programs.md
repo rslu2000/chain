@@ -232,6 +232,8 @@ Ivy contracts bear some notable resemblances to [Solidity contracts](https://sol
 
 Contracts take *parameters* and define *clauses*. Once a contract is *instantiated* with particular parameters, its clauses can be called using *arguments*.
 
+**Oleg: i think this whole section could be simplified and made more to the point by using a more realistic signature checking code.**
+
 ```
 // defining contract
 contract IsGreaterThan(a) {
@@ -279,6 +281,8 @@ verify comparisonToFive.checkOneSmallerNumber(4); // succeeds
 
 Or the contract itself can be called, and the index of the clause can be passed as the first argument:
 
+**Oleg: do you actually use this index syntax? It's quite confusing, i'd rather use contract.clause(i)(args).**
+
 ```
 verify comparisonToFive(1, 4); // equivalent to: verify comparisonToFive.checkOneSmallerNumber(4); 
 ```
@@ -308,7 +312,7 @@ This is examined in more detail in the [contract examples](#contract-examples) b
 
 ## Programs
 
-The Chain Protocol uses three kinds of programs: control programs, issuance programs, and consensus program.
+On the high level, Chain Protocol uses three kinds of programs: control programs, issuance programs, and consensus program.
 
 ### Control programs
 
