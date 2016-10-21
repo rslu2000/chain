@@ -1,21 +1,22 @@
+
       <div class="option-container">
         <h1>Install Chain Core Developer Edition</h1>
         <h2>Choose operating system</h2>
-        <ul class="download-options tab">
-          <li class="download-option">
-            <a href="javascript:void(0)" class="tablinks active" onclick="openOS(event, 'mac')">
+        <ul id="download-options" class="tab">
+          <li class="download-option" id="download-option-mac">
+            <a href="javascript:void(0)" class="tablinks active" onclick="selectOSTab(event.currentTarget, 'mac')">
               <div class="os-icon os-icon-mac"></div>
               <h3 data-no-anchor="">Mac</h3>
             </a>
           </li>
-          <li class="download-option">
-            <a href="javascript:void(0)" class="tablinks" onclick="openOS(event, 'windows')">
+          <li class="download-option" id="download-option-windows">
+            <a href="javascript:void(0)" class="tablinks" onclick="selectOSTab(event.currentTarget, 'windows')">
               <div class="os-icon os-icon-windows"></div>
               <h3 data-no-anchor="">Windows</h3>
             </a>
           </li>
-          <li class="download-option">
-            <a href="javascript:void(0)" class="tablinks" onclick="openOS(event, 'linux')">
+          <li class="download-option" id="download-option-linux">
+            <a href="javascript:void(0)" class="tablinks" onclick="selectOSTab(event.currentTarget, 'linux')">
               <div class="os-icon os-icon-linux"></div>
               <h3 data-no-anchor="">Linux</h3>
             </a>
