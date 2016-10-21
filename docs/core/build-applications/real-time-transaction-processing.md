@@ -9,11 +9,11 @@ All of the code samples in this guide are extracted from a single, runnable Java
 
 ## Example
 
-To illustrate how to use transaction feeds, we'll create a program that prints information about new [local](../learn-more/global-vs-local-data) transactions as they arrive.
+To illustrate how to use transaction feeds, we'll create a program that prints information about new [local](../learn-more/global-vs-local-data.md) transactions as they arrive.
 
 #### Creating and retrieving a transaction feed
 
-Transaction feeds can be created either in the Chain Core Dashboard, or from your application. When creating a feed, you can provide a [transaction filter expression](../building-applications/query-filters) so that the feed only contains transactions matching the filter. If you don't supply a filter, then the feed will contain all new transaction activity on the blockchain.
+Transaction feeds can be created either in the Chain Core Dashboard, or from your application. When creating a feed, you can provide a [transaction filter expression](../build-applications/query-filters.md) so that the feed only contains transactions matching the filter. If you don't supply a filter, then the feed will contain all new transaction activity on the blockchain.
 
 First, we'll create a new feed programmatically, seting the filter expression to `is_local='yes'`.
 

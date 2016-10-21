@@ -34,7 +34,7 @@ as well as a few examples of different transactions:
 * Asset trade
 * Asset retirement
 
-This guide assumes you know the basic functions presented in the [5-Minute Guide](../getting-started/five-minute-guide).
+This guide assumes you know the basic functions presented in the [5-Minute Guide](../get-started/five-minute-guide.md).
 
 ### Sample Code
 All of the code samples in this guide are extracted from a single, runnable Java file.
@@ -55,15 +55,15 @@ Depending on the number of parties involved in a transaction, steps 1 and 2 may 
 
 The `Transaction.Builder` method is used to build new transactions. There are 7 actions that can be provided:
 
-| Action                      | Description                                                                                                                                  |
-|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| Issue                       | Issues new units of a specified asset.                                                                                                       |
-| SpendFromAccount            | Spends units of a specified asset from a specified account. Automatically handles the creation of change outputs.                            |
-| SpendAccountUnspentOutput   | Spends an entire unspent output in an account. Change must be handled manually by creating an additional ControlWithAccount action.          |
-| ControlWithAccount          | Receives units of a specified asset into a specified account.                                                                                |
-| ControlWithProgram          | Receives units of a specified asset into a control program. Used when making a payment to an external party / account in another Chain Core. |
-| Retire                      | Retires units of a specified asset.                                                                                                          |
-| setTransactionReferenceData | Sets arbitrary reference data on the transaction.                                                                                            |
+Action                      | Description                                                                                                                                 
+----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+Issue                       | Issues new units of a specified asset.                                                                                                      
+SpendFromAccount            | Spends units of a specified asset from a specified account. Automatically handles the creation of change outputs.                           
+SpendAccountUnspentOutput   | Spends an entire unspent output in an account. Change must be handled manually by creating an additional ControlWithAccount action.         
+ControlWithAccount          | Receives units of a specified asset into a specified account.                                                                               
+ControlWithProgram          | Receives units of a specified asset into a control program. Used when making a payment to an external party / account in another Chain Core.
+Retire                      | Retires units of a specified asset.                                                                                                         
+setTransactionReferenceData | Sets arbitrary reference data on the transaction.                                                                                           
 
 #### Reference data
 
@@ -81,7 +81,7 @@ By default, the HSMSigner will sign the transaction in such a way that it cannot
 
 To enable this functionality, you must call the `allowAdditionalActions` method when signing the transaction. The transaction will then be signed in such a way that all currently built actions must occur for the transaction to be valid, but your counterparty can add additional actions to complete the transaction. You can then sign the transaction with the guarantee that your actions cannot be changed by your counterparty.
 
-For more information, see [multiparty trades](./multiparty-trades).
+For more information, see [multiparty trades](multiparty-trades.md).
 
 ## Submit transaction
 
@@ -91,17 +91,17 @@ Once a transaction is balanced and all inputs are signed, you can submit it to t
 
 The `Transaction.QueryBuilder` retrieves transactions from the blockchain. By default, it returns a paginated list of all transactions, ordered from latest to earliest timestamp. Custom queries can be achieved using the following methods:
 
-| Method             | Description                                                        |
-|--------------------|--------------------------------------------------------------------|
-| setStartTime       | Sets the latest transaction timestamp to include in results.       |
-| setEndTime         | Sets the earliest transaction timestamp to include in results.     |
-| setFilter          | Sets a filter on the results.                                      |
-| addFilterParameter | Defines a value for the first undefined placeholder in the filter. |
-| setAscending       | Orders the results from earliest to latest timestamp.              |
+Method             | Description                                                        
+-------------------|--------------------------------------------------------------------
+setStartTime       | Sets the latest transaction timestamp to include in results.       
+setEndTime         | Sets the earliest transaction timestamp to include in results.     
+setFilter          | Sets a filter on the results.                                      
+addFilterParameter | Defines a value for the first undefined placeholder in the filter. 
+setAscending       | Orders the results from earliest to latest timestamp.              
 
 ### Filters
 
-The `setFilter` method allows filtering `Transaction.QueryBuilder` results by any field in the [transaction object](../reference/api-objects#transaction). For more information, see [Query Filters](../building-applications/query-filters).
+The `setFilter` method allows filtering `Transaction.QueryBuilder` results by any field in the [transaction object](../reference/api-objects.md#transaction). For more information, see [Query Filters](../build-applications/query-filters.md).
 
 ### Examples
 

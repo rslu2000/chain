@@ -36,11 +36,11 @@ This guide describes the structure of transactions, and how to use the Chain Cor
 * Multi-asset payment
 * Asset retirement
 
-If you haven't already, you should first check out the [5-Minute Guide](../../getting-started/five-minute-guide). For advanced transaction features, see [Multiparty Trades](../multiparty-trades).
+If you haven't already, you should first check out the [5-Minute Guide](../get-started/five-minute-guide.md). For advanced transaction features, see [Multiparty Trades](../build-applications/multiparty-trades.md).
 
 ### Sample Code
-All of the code samples in this guide are extracted from a single, runnable Java file.
 
+All of the code samples in this guide are extracted from a single, runnable Java file.
 <a href="../examples/java/TransactionBasics.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Creating transactions
@@ -57,15 +57,15 @@ Rather than forcing you to manipulate inputs, outputs and change directly, the C
 
 There are seven types of action:
 
-| Action                                  | Description                                                                                                                                               |
-|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Issue                                   | Issues new units of a specified asset.                                                                                                                    |
-| Spend from account                      | Spends units of a specified asset from a specified account. Automatically handles locating outputs with enough units, and the creation of change outputs. |
-| Spend an unspent output from an account | Spends an entire, specific unspent output in an account. Change must be handled manually, using other actions.                                            |
-| Control with account                    | Receives units of a specified asset into a specified account.                                                                                             |
-| Control with program                    | Receives units of an asset into a specificed control program. Used when making a payment to an external party/account in another Chain Core.              |
-| Retire                                  | Retires units of a specified asset.                                                                                                                       |
-| Set transaction reference data          | Sets arbitrary reference data on the transaction.                                                                                                         |
+Action                                  | Description                                                                                                                                              
+----------------------------------------|------------------------------------------------------------------------------------
+Issue                                   | Issues new units of a specified asset.                                                                                                                   
+Spend from account                      | Spends units of a specified asset from a specified account. Automatically handles locating outputs with enough units, and the creation of change outputs.
+Spend an unspent output from an account | Spends an entire, specific unspent output in an account. Change must be handled manually, using other actions.                                           
+Control with account                    | Receives units of a specified asset into a specified account.                                                                                            
+Control with program                    | Receives units of an asset into a specificed control program. Used when making a payment to an external party/account in another Chain Core.             
+Retire                                  | Retires units of a specified asset.                                                                                                                      
+Set transaction reference data          | Sets arbitrary reference data on the transaction.                                                                                                        
 
 #### Reference data
 
@@ -151,4 +151,4 @@ $code ../examples/java/TransactionBasics.java retire
 
 ### Multiparty trades
 
-For examples of advanced transactions, such as trading multiple assets across multiple cores, see [Multiparty Trades](../building-applications/multiparty-trades).
+For examples of advanced transactions, such as trading multiple assets across multiple cores, see [Multiparty Trades](../build-applications/multiparty-trades.md).

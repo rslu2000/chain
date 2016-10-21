@@ -22,7 +22,7 @@ All of the code samples in this guide are extracted from a single, runnable Java
 
 The most basic type of control program is an account control program, which defines a set of keys and a quorum of signatures required to spend asset units. When you create an account, you provide as set of root keys and a quorum. Then each time you deposit assets into an account, Chain Core derives a new set of child public keys from the account root keys and creates a unique, one-time-use account control program requiring the quorum of signatures you specified.
 
-Although all control programs in one account are controlled by keys derived from the same root keys, it is impossible for other participants on the blockchain to recognize any relationship between them. This technique (known as heirarchical deterministic key derivation) ensures that only the participant on the blockchain with whom you transact will know that a specific control program is yours. To everyone else, the creator of the control program will be unknown. For more information about key derivation, see the [Chain key derivation specification](#).
+Although all control programs in one account are controlled by keys derived from the same root keys, it is impossible for other participants on the blockchain to recognize any relationship between them. This technique (known as heirarchical deterministic key derivation) ensures that only the participant on the blockchain with whom you transact will know that a specific control program is yours. To everyone else, the creator of the control program will be unknown. For more information about key derivation, see the [Chain key derivation specification](../../protocol/specifications/chainkd.md).
 
 ### Example
 
@@ -46,4 +46,4 @@ $code ../examples/java/ControlPrograms.java retire
 
 ## Custom control programs
 
-The Chain Core virtual machine supports custom control programs built from the supported set of [program predicates](#). We are [currently developing](../getting-started/product-roadmap) a high level language that will enable developers to write custom control programs in Chain Core. Additionally, we work directly with our enterprise customers to design, audit, and implement custom control programs for production deployment. For more information, visit [Chain Core for Enterprise](#) or [contact us](#).
+The Chain Core virtual machine supports custom control programs built from the supported set of [program predicates](#). We are [currently developing](../get-started/product-roadmap.md) a high level language that will enable developers to write custom control programs in Chain Core. Additionally, we work directly with our enterprise customers to design, audit, and implement custom control programs for production deployment. For more information, visit [Chain Core for Enterprise](#) or [contact us](#).

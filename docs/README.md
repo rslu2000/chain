@@ -2,21 +2,20 @@
 
 * Get Started
   * [Introduction](core/get-started/introduction.md)
-  * [Install](index.partial.html)
+  * [Install](index.html)
   * [SDKs](core/get-started/sdk.md)
   * [Configure](core/get-started/configure.md)
   * [5-Minute Guide](core/get-started/five-minute-guide.md)
-  * [Fundamentals](core/get-started/fundamentals.md)
 
 * Build Applications
-  * [Keys](core/building-applications/keys.md)
-  * [Assets](core/building-applications/assets.md)
-  * [Accounts](core/building-applications/accounts.md)
-  * [Transactions](core/building-applications/transactions.md)
-  * [Unspent Outputs](core/building-applications/unspent-outputs.md)
-  * [Balances](core/building-applications/balances.md)
-  * [Control Programs](core/building-applications/control-programs.md)
-  * [Query Filters](core/building-applications/query-filters.md)
+  * [Keys](core/build-applications/keys.md)
+  * [Assets](core/build-applications/assets.md)
+  * [Accounts](core/build-applications/accounts.md)
+  * [Transactions](core/build-applications/transactions.md)
+  * [Unspent Outputs](core/build-applications/unspent-outputs.md)
+  * [Balances](core/build-applications/balances.md)
+  * [Control Programs](core/build-applications/control-programs.md)
+  * [Query Filters](core/build-applications/query-filters.md)
   * Batching
 
 * Learn More

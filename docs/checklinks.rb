@@ -11,9 +11,9 @@ CHECK_GLOBAL_LINKS = false
 def main
   dataset = {}
   Dir["**/*.md"].each do |file|
-    puts "Collecting links and anchors from #{file}..."
+    #puts "Collecting links and anchors from #{file}..."
     collect_links_and_anchors(file, dataset)
-    puts "Checking links in #{file}..."
+    #puts "Checking links in #{file}..."
     check_links(file, dataset[file][:links], dataset)
   end
 end
@@ -96,7 +96,7 @@ def extract_heading(line)
     prefix = $1
     title = $2
     depth = prefix.size
-    anchor = "#" + title.downcase.gsub(/\W+/,"-").gsub(/(\d)\-(\d)/,"\\1\\2")
+    anchor = "#" + title.downcase.gsub(/[\W!?]+/,"-").gsub(/(\d)\-(\d)/,"\\1\\2").gsub(/\-+$/,"").gsub(/^\-+/,"")
     [depth, title, anchor]
   end  
 end

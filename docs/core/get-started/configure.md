@@ -2,7 +2,7 @@
 
 ## Overview
 
-When you first launch your Chain Core and visit the dashboard at http://HOST:1999/ (where HOST is the name of the computer where Chain Core is running), you will be presented with three options:
+When you first launch your Chain Core and visit the dashboard at `http://HOST:1999/` (where HOST is the name of the computer where Chain Core is running), you will be presented with three options:
 
 1. Create a new blockchain
 2. Connect to an existing blockchain
@@ -14,7 +14,7 @@ Choosing one of these options configures your Chain Core. You can reset it to it
 
 This creates a new blockchain with the Core as the block generator and single block signer. The Core's block-signing key is automatically created in the MockHSM. The Core's URL and blockchain ID (needed by other Cores wishing to join this network) are available in Core Settings in the dashboard.
 
-For more information, see [operating a blockchain](../learn-more/blockchain-operators).
+For more information, see [operating a blockchain](../learn-more/blockchain-operators.md).
 
 ## Connect to an existing blockchain
 
@@ -26,7 +26,7 @@ This connects to an existing blockchain whose block generator is already configu
 
 Once configured, Chain Core will begin downloading blockchain data from the block generator. Once your Core is up to date with the network it will receive new blocks as they are created.
 
-For more information, see [participating in a blockchain](../learn-more/blockchain-participants).
+For more information, see [participating in a blockchain](../learn-more/blockchain-participants.md).
 
 ## Connect to the Chain testnet
 

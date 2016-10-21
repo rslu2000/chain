@@ -2,7 +2,7 @@
 
 ## Overview
 
-Filters enable complex queries to Chain Core to retrieve lists of objects. A filter is comprised of one or more **terms** (joined with AND / OR). Each term contains a **property**, **operator**, and **value**. Each term targets a specific field in the key-value (JSON) object (see [API Objects](../reference/api-objects)). Terms can be grouped together in a **scope** to target a specific array of sub-objects within an object.
+Filters enable complex queries to Chain Core to retrieve lists of objects. A filter is comprised of one or more **terms** (joined with AND / OR). Each term contains a **property**, **operator**, and **value**. Each term targets a specific field in the key-value (JSON) object (see [API Objects](../reference/api-objects.md)). Terms can be grouped together in a **scope** to target a specific array of sub-objects within an object.
 
 For example, if you wish list transactions where a specific account spends a specific asset, you would create a filter with two terms, scoped to the inputs:
 
@@ -86,7 +86,7 @@ The `Transaction.QueryBuilder` retrieves transactions from the blockchain. By de
 
 ### Filters
 
-The `setFilter` method allows filtering `Transaction.QueryBuilder` results by any field in the [transaction object](../reference/api-objects#transaction). For more information, see [Query Filters](../building-applications/query-filters).
+The `setFilter` method allows filtering `Transaction.QueryBuilder` results by any field in the [transaction object](../reference/api-objects.md#transaction). For more information, see [Query Filters](../build-applications/query-filters.md).
 
 ### Examples
 

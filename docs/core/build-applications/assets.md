@@ -8,7 +8,7 @@ Units of an asset can be transacted directly between parties without the involve
 
 Each asset has a globally unique asset ID that is derived from an issuance program. The issuance program typically defines a set of possible signing keys and a threshold number of signatures that must be provided to authorize issuance of new units of the asset. Chain Core automatically creates the issuance program when the asset is created. The issuer can issue as many units as they want, as many times as they want. Custom issuance programs are possible that enforce further limits on when, whether, and by whom new units may be issued.
 
-Each asset can optionally include an asset definition consisting of arbitrary key-value data. The asset definition is committed to the blockchain for all participants to see. Additionally, an asset can be tagged locally with private data for convenient queries and operations. For more information, see [Global vs. Local Data](../learn-more/global-vs-local-data).
+Each asset can optionally include an asset definition consisting of arbitrary key-value data. The asset definition is committed to the blockchain for all participants to see. Additionally, an asset can be tagged locally with private data for convenient queries and operations. For more information, see [Global vs. Local Data](../learn-more/global-vs-local-data.md).
 
 ## Overview
 
@@ -22,7 +22,7 @@ This guide will walk you through the basic functions of an asset:
 * List transactions (for issuance, transfer, and retirement)
 * Get asset circulation
 
-This guide assumes you know the basic functions presented in the [5-Minute Guide](../getting-started/five-minute-guide).
+This guide assumes you know the basic functions presented in the [5-Minute Guide](../get-started/five-minute-guide.md).
 
 ### Sample Code
 All of the code samples in this guide are extracted from a single, runnable Java file.
@@ -47,7 +47,7 @@ $code ../examples/java/Assets.java create-asset-acme-preferred
 
 ## List assets
 
-Chain Core keeps a list of all assets in the blockchain, whether or not they were issued by the local Chain Core. Each asset can be locally annotated with an alias and tags to enable efficient actions and intelligent queries. Note: local data is not present in the blockchain, see: [Local vs. Global Data](#).
+Chain Core keeps a list of all assets in the blockchain, whether or not they were issued by the local Chain Core. Each asset can be locally annotated with an alias and tags to enable efficient actions and intelligent queries. Note: local data is not present in the blockchain, see: [Local vs. Global Data](../learn-more/global-vs-local-data.md).
 
 To list all assets created in the local Core, we build an assets query, filtering on the `is_local` tag.
 
@@ -99,7 +99,7 @@ $code ../examples/java/Assets.java submit-retire
 
 ## List asset transactions
 
-Chain Core keeps a time-ordered list of all transactions in the blockchain. These transactions are locally annotated with asset aliases and asset tags to enable intelligent queries. Note: local data is not present in the blockchain, see: [Local vs. Global Data](#).
+Chain Core keeps a time-ordered list of all transactions in the blockchain. These transactions are locally annotated with asset aliases and asset tags to enable intelligent queries. Note: local data is not present in the blockchain, see: [Local vs. Global Data](../learn-more/global-vs-local-data.md).
 
 ### Issuance transactions
 

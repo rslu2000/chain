@@ -300,7 +300,7 @@ contract BundledAssetWithCounter(publicKey, counter) {
 }
 ```
 
-These techniques are the basis of [smart contracts](#smart-contracts), which are examined more closely below.
+These techniques are the basis of [smart contracts](#contract-examples), which are examined more closely below.
 
 ## Programs
 
@@ -370,7 +370,7 @@ Consensus programs define the rules for accepting a new block.
 
 Each block includes the consensus program that must be satisfied by the *next* block.
 
-Chain's [federated consensus protocol]() relies on a quorum of block signers signing the hash of the block. The consensus program can therefore look a lot like the multisignature issuance and control programs described above:
+Chain's [federated consensus protocol](federated-consensus.md) relies on a quorum of block signers signing the hash of the block. The consensus program can therefore look a lot like the multisignature issuance and control programs described above:
 
 ```
 contract ConsensusProgram(n, m, ...publickeys[n]) {
