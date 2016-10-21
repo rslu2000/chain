@@ -11,7 +11,7 @@
   * [Consensus programs](#consensus-programs)
   * [Signature programs](#signature-programs)
 * [Contract Examples](#contract-examples)
-  * [Offers and Orderbooks](#offers-and-orderbooks)
+  * [Offers and order books](#offers-and-order-books)
   * [Singleton](#singleton)
   * [Private Contracts](#private-contracts)
 
@@ -455,7 +455,7 @@ Christopher Allen and Shannon Appelcline explore ideas similar to signature prog
 
 These examples are provided as illustrations only. They elide over some subtleties, and should not be considered final or secure. If you are interested in using Chain contracts in production, contact us at hello@chain.com.
 
-### Offers and Orderbooks
+### Offers and order books
 
 ```
 contract Offer(askingPrice, currency, sellerAddress) {
