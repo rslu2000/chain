@@ -114,5 +114,3 @@ Transaction feeds provide *at-least-once* delivery of transactions. Regardless o
 As mentioned in the example, reading from a transaction feed may block your active process, so if your application does more than just consume a transaction feed, you should run the processing loop within its own thread.
 
 In general, you should consume a transaction feed in one and only one thread. In particular, you'll want to make sure that `next` and `ack` are called serially, within a single thread.
-
-[Download example code](../examples/java/RealTimeTransactionProcessing.java)
