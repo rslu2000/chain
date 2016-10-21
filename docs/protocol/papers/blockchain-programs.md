@@ -426,7 +426,7 @@ For example:
 ```
 contract SimpleSignatureProgram(targetHash) {
 	clause check() {
-		verify tx.hash = targetHash;
+		verify tx.hash == targetHash;
 	}
 }
 ```
@@ -447,7 +447,7 @@ If this contract is initialized with the details of the desired output — say, 
 
 [sidenote]
 
-Christopher Allen and others explored ideas similar to signature programs in their [working paper](https://github.com/WebOfTrustInfo/ID2020DesignWorkshop/blob/master/draft-documents/smarter-signatures.md) on "smart signatures."
+Christopher Allen and Shannon Appelcline explore ideas similar to signature programs in their working paper on “[smart signatures](https://github.com/WebOfTrustInfo/ID2020DesignWorkshop/blob/master/draft-documents/smarter-signatures.md).”
 
 [/sidenote]
 
