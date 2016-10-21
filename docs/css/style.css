@@ -1178,17 +1178,19 @@ input:focus {
     font-size: 19px;
     padding: 16px 0 14px 50px;
     text-decoration: none;
-    border: 2px solid #b9f4ee;
     border-radius: 3px;
     margin-top: 20px;
     font-family: NittiGrotesk-Medium;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    color: #00d9c1;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #23d5bf;
+
 }
 .next-step:hover {
     cursor: pointer;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    background: #f5fefd;
+    background-color: #fcfcfc;
 }
