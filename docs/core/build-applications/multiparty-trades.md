@@ -1,6 +1,11 @@
 # Multiparty Trades
 
+* [Overview](#overview)
+* [Example: Trading within the same core and application](#example-trading-within-the-same-core-and-application)
+* [Example: Trading between cores](#example-trading-between-cores)
+
 ## Overview
+
  This guide demonstrates how to use the Client API to create complex transactions that are:
 
 - **Multi-party**: Multiple accounts on the same core or different cores can participate in the same transaction.
@@ -10,6 +15,7 @@
 Please make sure you've read [Transaction Basics](../build-applications/transaction-basics.md) before continuing.
 
 ### Sample Code
+
 All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/MultipartyTrades.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 

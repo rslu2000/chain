@@ -1,5 +1,11 @@
 # Control Programs
 
+* [Introduction](#introduction)
+* [Overview](#overview)
+* [Account control programs](#account-control-programs)
+* [Retirement control programs](#retirement-control-programs)
+* [Custom control programs](#custom-control-programs)
+
 ## Introduction
 
 A control program is the mechanism that secures asset units on a blockchain. When you first issue units of an asset, you issue them into a control program. When you spend units of an asset, you spend them from an existing control program to a new control program. When you retire units of an asset, you spend them from an existing control program to a special retirement control program that can never be spent.
@@ -15,6 +21,7 @@ This guide will walk you through the basic types of control programs available i
 * Custom control programs
 
 ### Sample Code
+
 All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/ControlPrograms.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
