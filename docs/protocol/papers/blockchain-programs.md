@@ -374,7 +374,7 @@ Bitcoin technically allows different "signature hash types" that could provide s
 
 Signing the entire transaction hash is fine if you only want to authorize an input to be spent in a particular transaction. However, what if you only know or care about a particular part of a transaction at the time you sign it? 
 
-For example, suppose Alice wants to sell 5 shares of Acme to Bob, in exchange for 10 USD. Alice wants to authorize the transfer of her Acme shares if and only if she receive payment of 5 USD to her own address. However, Alice does not care what the other input in the transaction will be — i.e., where the other payment will come from. If Alice 
+For example, suppose Alice wants to sell 5 shares of Acme to Bob, in exchange for 10 USD. Alice wants to authorize the transfer of her Acme shares if and only if she receive payment of 5 USD to her own address. However, Alice does not care what the other input in the transaction will be — i.e., where the other payment will come from. If Alice **(Oleg: this sentence is incomplete.)**
 
 Instead of authorizing a specific transaction, it would be useful if a spender or issuer could authorize any transaction that meets certain criteria.
 
