@@ -65,7 +65,7 @@ Each input and output specifies a quantity of a single asset ID. A transaction c
 
 ![Transaction](whitepaper-tx.png)
 
-Each input must satisfy an *issuance program* (if the source of value is a new issuance of units) or a *control program* (if the source of value is a previous unspent transaction output). The issuer or spender may pass *arguments *to the program via the *witness *field. For example, an issuance or control program can implement an authorization check by defining a public key and requiring a cryptographic signature over the transaction by the corresponding private key.
+Each input must satisfy an *issuance program* (if the source of value is a new issuance of units) or a *control program* (if the source of value is a previous unspent transaction output). The issuer or spender may pass *arguments* to the program via the *witness* field. For example, an issuance or control program can implement an authorization check by defining a public key and requiring a cryptographic signature over the transaction by the corresponding private key.
 
 [sidenote]
 
