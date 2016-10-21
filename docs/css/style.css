@@ -912,6 +912,17 @@ img {
 .os-icon-linux {
     content: url(../images/linux.png);
 }
+
+.download-option,
+.download-option .os-icon {
+	transition: all 0.15s ease-in-out;
+}
+
+.download-option:hover .os-icon {
+	transform: scale(1.1);
+}
+
+
 .download-option a.active h3 {
     color: #00BFAA;
 }
@@ -927,6 +938,8 @@ img {
 .download-option a.active .os-icon-linux {
     content: url(../images/linux-active.png);
 }
+
+
 
 
 /* Modal */
