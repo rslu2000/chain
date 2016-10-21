@@ -718,8 +718,11 @@ p code {
 }
 */
 li > code,
-p code {
-    letter-spacing: -0.06em;
+p > code {
+    border-radius: 2px;
+    padding: 2px 2px;
+    margin: 0 1px;
+    background: #f6f8f7; /*f8f8f8*/
 }
 
 
