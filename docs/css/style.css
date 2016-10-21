@@ -385,6 +385,9 @@ sub { top:  0.5em; }
 
 /* # Sidenotes */
 
+/*article p that has div.sidenote after it {
+	float:left;
+}*/
 
 article div.sidenote {
 	background-color: #fafafa;
