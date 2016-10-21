@@ -58,31 +58,40 @@ Both Bitcoin and Ethereum have restrictions that prevent script execution from u
 
 ### Instruction Set
 
-The CVM has some overlaps and similarities with Bitcoin Script, but adds opcodes to support additional functionality, including loops, state transitions (through transaction introspection), and script evaluation.
+The CVM has some overlaps and similarities with Bitcoin Script, but adds instructions to support additional functionality, including loops, state transitions (through transaction introspection), and script evaluation.
 
 What follows is a summary of the functionality provided by CVM instructions. For a complete list and more precise definitions, see the [VM specification](../specifications/vm1.md).
 
-#### Stack manipulation instructions
+#### Stack manipulation
 
 Programs may encode bytestrings to push on data stack using a range of `PUSHDATA` instructions. Instructions `DROP`, `DUP`, `SWAP`, `PICK` and others allow moving stack items around. More complex stack manipulations can be assisted by `TOALTSTACK` and `FROMALTSTACK` instructions that move items between the data stack and an auxilliary alt stack.
 
-#### String manipulation instructions
+#### String manipulation
 
 `EQUAL` checks for the equality of two strings. `CAT`, `SUBSTR`, `LEFT`, and `RIGHT` perform operations on strings from the top of the stack. `AND`, `OR`, `XOR` perform bitwise operations.
 
-#### Arithmetic instructions
+#### Arithmetic operations
 
 While all items on the stack are strings, some instructions interpret items as numbers, using 64-bit two's complement representation.
 
-#### Logical and boolean instructions
+CVM deterministically checks for overflows: if the result overflows (e.g. too large numbers are multiplied), execution immediately fails.
+
+
+#### Boolean operations
 
 Items on the stack can also be interpreted as booleans. Empty strings and strings consisting of zero bytes are coerced to `false`, all others are coerced to `true`.
 
-#### Cryptographic instructions
+#### Cryptographic operations
 
 The `SHA256` and `SHA3` instructions execute corresponding hash functions and output 32-byte strings.
 
-The `CHECKSIG` instruction checks the validity of an Ed25519 signature against a given public key and message.
+The `CHECKSIG` instruction checks the validity of an Ed25519 signature against a given public key and a message hash.
+
+[sidenote]
+
+While similar to Bitcoin instructions, `CHECKSIG` and `CHECKMULTISIG` are generalized to accept an arbitrary message hash. This enables integration with external authoritative data sources and, more importantly, [signature programs](#signature-programs) discussed below.
+
+[/sidenote]
 
 `CHECKMULTISIG` checks an “M-of-N” signing condition using `M` signatures and `N` public keys.
 
@@ -92,27 +101,27 @@ The `CHECKSIG` instruction checks the validity of an Ed25519 signature against a
 
 `JUMPIF` conditionally jumps to another part of the code, based on the current value on top of the stack. This can be used to implement conditionals and loops.
 
-`CHECKPREDICATE` evaluates a script (written in CVM bytecode). The script is evaluated in a sandboxed VM, and can introspect the transaction.
+`CHECKPREDICATE` evaluates a script (written in CVM bytecode). The script is evaluated in a separate VM instance, and can introspect the transaction. Nested executions are allowed, but the depth is capped by memory cost that is subtracted from the available run limit and refunded when the nested VM instance completes execution.
 
 #### Introspection instructions
 
-The CVM provides opcodes that, when used in an output's control program, introspect elements of any transaction attempting to spend that output. 
+The CVM provides operations that, when used in a control or issuance program, introspect parts of a transaction attempting to spend that output. 
 
 [sidenote]
 
-The EVM includes many opcodes that provide introspection into the execution environment, although its radically different transaction model means those opcodes are not different. Bitcoin has recently taken steps toward fuller transaction introspection from the VM, with `CheckLockTimeVerify`.
+The EVM includes many opcodes that provide introspection into the execution environment, including the global mutable state.
+
+In contrast, CVM allows introspection only of the immutable data declared in the transaction, similar to Bitcoin’s `CHECKLOCKTIMEVERIFY` and `CHECKSEQUENCEVERIFY` instructions that check absolute and relative transaction lock times, respectively.
 
 [/sidenote]
 
-`CHECKOUTPUT` allows an input to introspect the outputs of the transaction. This allows it to place restrictions on how its value — or other value included in the same transaction — is subsequently used. This instruction provides functionality similar to the CHECKOUTPUTVERIFY opcode proposed by Malte Möser, Ittay Eyal, and Emin Gün Sirer in their Bitcoin Covenants paper.
+`CHECKOUTPUT` allows an input to introspect the outputs of the transaction. This allows it to place restrictions on how the input values are subsequently used. This instruction provides functionality similar to the `CHECKOUTPUTVERIFY` opcode proposed by Malte Möser, Ittay Eyal, and Emin Gün Sirer in their [Bitcoin Covenants](http://fc16.ifca.ai/bitcoin/papers/MES16.pdf) paper. `CHECKOUTPUT` also allows implementing arbitrary state-machines within a UTXO model as was proposed earlier by Oleg Andreev in [Pay-to-Contract](https://github.com/oleganza/bitcoin-papers/blob/master/SmartContractsSoftFork.md) paper.
 
-`MINTIME` and `MAXTIME` allow limitations on when a UTXO can be spent. 
-
-`AMOUNT`, `ASSET`, `PROGRAM`, `REFDATAHASH`, and `INDEX` allow a control program to introspect the input itself.
+`MINTIME` and `MAXTIME` allow limitations on when a UTXO can be spent. `AMOUNT`, `ASSET`, `PROGRAM`, `REFDATAHASH`, and `INDEX` allow a control program to introspect the input itself.
 
 ## Ivy
 
-Chain is developing a high-level language, *Ivy*, that compiles to CVM bytecode, to make it easier to write programs. Ivy is still evolving, and this explanation and tutorial is provided only to help ground the examples used below.
+Chain is developing a high-level language, *Ivy*, that compiles to CVM bytecode, to make it easier to write safe programs. Ivy is still evolving, and this explanation and tutorial is provided only to help ground the examples used below.
 
 [sidenote]
 
@@ -187,11 +196,11 @@ predicate introspectExample(targetOutputIndex, targetAssetID, targetControlProgr
 	verify tx.mintime > 1477267200;
 
 	// verify that 5 units of some asset are sent to a particular control program
-	verify tx.outputs[targetOutputIndex] == (5, targetAssetID, targetControlProgram)
+	verify tx.outputs[targetOutputIndex] == (5, targetAssetID, targetControlProgram);
 }
 ```
 
-(Predicates in a consensus program have access to a `block` variable instead).
+Predicates in a consensus program have access to a `block` variable instead.
 
 Predicates can use conditionals and while loops.
 
@@ -217,7 +226,7 @@ While almost any useful program can theoretically be expressed as a predicate, I
 
 [sidenote]
 
-Ivy contracts bear some notable resemblances to Solidity [contracts](https://solidity.readthedocs.io/en/develop/structure-of-a-contract.html), but also some significant differences, due to the different transaction models used in Ethereum and Chain. Ivy contracts are just another way of constructing a control, issuance, or consensus program. They have no special status on the blockchain.
+Ivy contracts bear some notable resemblances to [Solidity contracts](https://solidity.readthedocs.io/en/develop/structure-of-a-contract.html), but also some significant differences, due to the different transaction models used in Ethereum and Chain. Ivy contracts are just another way of constructing a control, issuance, or consensus program. They have no special status on the blockchain.
 
 [/sidenote]
 
