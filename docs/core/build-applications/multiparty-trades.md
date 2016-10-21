@@ -1,9 +1,5 @@
 # Multiparty Trades
 
-* [Overview](#overview)
-* [Example: Trading within the same core and application](#example-trading-within-the-same-core-and-application)
-* [Example: Trading between cores](#example-trading-between-cores)
-
 ## Overview
 
  This guide demonstrates how to use the Client API to create complex transactions that are:

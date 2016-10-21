@@ -1,11 +1,5 @@
 # Unspent Outputs Guide
 
-* [Introduction](#introduction)
-* [Overview](#overview)
-* [List unspent outputs](#list-unspent-outputs)
-* [Spend unspent outputs](#spend-unspent-outputs)
-* [Example](#example)
-
 ## Introduction
 
 Each time a transaction is created, one or more new unspent outputs is created. An output is considered unspent when it has not yet been used as an input to a new transaction. All asset units on the blockchain exist in the unspent output set.
@@ -14,8 +8,8 @@ Each time a transaction is created, one or more new unspent outputs is created. 
 
 This guide will walk you through the basic functions of an unspent output:
 
-1. List unspent outputs
-2. Spend unspent outputs
+* [List unspent outputs](#list-unspent-outputs)
+* [Spend unspent outputs](#spend-unspent-outputs)
 
 ### Sample Code
 All code samples in this guide are extracted from a single Java file.
