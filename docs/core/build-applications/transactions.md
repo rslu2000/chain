@@ -1,5 +1,14 @@
 # Transactions Guide
 
+* [Introduction](#introduction)
+* [Overview](#overview)
+* [Create Transaction](#create-transaction)
+* [Sign transaction](#sign-transaction)
+* [Submit transaction](#submit-transaction)
+* [List transactions](#list-transactions)
+* [Transaction consumers](#transaction-consumers)
+* [Basic transaction examples](#basic-transaction-examples)
+
 ## Introduction
 
 A blockchain consists of an immutable set of cryptographically linked transactions. Each transaction consists of one or more inputs and outputs. An input defines a source of asset units — either a new issuance, or existing asset units controlled by a control program in an output of a previous transaction. An output defines an amount of asset units from the inputs to be controlled by a new control program or retired. When an output is not retired and has not yet been used as an input to a new transaction, we refer to it as an unspent output.
