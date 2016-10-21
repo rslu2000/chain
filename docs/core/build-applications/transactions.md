@@ -37,7 +37,7 @@ as well as a few examples of different transactions:
 This guide assumes you know the basic functions presented in the [5-Minute Guide](../get-started/five-minute-guide.md).
 
 ### Sample Code
-All of the code samples in this guide are extracted from a single, runnable Java file.
+All code samples in this guide are extracted from a single Java file.
 
 <a href="../examples/java/Transactions.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 

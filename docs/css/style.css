@@ -103,7 +103,7 @@ body {
 
 
 /* Links */
-a, 
+a,
 #doc-header a,
 article a,
 #side-nav ul li a.active,
@@ -823,7 +823,7 @@ button {
     line-height: 32px;
     cursor: pointer;
     outline: none;
-    display: inline-block;
+    display: block;
     text-decoration: none
 }
 .btn {
@@ -842,7 +842,7 @@ a.btn.success {
     line-height: 39px;
     cursor: pointer;
     outline: none;
-    display: inline-block;
+    display: block;
     text-decoration: none;
     color: #ffffff;
     font-size: 18px;

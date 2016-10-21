@@ -19,7 +19,7 @@ This guide will walk you through a few basic balance queries:
 * List account balances, summed by a field in the asset definition
 
 ### Sample Code
-All of the code samples in this guide are extracted from a single, runnable Java file.
+All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/Balances.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 

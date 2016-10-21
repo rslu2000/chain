@@ -19,7 +19,7 @@ This guide will walk you through the basic key operations:
 * Sign a transaction (with the MockHSM)
 
 ### Sample Code
-All of the code samples in this guide are extracted from a single, runnable Java file.
+All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/Keys.java" class="downloadBtn btn success" target="_blank">View Sample Code</a>
 
 ## Create key

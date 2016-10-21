@@ -40,7 +40,7 @@ If you haven't already, you should first check out the [5-Minute Guide](../get-s
 
 ### Sample Code
 
-All of the code samples in this guide are extracted from a single, runnable Java file.
+All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/TransactionBasics.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Creating transactions

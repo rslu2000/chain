@@ -15,7 +15,7 @@ This guide will walk you through the basic types of control programs available i
 * Custom control programs
 
 ### Sample Code
-All of the code samples in this guide are extracted from a single, runnable Java file.
+All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/ControlPrograms.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Account control programs

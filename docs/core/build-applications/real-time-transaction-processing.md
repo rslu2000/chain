@@ -4,7 +4,7 @@
 You can use transaction feeds to process transactions as they arrive on the blockchain. This is helpful for real-time applications such as notifications or live-updating interfaces. Transaction feeds work efficiently, without the need for polling or keeping state in your application.
 
 ### Sample Code
-All of the code samples in this guide are extracted from a single, runnable Java file.
+All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/RealTimeTransactionProcessing.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Example

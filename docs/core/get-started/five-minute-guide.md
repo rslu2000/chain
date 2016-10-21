@@ -14,7 +14,7 @@ This guide will walk you through the basic functions of Chain Core:
 * Retire asset units from an account
 
 ### Sample Code
-All of the code samples in this guide are extracted from a single, runnable Java file.
+All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/FiveMinuteGuide.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
 ## Initialize the SDK
