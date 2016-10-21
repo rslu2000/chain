@@ -189,8 +189,8 @@ See also the note in the [Make Block](#make-block) algorithm.
 
 **Inputs:**
 
-1. Consensus program
-2. Time
+1. consensus program,
+2. time.
 
 **Output**: a block.
 
