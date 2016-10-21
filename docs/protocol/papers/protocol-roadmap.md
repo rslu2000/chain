@@ -2,7 +2,7 @@
 
 Chain Protocol 1 is aimed at laying a foundation for future upgrades and large-scale deployment, so that more sophisticated security and confidentiality features can be introduced in later releases. Updates to the protocol are intended to be deployed as [soft forks](whitepaper.md#8-extensibility) therefore keeping it compatible with the already deployed software and applications. 
 
-**Disclaimer:** this roadmap does not represent a commitment to specific features, deadlines or order of implementation. It also mostly focuses on protocol-level features and does not cover specific improvements to Chain Core or any additional software. Those are discussed separately in the [Product Roadmap](../../core/reference/product-roadmap.md)
+**Disclaimer:** this roadmap does not represent a commitment to specific features, deadlines or order of implementation. It also mostly focuses on protocol-level features and does not cover specific improvements to Chain Core or any additional software. Those are discussed separately in the [Product Roadmap](../../core/reference/product-roadmap.md).
 
 ## Denial of service mitigation
 
