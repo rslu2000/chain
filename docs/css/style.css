@@ -405,7 +405,24 @@ article div.sidenote {
     border-left: 3px solid #f7f7f7;
 }
 
-@media screen and (min-width: 1700px) {
+article div.sidenote > p:first-of-type {
+	margin-top:0;
+	padding-top:0;
+}
+
+article div.sidenote p,
+article div.sidenote ul,
+article div.sidenote ol {
+    font-size: 15px;
+    line-height: 21px;
+}
+
+article div.sidenote p:not(:first-child) {
+    padding-top: 7px;
+}
+
+
+@media screen and (min-width: 1640px) {
 	
 	#docs {
 	    overflow-x: visible;
@@ -421,23 +438,15 @@ article div.sidenote {
 		position:relative;
 		margin-right: -350px;
 	}	
+	
+	article div.sidenote p,
+	article div.sidenote ul,
+	article div.sidenote ol {
+	    font-size: 16px;
+	    line-height: 23px;
+	}
 }
 
-article div.sidenote > p:first-of-type {
-	margin-top:0;
-	padding-top:0;
-}
-
-article div.sidenote p,
-article div.sidenote ul,
-article div.sidenote ol {
-    font-size: 14px;
-    line-height: 20px;
-}
-
-article div.sidenote p:not(:first-child) {
-    padding-top: 7px;
-}
 
 
 /* Headers */
@@ -577,29 +586,6 @@ section:after {
 	margin-top:0px;
 	border-top:none;
 }
-
-
-/* Side reference for Protocol guides */
-
-#content {
-    display: flex;
-    flex-direction: column;
-}
-section.text-block {
-    flex:2;
-    display: flex;
-}
-
-section.text-block p:first-of-type {
-    margin-top: 12px;
-}
-
-.text-main {
-    flex: 1 1;
-    margin-right: 86px;
-
-}
-
 
 
 
