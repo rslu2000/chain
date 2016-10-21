@@ -776,6 +776,18 @@ pre code {
 .code > pre {
     margin: 0
 }
+
+code.language-bash {
+    padding-left: calc(1.875rem + 10px);
+}
+
+code.language-bash::before {
+    content: '$';
+    color: #706d77;
+    position: relative;
+    left: -10px;
+}
+
 article li > .code {
     margin-top: 12px !important
 }
