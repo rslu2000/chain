@@ -309,7 +309,8 @@ ul {
     list-style: none
 }
 
-#doc-content h1 + ul:first-of-type {
+#doc-content h1 + ul:first-of-type,
+#doc-content h1 + ol:first-of-type {
     margin-top: 30px;
 }
 
