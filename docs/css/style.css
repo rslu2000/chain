@@ -412,11 +412,11 @@ article div.sidenote {
 
 /* Option 2: green border */
 article div.sidenote {
-    padding: 0px 0px 0px 25px;
-	background:none;
-	margin-left:50px;
-	margin-bottom:20px;
-    border-left: 1px solid #eee;
+    padding: 0px 0px 0px 16px;
+    background: none;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    border-left: 2px solid #f7f7f7;
 }
 
 article div.sidenote > p:first-of-type {
