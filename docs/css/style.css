@@ -445,11 +445,13 @@ h1 {
     font-weight: 400;
     border-bottom: 1px solid rgba(120, 134, 156, .15);
     padding-bottom: 8px;
+	clear: both;
 }
 
 h2 {
     font-size: 24px;
     padding-top: 40px;
+	clear: both;
 }
 
 h2,
@@ -562,6 +564,15 @@ section:after {
     content: "";
     display: block;
     clear: both
+}
+
+
+/* Custom overrides */
+
+#doc-content.docs_protocol_papers_protocol-roadmap > h2 {
+	padding-top:20px;
+	margin-top:0px;
+	border-top:none;
 }
 
 
