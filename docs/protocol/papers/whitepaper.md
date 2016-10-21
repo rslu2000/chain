@@ -48,7 +48,7 @@ Ethereum, which launched in 2015, generalizes the concept of a blockchain to a f
 In contrast to Bitcoin and Ethereum, which are designed to operate on the public Internet (a highly hostile environment), most financial activity already occurs within restricted networks of financial institutions. A shared ledger operated within this network can exhibit the advantages of blockchain technology without sacrificing the efficiency, security, privacy, and flexibility needed by financial institutions.
 
 
-## 2. Data model
+## 3. Data model
 
 The purpose of a Chain blockchain network is to manage issuance, ownership, and control of digital *assets*. Assets are issued, transferred, and exchanged by posting *transactions* to the network. These transactions are ordered and batched into *blocks*, which together form an immutable *blockchain*.
 
@@ -100,7 +100,7 @@ To prevent unauthorized participants from creating new blocks, each new block mu
 
 For example, a consensus program could specify a public key, and require that the next block’s witness contain a signature by the corresponding private key, using the block hash as a message. This is the basis of the consensus programs used in Chain’s [federated consensus protocol](#5-consensus). The flexibility and power of the [programming language](#4-programs), however, means that the protocol could theoretically support arbitrary consensus algorithms — even complex ones based on “proof-of-work” or “proof-of-stake”.
 
-## 3. Programs
+## 4. Programs
 
 Chain Protocol blockchains are designed to be flexible and programmable, supporting custom logic at every level.
 
@@ -160,7 +160,7 @@ This instruction permits a generalization of signatures where, instead of signin
 
 `CHECKPREDICATE` enables many other powerful features, including “Merkleized programs” (see [MAST by Jeremy Rubin et al](http://www.mit.edu/~jlrubin/public/pdfs/858report.pdf)) that commit to hashes of each branch, but do not require revealing the contents of a branch unless it needs to be executed.
 
-## 4. Consensus
+## 5. Consensus
 
 As described above, a consensus program allows the blockchain to implement arbitrary consensus protocols. The first version of the Chain Protocol specifies a default consensus protocol based on approval from a federation of block signers.
 
@@ -186,7 +186,7 @@ These tradeoffs are considered acceptable based on the current business use case
 
 This consensus protocol, therefore, does not attempt to solve the general problem of Byzantine agreement. It requires trust assumptions that are unusually strong relative to Byzantine-fault-tolerant algorithms, but usefully weak relative to centralized databases. In practice, they are reasonable for many real-world deployments. Future versions of the Chain Protocol may specify consensus protocols with weaker assumptions for a broader range of applicability.
 
-## 5. Security
+## 6. Security
 
 The Chain Protocol is intended to be secure under realistic threat models for specific use cases.
 
@@ -226,7 +226,7 @@ As a result, entities can participate in the network without seeing any transact
 
 Compact proofs can also protect network participants against misbehaving block signers. If a block signer signs multiple blocks at the same height, participants can use the inconsistent signatures to construct *fraud proofs* to warn other nodes or provide evidence for enforcement out-of-band.
 
-## 6. Scalability
+## 7. Scalability
 
 The Chain Protocol makes several design decisions to support scalable transaction processing.
 
@@ -236,7 +236,7 @@ Second, the protocol does not require that participants keep track of the entire
 
 Finally, compact proofs allow users to validate only the parts of the blockchain with which they are concerned without processing and validating all transactions, as long as they trust a quorum of block signers. An example of such proof is a Merkle path that proves that a given transaction or unspent output is included in a particular block. For additional security, clients could delegate the task of monitoring the entire blockchain to a server they trust.
 
-## 7. Extensibility
+## 8. Extensibility
 
 The Chain Protocol is extensible to allow fixing bugs and adding new security features while keeping all network nodes compatible with the blockchain. Changes can be applied using a “soft fork” method that preserves both backward and forward compatibility, allowing outdated clients to continue validating the blockchain. 
 
@@ -244,7 +244,7 @@ Blocks, assets, transactions, and programs each have version numbers and extensi
 
 If a client does not recognize a version number for a field in a block or transaction, it treats it as “unknown” and assumes that it is valid. This allows outdated clients to continue validating the parts of the blockchain that use old rules while ignoring the parts using new rules, deferring to block signers for their validation. Some participants may choose to stop performing sensitive operations — such as signing transactions or accepting payments — if they detect an unknown version number and wish to upgrade the software before continuing operation.
 
-## 8. Interoperability
+## 9. Interoperability
 
 The Chain Protocol can power multiple blockchain networks simultaneously. While these networks use the same protocol, their asset IDs are anchored to the initial blocks of these networks, making them globally unique.
 
@@ -252,7 +252,7 @@ Cross-ledger interaction is possible using cross-chain swap protocols, such as [
 
 The Chain Protocol uses standard cryptographic tools such as SHA-2 and SHA-3 hash functions and the secure signature algorithm Ed25519.
 
-## 9. Conclusion
+## 10. Conclusion
 
 This paper has presented the Chain Protocol: a blueprint for a shared, multi-asset, cryptographic ledger that can underpin modern financial networks. The protocol is designed for large scale applications, offering a scalable and extensible data model with a flexible yet robust programming environment.
 
