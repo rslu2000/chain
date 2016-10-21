@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Each time a transaction is created, one or more new unspent outputs is created. An output is considered unspent when it has not yet been used as an input to a new transaction. All asset units on the blockchain exist in the unspent output set.
+Each new transaction in the blockchain consumes some unspent outputs and creates others. An output is considered unspent when it has not yet been used as an input to a new transaction. All asset units on a blockchain exist in the unspent output set.
 
 ## Overview
 
@@ -23,13 +23,13 @@ List all unspent outputs in Alice's account:
 
 $code ../examples/java/UnspentOutputs.java alice-unspent-outputs
 
-List all unspent outputs of the Gold asset:
+List all unspent outputs of the gold asset:
 
 $code ../examples/java/UnspentOutputs.java gold-unspent-outputs
 
 ## Spend unspent outputs
 
-When building a transaction with the `SpendFromAccount` action in the `Transaction.Builder`, Chain Core automatically selects unspent outputs. However, if you want to manually spend unspent outputs, you can use the `SpendAccountUnspentOutput` action. Unlike the `SpendFromAccount` action, the  `SpendAccountUnspentOutput` action does not automatically make change. Therefore, you do not pass an amount or asset to the action, but rather spend the entire amount of the asset controlled in the unspent output. If you wish to only spend a portion of the unspent output, you must manually make change back to your account.
+When building a transaction with the “spend from account” action type, Chain Core automatically selects one or more unspent outputs sufficient to cover the amount to be spent, and automatically returns any excess to your account by adding a change output to the transaction. However, if you want to spend specific unspent outputs, you can use the “spend unspent output from account” action type. You do not specify an amount or asset for the action, but rather spend the entire amount of the asset controlled in the unspent output. Unlike “spend from account,” this action type does not automatically make change. If you wish to spend only a portion of the unspent output, you must explicitly make change back to your account by adding a “control with account” action.
 
 ## Example
 
