@@ -188,9 +188,10 @@ predicate controlFlowExample(base, power, target) {
 }
 ```
 
+
 ### Contracts
 
-While almost any useful program can theoretically be expressed as a predicate, Ivy provides a more flexible and powerful abstraction for writing programs: a *contract*. Contracts add two useful features: *clauses* and *parameters*.
+While almost any useful program can theoretically be expressed as a predicate, Ivy provides a more flexible and powerful abstraction for writing programs: a *contract*. Contracts add two useful features: *parameters* and *clauses*.
 
 [sidenote]
 
@@ -198,40 +199,85 @@ Ivy contracts bear some notable resemblances to Solidity [contracts](https://sol
 
 [/sidenote]
 
-Contracts have one or more named *clauses*, each of which is its own predicate. To satisfy a contract, one can choose which clause to satisfy. For example, this contract can be satisfied at any time by choosing the appropriate clause for the current time.
+Contracts take *parameters* and define *clauses*. Once a contract is *instantiated* with particular parameters, its clauses can be called using *arguments*.
 
 ```
-contract TimeControlledContract() {
-	clause before() {
-		verify tx.maxtime < 1477267200;
+// defining contract
+contract IsGreaterThan(a) {
+	clause check(b) {
+		verify b > a;
 	}
-	clause after() {
-		verify tx.mintime >= 1477267200;
+}
+
+// instantiating contract
+isGreaterThan5 = IsGreaterThan(5);
+
+// satisfying clause
+verify IsGreaterThan5.check(6); // completes successfully
+```
+
+Note the difference between *parameters* — which are selected when a program is put onto the blockchain — and *arguments* — which are selected later, when someone is attempting to satisfy the contract.
+
+The `IsGreaterThan` contract takes one parameter, `a`. Once instantiated, it can be satisfied by calling its `check` clause with a single argument, `b`.
+
+Contracts can offer a choice among multiple clauses.
+
+```
+contract MultipleClausesExample(a) {
+	clause checkTwoGreaterNumbers(b, c) {
+		verify b > a;
+		verify c > a;
+	}
+
+	clause checkOneSmallerNumber(d) {
+		verify d < a;
 	}
 }
 ```
 
-Contracts also take *parameters*. This allows developers to define *generic* programs.
+When a contract is evaluated, the caller can choose which clause to satisfy. Satisfying any clause in the contract satisfies the entire contract.
 
-For example, the following contract (which can be used as a simple [control program](#control-programs)) takes a single parameter. When the program is put onto the blockchain as a control program, the value for that parameter is set to the owner's public key. Later, to spend that output, the owner must use her private key to sign the transaction hash, and pass the signature as an argument. The program checks the signature against the transaction hash and public key to confirm that the transaction is authorized.
+The clause can be selected by name, using dot notation:
+
+```
+comparisonToFive = MultipleClausesExample(5);
+
+verify comparisonToFive.checkTwoGreaterNumbers(6, 7); // succeeds
+verify comparisonToFive.checkOneSmallerNumber(4); // succeeds
+```
+
+Or the contract itself can be called, and the index of the clause can be passed as the first argument:
+
+```
+verify comparisonToFive(1, 4); // equivalent to: verify comparisonToFive.checkOneSmallerNumber(4); 
+```
+
+Clauses can also be assigned to variables and treated as separate predicates.
+
+```
+checkTwoGreaterNumbersThanFive = comparisonToFive.checkTwoGreaterNumbers;
+verify checkTwoGreaterNumbersThanFive(6, 7);
+```
+
+Instantiated contracts can be used as [control programs](#control-programs). For example, the following contract takes a single parameter. When the program is put onto the blockchain as a control program, the value for that parameter is set to the owner's public key. Later, to spend that output, the owner must use her private key to sign the transaction hash, and call the *spend* clause of the control program, passing her signature as an argument. The program checks the signature against the transaction hash and public key to confirm that the transaction is authorized.
 
 ```
 contract PubKeyControlProgram(publicKey) {
-	clause spend(signature) {
+	action spend(signature) {
 		verify checksig(publicKey, tx.hash, signature);
 	}
 }
 ```
 
-Note the difference between *parameters* — which are selected when a program is put onto the blockchain — and *arguments* — which are selected later, when someone is attempting to satisfy that program.
+The contract format is a useful tool for describing and developing generic patterns for control programs (and as a result is used throughout the rest of this guide). 
 
-The contract format is a useful tool for describing and developing generic patterns for control programs, and as a result is used throughout the rest of this guide. What makes it particularly powerful, however, is that, using some tricks with string manipulation instructions, programs *themselves* can instantiate contracts with parameters to create new programs. In combination with output introspection, this allows construction of complex state machines.
+What makes it particularly powerful, however, is that, using some tricks with string manipulation instructions, programs *themselves* can instantiate contracts with parameters to create new programs. In combination with output introspection, this allows construction of complex state machines.
 
-For example, this contract allows its assets to be transferred from public key to public key, but doesn't allow them to be split up.
+For example, this contract allows its assets to be transferred from public key to public key, but doesn't allow them to be split up:
 
 ```
 contract BundledAsset(publicKey) {
-	clause transfer(signature, newPublicKey, outputIndex) {
+	action transfer(signature, newPublicKey, outputIndex) {
 		verify checksig(publicKey, tx.hash, signature);
 		verify tx.outputs[outputIndex] == (tx.currentInput.amount, tx.currentInput.asset, BundledAsset(newPublicKey));
 	}
@@ -242,12 +288,12 @@ This contract does the same thing, but also counts the number of times it has be
 
 ```
 contract BundledAssetWithCounter(publicKey, counter) {
-	clause transfer(signature, newPublicKey, outputIndex) {
+	action transfer(signature, newPublicKey, outputIndex) {
 		verify checksig(publicKey, tx.hash, signature);
 		verify tx.outputs[outputIndex] == (tx.currentInput.amount, tx.currentInput.asset, BundledAssetWithCounter(newPublicKey, counter + 1));
 	}
 
-	clause free(signature) {
+	action free(signature) {
 		verify checksig(publicKey, tx.hash, signature);
 		verify counter >= 50;
 	}
@@ -286,17 +332,19 @@ contract PubKeyControlProgram(publicKey) {
 }
 ```
 
+This control program requires the spender to pass a valid signature on the current transaction hash that matches the public key.
+
 Control programs can use M-of-N `checkmultisig` instead of a single `checksig`, which can be satisfied by M signatures that each match one of N given public keys. Multisig programs make theft more difficult, and potentially reduce the consequences of losing access to a single key.
 
 ```
 contract MultisigControlProgram(n, m, ...publickeys[n]) {
 	clause spend(...signatures[m]) {
-		verify checksig(publicKeys..., block.hash, signatures...);
+		verify checkmultisig(n, m, publicKeys..., block.hash, signatures...);
 	}
 }
 ```
 
-This control program requires the spender to pass a valid signature on the current transaction hash that matches the public key.
+By default, Chain Core uses a different kind of control program in order to support [signature programs](#signature-programs), as described below.
 
 ### Issuance programs
 
@@ -310,7 +358,7 @@ A simple issuance program might just check one or more signatures on the transac
 
 ```
 contract MultisigIssuanceProgram(n, m, ...publickeys[n]) {
-	clause spend(...signatures[m]) {
+	clause issue(...signatures[m]) {
 		verify checksig(publicKeys..., tx.hash, signatures...);
 	}
 }
@@ -326,8 +374,8 @@ Chain's [federated consensus protocol]() relies on a quorum of block signers sig
 
 ```
 contract ConsensusProgram(n, m, ...publickeys[n]) {
-	clause spend(...signatures[m]) {
-		verify checksig(publicKeys..., block.hash, signatures...);
+	clause checkBlock(...signatures[m]) {
+		verify checkmultisig(n, m, publicKeys..., block.hash, signatures...);
 	}
 }
 ```
@@ -353,15 +401,15 @@ Instead of authorizing a specific transaction, it would be useful if a spender o
 To enable this, the control program for Alice's Acme shares cannot have the simple form described above, which checks a signature against the transaction hash. Instead, it should look like this:
 
 ```
-contract FlexibleControlProgram(publicKey) {
-	spend(signature, program) {
+contract P2SPControlProgram(publicKey) {
+	clause spend(signature, program, m, ...args[m]) {
 		verify checksig(publicKey, program, signature)
-		verify program();
+		verify program(args...);
 	}
 }
 ```
 
-Instead of providing a signature of the transaction hash, the spender provides a signature of a particular *program*, which is then evaluated. The combined signature and program are referred to as a *signature program*.
+Instead of providing a signature of the transaction hash, the spender provides a signature of a particular *program*, which is then evaluated (with any given arguments). The combined signature and program are referred to as a *signature program*.
 
 The signature program can use transaction introspection to set conditions on particular parts of the transaction.
 
@@ -369,7 +417,7 @@ For example:
 
 ```
 contract SimpleSignatureProgram(targetHash) {
-	clause spend() {
+	clause check() {
 		verify tx.hash = targetHash;
 	}
 }
@@ -381,7 +429,7 @@ But a signature program can do much more than that. For example, this program so
 
 ```
 contract CheckOutputSignatureProgram(targetOutputIndex, targetAmount, targetAssetID, targetControlProgram, targetReferenceData) {
-	clause spend() {
+	clause default() {
 		verify tx.outputs[targetOutputIndex] == (targetAmount, targetAssetID, targetControlProgram, targetReferenceData);
 	}
 }
@@ -395,6 +443,108 @@ Christopher Allen and others explored ideas similar to signature programs in the
 
 [/sidenote]
 
-## Smart Contracts
+## Contract Examples
 
-TBD!
+These examples are provided as illustrations only. They elide over some subtleties, and should not be considered final or secure. If you are interested in using Chain contracts in production, contact us at hello@chain.com.
+
+### Offers and Orderbooks
+
+```
+contract Offer(askingPrice, currency, sellerAddress) {
+	clause lift(paymentIndex) {
+		verify tx.outputs[paymentIndex] == (askingPrice, currency, sellerContract);
+	}
+}
+```
+
+That contract will be on the blockchain until someone satisfies it. What if we want to make it cancellable by the seller?
+
+```
+contract RevocableOffer(askingPrice, currency, sellerContract) {
+	clause lift(paymentIndex) {
+		verify tx.outputs[paymentIndex] == (askingPrice, currency, sellerContract);
+	}
+
+	clause cancel(m, ...args[m]) {
+		verify sellerContract(args...);
+	}
+}
+```
+
+What if we want the offer to be irrevocable for a certain period of time, and then automatically expire after some later point?
+
+```
+contract TimeLimitedOffer(askingPrice, currency, sellerContract, revocabilityTime, expirationTime) {
+	clause lift(paymentIndex) {
+		verify maxtime < expirationTime;
+		verify tx.outputs[paymentIndex] == (askingPrice, currency, sellerContract);
+	}
+
+	clause cancel(m, ...args[m]) {
+		verify mintime > revocabilityTime;
+		verify sellerContract(args...);
+	}
+}
+```
+
+What if we want to be able to fill a *partial* order, allowing someone to pay for part of the contract and leaving the rest available for someone else to purchase?
+
+```
+contract TimeLimitedOffer(pricePerUnit, currency, sellerContract, revocabilityTime, expirationTime) {
+	clause lift(purchasedAmount, paymentIndex, remainderIndex) {
+		verify purchasedAmount > 0;
+		verify maxtime < expirationTime;
+		verify tx.outputs[paymentIndex] == (purchasedAmount * pricePerUnit, currency, sellerContract);
+		verify tx.outputs[remainderIndex] == (tx.currentInput.amount - purchasedAmount, 
+											  tx.currentInput.asset,
+											  tx.currentInput.program);
+	}
+
+	clause cancel(m, ...args[m]) {
+		verify mintime > revocabilityTime;
+		verify sellerContract(args...);
+	}
+}
+```
+
+Notice that the remainder must be sent to a new contract that is a duplicate of the current one, just controlling fewer assets.
+
+### Private Contracts
+
+Normally, when a control program is added to the blockchain, the logic is available immediately. What if we don't want to reveal our public keys or logic when the control program is first put on the blockchain, but only when it is spent? The control program could commit to a *hash* of the relevant contract. (Bitcoin supports a similar pattern, known as "Pay to Script Hash"; see [BIP 13](https://github.com/bitcoin/bips/blob/master/bip-0013.mediawiki)).
+
+```
+contract P2SHControlProgram(contractHash) {
+	clause spend(contract, m, ...args[m]) {
+		verify sha3(contract) == contractHash;
+		verify contract(args...);
+	}
+}
+```
+
+But what if parties want to avoid *ever* revealing the logic to the blockchain? They can avoid doing so — in the normal case — by adding an additional clause that lets all interested parties spend the output without revealing the contract:
+
+```
+contract PrivateContractControlProgram(contractHash, n, ...publicKeys[n]) {
+	clause settle(...sigs[n]) {
+		// all interested parties can agree to the final result of the contract
+		verify checkmultisig(n, n, publicKeys..., tx.hash, sigs...);
+	}
+
+	clause enforce(contract, m, ...args[m]) {
+		// any party can reveal the contract and enforce it
+		verify sha3(contract) == contractHash;
+		verify contract(args...);
+	}
+}
+```
+
+Parties can evaluate the contract offline, determine the result, mutually agree to how it should resolve, and provide their signatures on the resulting transaction. If any party refuses to agree to the result, another party can enforce the contract by making its code public. This is more similar to how contract enforcement works in the real world.
+
+[sidenote]
+
+This idea can be extended to implement full [Merklized Abstract Syntax Trees](http://www.mit.edu/~jlrubin/public/pdfs/858report.pdf) — programs for which unexecuted branches do not need to be revealed. Similar ideas have also been explored by so-called "payment channels" in Bitcoin, most famously in the [Lightning Network](https://lightning.network/) project, as well as "[state channels](http://www.jeffcoleman.ca/state-channels/)" in Ethereum.
+
+[/sidenote]
+
+
