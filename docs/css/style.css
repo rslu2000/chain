@@ -278,7 +278,6 @@ a {
 #doc-header {
     margin-left: calc((100% - 994px) / 2 + 226px);
     overflow-x: hidden;
-    border-bottom: 1px solid rgba(120, 134, 156, .08);
     width: 700px;
 }
 
