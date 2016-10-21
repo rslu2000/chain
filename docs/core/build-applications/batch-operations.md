@@ -1,9 +1,5 @@
 # Batch Operations
 
-* [Overview](#overview)
-* [Example: creating assets in a batch](#example-creating-assets-in-a-batch)
-* [Example: batch transactions](#example-batch-transactions)
-
 ## Overview
 
 Batch operations are an advanced feature of the Client API that allow you to bundle many similar operations into a single API call. Not only does this reduce on network overhead, it also allows the Chain Core to process operations in your request in parallel.

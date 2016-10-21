@@ -1,11 +1,5 @@
 # Control Programs
 
-* [Introduction](#introduction)
-* [Overview](#overview)
-* [Account control programs](#account-control-programs)
-* [Retirement control programs](#retirement-control-programs)
-* [Custom control programs](#custom-control-programs)
-
 ## Introduction
 
 A control program is the mechanism that secures asset units on a blockchain. When you first issue units of an asset, you issue them into a control program. When you spend units of an asset, you spend them from an existing control program to a new control program. When you retire units of an asset, you spend them from an existing control program to a special retirement control program that can never be spent.
@@ -16,9 +10,9 @@ Each output in a transaction contains a single control program. Each control pro
 
 This guide will walk you through the basic types of control programs available in Chain Core:
 
-* Account control programs
-* Retirement control programs
-* Custom control programs
+* [Account control programs](#account-control-programs)
+* [Retirement control programs](#retirement-control-programs)
+* [Custom control programs](#custom-control-programs)
 
 ### Sample Code
 

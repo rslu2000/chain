@@ -4,14 +4,14 @@
 
 This guide will walk you through the basic functions of Chain Core:
 
-* Initialize the SDK
-* Create keys (in the Chain Core MockHSM)
-* Initialize the HSM Signer
-* Create an account
-* Create an asset
-* Issue asset units into an account
-* Spend asset units from one account to another
-* Retire asset units from an account
+* [Initialize the SDK](#initialize-the-sdk)
+* [Create keys](#create-keys) (in the Chain Core MockHSM)
+* [Initialize the HSM Signer](#initialize-the-hsm-signer)
+* [Create an asset](#create-an-asset)
+* [Create an account](#create-an-account)
+* [Issue asset units into an account](#issue-asset-units)
+* [Spend asset units from one account to another](#spend-asset-units)
+* [Retire asset units from an account](#retire-asset-units)
 
 ### Sample Code
 All code samples in this guide are extracted from a single Java file.

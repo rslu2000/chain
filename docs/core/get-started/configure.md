@@ -1,5 +1,10 @@
 # Configure Chain Core
 
+* [Overview](#overview)
+* [Create a new blockchain](#create-a-new-blockchain)
+* [Connect to an existing blockchain](#connect-to-an-existing-blockchain)
+* [Connect to the Chain testnet](#connect-to-the-chain-testnet)
+
 ## Overview
 
 When you first launch your Chain Core and visit the dashboard at `http://HOST:1999/` (where HOST is the name of the computer where Chain Core is running), you will be presented with three options:

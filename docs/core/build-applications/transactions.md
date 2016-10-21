@@ -1,14 +1,5 @@
 # Transactions Guide
 
-* [Introduction](#introduction)
-* [Overview](#overview)
-* [Create Transaction](#create-transaction)
-* [Sign transaction](#sign-transaction)
-* [Submit transaction](#submit-transaction)
-* [List transactions](#list-transactions)
-* [Transaction consumers](#transaction-consumers)
-* [Basic transaction examples](#basic-transaction-examples)
-
 ## Introduction
 
 A blockchain consists of an immutable set of cryptographically linked transactions. Each transaction consists of one or more inputs and outputs. An input defines a source of asset units — either a new issuance, or existing asset units controlled by a control program in an output of a previous transaction. An output defines an amount of asset units from the inputs to be controlled by a new control program or retired. When an output is not retired and has not yet been used as an input to a new transaction, we refer to it as an unspent output.
@@ -31,11 +22,11 @@ If you wish to spend a greater amount of asset units than exist in a single unsp
 
 This guide will walk you through the basic functions of a transaction:
 
-* Create transaction
-* List transactions
-* Transaction consumers
+* [Create transaction](#create-transaction)
+* [List transactions](#list-transactions)
+* [Transaction consumers](#transaction-consumers)
 
-as well as a few examples of different transactions:
+as well as a few [examples](#basic-transaction-examples) of different transactions:
 
 * Asset issuance
 * Simple payment
@@ -46,6 +37,7 @@ as well as a few examples of different transactions:
 This guide assumes you know the basic functions presented in the [5-Minute Guide](../get-started/five-minute-guide.md).
 
 ### Sample Code
+
 All code samples in this guide are extracted from a single Java file.
 
 <a href="../examples/java/Transactions.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
@@ -54,9 +46,9 @@ All code samples in this guide are extracted from a single Java file.
 
 Creating a transaction consists of three basic steps:
 
-1. Build transaction
-2. Sign transaction
-3. Submit transaction
+1. [Build transaction](#build-transaction)
+2. [Sign transaction](#sign-transaction)
+3. [Submit transaction](#submit-transaction)
 
 Depending on the number of parties involved in a transaction, steps 1 and 2 may occur several times before submitting to the blockchain.
 
@@ -80,7 +72,7 @@ Reference data is useful for annotating transactions with external data. In addi
 
 Note: the `SpendFromAccount` action will duplicate the reference data on each input it uses to satisfy the amount.
 
-## Sign transaction
+### Sign transaction
 
 The SDK includes an HSMSigner that communicates with HSMs to sign transactions. For development, the HSMSigner can communicate with the MockHSM built into Chain Core.
 
@@ -92,7 +84,7 @@ To enable this functionality, you must call the `allowAdditionalActions` method 
 
 For more information, see [multiparty trades](multiparty-trades.md).
 
-## Submit transaction
+### Submit transaction
 
 Once a transaction is balanced and all inputs are signed, you can submit it to the blockchain using the `Transaction.submit()` method. Chain Core waits until the transaction in included in a block to respond with a success.
 

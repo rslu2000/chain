@@ -1,11 +1,5 @@
 # Balances
 
-* [Introduction](#introduction)
-* [Overview](#overview)
-* [List account balances](#list-account-balances)
-* [Get asset circulation](#get-asset-circulation)
-* [List balances with sum_by](#list-balances-with-sum_by)
-
 ## Introduction
 
 Any balance on the blockchain is simply a summation of unspent outputs. For example, the balance of Alice’s account is a summation of all the unspent outputs whose control program was created in Alice’s account.
@@ -23,9 +17,10 @@ By default, the Balance.QueryBuilder class sums balances by `asset_id` and `asse
 
 This guide will walk you through a few basic balance queries:
 
-* List account balances
-* Get asset circulation
-* List account balances, summed by a field in the asset definition
+* [List account balances](#list-account-balances)
+* [Get asset circulation](#get-asset-circulation)
+* [List account balances, summed by a field in the asset definition](#list-balances-with-sum_by)
+
 
 ### Sample Code
 
