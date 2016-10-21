@@ -490,7 +490,7 @@ contract TimeLimitedOffer(askingPrice, currency, sellerContract, revocabilityTim
 What if we want to be able to fill a *partial* order, allowing someone to pay for part of the contract and leaving the rest available for someone else to purchase?
 
 ```
-contract TimeLimitedOffer(pricePerUnit, currency, sellerContract, revocabilityTime, expirationTime) {
+contract PartiallyFillableOffer(pricePerUnit, currency, sellerContract, revocabilityTime, expirationTime) {
 	clause lift(purchasedAmount, paymentIndex, remainderIndex) {
 		verify purchasedAmount > 0;
 		verify maxtime < expirationTime;
@@ -508,6 +508,35 @@ contract TimeLimitedOffer(pricePerUnit, currency, sellerContract, revocabilityTi
 ```
 
 Notice that the remainder must be sent to a new contract that is a duplicate of the current one, just controlling fewer assets.
+
+### Singleton
+
+It is possible to design an asset for which only one unit can ever be issued.
+
+This requires some understanding of how the Chain Protocol handles issuances. Unique issuance — ensuring that issuances cannot be replayed — is a challenging problem that is outside the scope of this paper. The Chain Protocol's solution is that each issuance input has a nonce, which, when combined with the transaction's mintime and maxtime and the asset ID, must be unique throughout the blockchain's history.
+
+As a result, an issuance program can ensure that it is only used once by committing to a specific nonce, transaction mintime, and transaction maxtime:
+
+```
+contract SinglyIssuableAsset(nonce, mintime, maxtime, amount, lockScript) {
+	issue(outputIndex) {
+		// ensure that asset can only be issued once
+		verify nonce == tx.currentInput.nonce;
+		verify mintime == tx.mintime;
+		verify maxtime == tx.maxtime;
+
+		// ensure that only one unit is issued
+		verify tx.currentInput.amount == 1;
+
+		// ensure that unit is locked with the target script
+		verify tx.outputs[outputIndex] == (tx.currentInput.amount,
+										   tx.currentInput.asset,
+										   lockScript)
+	}
+}
+```
+
+This means there will only be one UTXO on the blockchain with this asset ID. As a result, it can be used as a *singleton* — a token to keep track of some piece of global state for other asset IDs.
 
 ### Private Contracts
 
