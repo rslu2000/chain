@@ -423,7 +423,7 @@ article div.sidenote p:not(:first-child) {
 
 
 @media screen and (min-width: 1640px) {
-	
+
 	#docs {
 	    overflow-x: visible;
 	}
@@ -433,12 +433,12 @@ article div.sidenote p:not(:first-child) {
 	#doc-wrapper {
 	    overflow-x: visible;
 	}
-	
+
 	article div.sidenote {
 		position:relative;
 		margin-right: -350px;
-	}	
-	
+	}
+
 	article div.sidenote p,
 	article div.sidenote ul,
 	article div.sidenote ol {
@@ -1207,7 +1207,7 @@ input:focus {
 .next-step {
     display: block;
     font-size: 19px;
-    padding: 16px 0 14px 50px;
+    padding: 16px 0 16px 50px;
     text-decoration: none;
     border-radius: 3px;
     margin-top: 20px;
@@ -1228,10 +1228,10 @@ input:focus {
 }
 
 .next-step .btn-icon {
-    top: 19px;
+    top: 21px;
     right: 50px;
     position: absolute;
-    transition: all 0.2s linear;
+    transition: all 0.15s linear;
 }
 .next-step:hover .btn-icon {
     right: 40px;
