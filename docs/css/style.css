@@ -741,14 +741,13 @@ pre:not(:last-child) {
 pre {
     line-height: normal;
     background-color: #fcfcfc;
-    border: 0.0625rem solid #ebedef;
+    border: 0.0625rem solid #f4f6f8;
     border-left: 4px solid #B9F4EE;
-    border-radius: 5px;
     position: relative;
     font-size: 0.8125em;
     line-height: 1.4;
     color: #706d77;
-    border-radius: 0.25em;
+    border-radius: 0.1em;
     margin: 0;
     tab-size: 6px;
     overflow: scroll !important;
