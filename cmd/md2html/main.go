@@ -47,24 +47,21 @@ func serve(addr string) {
 		}
 		b, err := render(path + ".md")
 		if os.IsNotExist(err) {
-			// Try the partial index and wrap it in a layout
-			partialIndexPath := strings.TrimSuffix(path, "/") + "/index.partial.html"
+			// Try the index and wrap it in a layout
+			partialIndexPath := strings.TrimSuffix(path, "/") + "/index.html"
 			b, err = ioutil.ReadFile(partialIndexPath)
 			if os.IsNotExist(err) {
-				// Try the fully-rendered index
-				b, err = ioutil.ReadFile(strings.TrimSuffix(path, "/") + "/index.html")
-				if os.IsNotExist(err) {
-					http.NotFound(w, r)
-					return
-				}
-			} else {
-				layout, err := layout(partialIndexPath)
-				if err != nil {
-					http.NotFound(w, r)
-					return
-				}
-				b = bytes.Replace(layout, defaultLayout, b, 1)
+				http.NotFound(w, r)
+				return
 			}
+
+			l, err := layout(partialIndexPath)
+			if err != nil {
+				http.NotFound(w, r)
+				return
+			}
+
+			b = bytes.Replace(l, defaultLayout, b, 1)
 		}
 
 		if err != nil {
