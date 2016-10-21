@@ -16,7 +16,7 @@
   * [Balances](core/build-applications/balances.md)
   * [Control Programs](core/build-applications/control-programs.md)
   * [Query Filters](core/build-applications/query-filters.md)
-  * Batching
+  * [Batch Operations](core/build-applications/batch-operations.md)
 
 * Learn More
   * [Global vs Local Data](core/learn-more/global-vs-local-data.md)

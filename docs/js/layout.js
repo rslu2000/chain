@@ -29,6 +29,39 @@ function prepareSidebarMenu() {
     })
 }
 
+function prepareNextStepButton() {
+	// 1. Figure which item in the sidebar is current.
+	// 2. Find the next one.
+	// 3. Take its link and title.
+	// 4. Activate the next button.
+	
+	var p = location.pathname;
+	p = p.replace(/\/+$/,"")
+	var toc = $('.docs-nav .inner a')
+	var currentIndex = -100
+	toc.each(function(i){
+		var a = $(this)
+		var url = a.attr("href")
+		if (url == p) {
+			currentIndex = i
+			return
+		}
+		if (i == (currentIndex+1)) {
+			var nextStep = $("#next-step")
+			nextStep.show()
+			var title = a.attr("title")
+			if (!title || title == "") { 
+				title = a.text()
+			}
+			$("button span", nextStep).text(title)
+			$("button", nextStep).click(function(){
+				window.location.href = url
+			})
+			return
+		}
+	})	
+}
+
 // switcher between the navtabs for operating systems
 function openOS(evt, osName) {
   // Declare all variables
