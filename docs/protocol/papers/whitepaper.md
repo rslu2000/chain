@@ -1,18 +1,32 @@
-# **Chain Protocol Whitepaper**
+# **An Introduction to the Chain Protocol**
 
 1. [Introduction](#1-introduction)
-2. [Data model](#2-data-model)
-3. [Programs](#3-programs)
-4. [Consensus](#4-consensus)
-5. [Security](#5-security)
-6. [Scalability](#6-scalability)
-7. [Extensibility](#7-extensibility)
-8. [Interoperability](#8-interoperability)
-9. [Conclusion](#9-conclusion)
-
-
+2. [Motivation](#2-motivation)
+3. [Data model](#3-data-model)
+4. [Programs](#4-programs)
+5. [Consensus](#5-consensus)
+6. [Security](#6-security)
+7. [Scalability](#7-scalability)
+8. [Extensibility](#8-extensibility)
+9. [Interoperability](#9-interoperability)
+10. [Conclusion](#10-conclusion)
 
 ## 1. Introduction
+
+In this paper, we present the Chain Protocol: a blueprint for a multi-asset shared ledger designed for large-scale financial networks. It supports the coexistence and interoperability of multiple independent networks, with different operators, sharing a common format and capabilities. Using the principle of least authority, control over assets is separated from control over ledger synchronization.
+
+The Chain Protocol allows any network participant to define and issue assets by writing custom “issuance programs.” Once issued, units of an asset are controlled by “control programs.” These programs are expressed in a flexible and Turing-complete programming language that can be used to build sophisticated smart contracts.
+
+Each network is secured by a federation of “block signers.” The system is secure against forks as long as a quorum of block signers follows the protocol. For efficiency, block creation is delegated to a single “block generator.” Any node on the network can validate blocks and submit transactions to the network.
+
+Chain Core is an enterprise software product that implements the Chain Protocol. An open-source [developer edition](https://github.com/chain/chain) is freely available, and Chain operates a Chain blockchain network as a freely accessible testnet. 
+
+Section [2](#2-motivation) explains the background and motivation for the design of the protocol. Sections [3](#3-data-model), [4](#4-programs), and [5](#5-consensus) describe key concepts — assets, transactions, programs, blockchain and consensus protocol — and discuss how programmed rules are enforced and double-spending is prevented.
+
+Subsequent sections discuss various aspects of the blockchain network: [security](#6-security), [scalability](#7-scalability), [extensibility](#8-extensibility) and [interoperability with other networks](#9-interoperability).
+
+
+## 2. Motivation
 
 In the modern financial system, assets such as currencies, securities, and derivatives are typically held and traded electronically. This miraculous abstraction hides the true complexity of the system: a messy decentralized web of mutual obligations, indirect ownership, and periodic settlement. Transferring assets often requires point-to-point interaction between multiple intermediaries, and reconciliation of duplicated ledgers.
 
@@ -33,17 +47,6 @@ Ethereum, which launched in 2015, generalizes the concept of a blockchain to a f
 
 In contrast to Bitcoin and Ethereum, which are designed to operate on the public Internet (a highly hostile environment), most financial activity already occurs within restricted networks of financial institutions. A shared ledger operated within this network can exhibit the advantages of blockchain technology without sacrificing the efficiency, security, privacy, and flexibility needed by financial institutions.
 
-In this paper, we present the Chain Protocol: a blueprint for a multi-asset shared ledger designed for large-scale financial networks. It supports the coexistence and interoperability of multiple independent networks, with different operators, sharing a common format and capabilities. Using the principle of least authority, control over assets is separated from control over ledger synchronization.
-
-The Chain Protocol allows any network participant to define and issue assets by writing custom “issuance programs.” Once issued, units of an asset are controlled by “control programs.” These programs are expressed in a flexible and Turing-complete programming language that can be used to build sophisticated smart contracts.
-
-Each network is secured by a federation of “block signers.” The system is secure against forks as long as a quorum of block signers follows the protocol. For efficiency, block creation is delegated to a single “block generator.” Any node on the network can validate blocks and submit transactions to the network.
-
-Chain Core is an enterprise software product that implements the Chain Protocol. An open-source [developer edition](https://github.com/chain/chain) is freely available, and Chain operates a Chain blockchain network as a freely accessible testnet.
-
-Sections [2](#2-data-model), [3](#3-programs), and [4](#4-consensus) describe key concepts — assets, transactions, programs, blockchain and consensus protocol — and discuss how programmed rules are enforced and double-spending is prevented.
-
-Subsequent sections discuss various aspects of the blockchain network: [security](#5-security), [scalability](#6-scalability), [extensibility](#7-extensibility) and [interoperability with other networks](#8-interoperability).
 
 ## 2. Data model
 
@@ -95,7 +98,7 @@ A block contains the hash of all its transactions and the hash of the current st
 
 To prevent unauthorized participants from creating new blocks, each new block must satisfy a *consensus program*, which is specified in the header of the previous block. The consensus program — much like an issuance or control program — receives  arguments from the new block’s *witness* field.
 
-For example, a consensus program could specify a public key, and require that the next block’s witness contain a signature by the corresponding private key, using the block hash as a message. This is the basis of the consensus programs used in Chain’s [federated consensus protocol](#4-consensus). The flexibility and power of the [programming language](#3-programs), however, means that the protocol could theoretically support arbitrary consensus algorithms — even complex ones based on “proof-of-work” or “proof-of-stake”.
+For example, a consensus program could specify a public key, and require that the next block’s witness contain a signature by the corresponding private key, using the block hash as a message. This is the basis of the consensus programs used in Chain’s [federated consensus protocol](#5-consensus). The flexibility and power of the [programming language](#4-programs), however, means that the protocol could theoretically support arbitrary consensus algorithms — even complex ones based on “proof-of-work” or “proof-of-stake”.
 
 ## 3. Programs
 
@@ -253,7 +256,7 @@ The Chain Protocol uses standard cryptographic tools such as SHA-2 and SHA-3 has
 
 This paper has presented the Chain Protocol: a blueprint for a shared, multi-asset, cryptographic ledger that can underpin modern financial networks. The protocol is designed for large scale applications, offering a scalable and extensible data model with a flexible yet robust programming environment.
 
-The Chain Protocol allows participants to issue and control assets programmatically using digital signatures and custom rules. Transactions issuing and controlling assets are collected into a cryptographic chain of blocks forming a shared ledger. Block signers follow a [federated consensus protocol](#4-consensus) to replicate a single copy of the ledger across all nodes to prevent reversal of transactions and double-spending. 
+The Chain Protocol allows participants to issue and control assets programmatically using digital signatures and custom rules. Transactions issuing and controlling assets are collected into a cryptographic chain of blocks forming a shared ledger. Block signers follow a [federated consensus protocol](#5-consensus) to replicate a single copy of the ledger across all nodes to prevent reversal of transactions and double-spending. 
 
 Chain Core is software that implements the Chain Protocol. Using Chain Core, organizations can launch a blockchain network in their market or connect to a growing list of networks that are enabling this new medium for assets – one that reduces the time, cost, and complexity of asset transfer and custody in the financial system and can give rise to new products and services that are difficult or impossible to realize on traditional infrastructure.
 
