@@ -2,7 +2,7 @@
 
 ## Overview
 
-Batch operations are an advanced feature of the Client API that allow you to bundle many similar operations into a single API call. Not only does this reduce on network overhead, it also allows the Chain Core to process operations in your request in parallel.
+Batch operations are an advanced feature of the Chain Core API that allow you to bundle many similar operations into a single API call. Not only does this reduce network overhead, it also allows Chain Core to process the operations in your request in parallel.
 
 Operations that support batching include:
 
@@ -18,23 +18,23 @@ All code samples in this guide are extracted from a single Java file.
 
 <a href="../examples/java/BatchOperations.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 
-## Example: creating assets in a batch
+## Example: Creating assets in a batch
 
-All batch operations share a common workflow. To illustrate this, we'll walk through an example program that creates several assets as a batch.
+All batch operations share a common workflow. To illustrate this, we’ll walk through an example program that creates several assets as a batch.
 
 #### Preparing the request
 
-Batch operations take similar input to their non-batch analogs. For batch calls, you just pass a _list_ of parameter objects, rather than a single object.
+Batch operations take similar input to their non-batch analogs, except that in batch calls you pass a _list_ of parameter objects, rather than a single object.
 
-For our example, we'll create a list of builder objects for our assets, one for each asset we want to create:
+For our example, we’ll create a list of builder objects for our assets, one for each asset we want to create:
 
 $code ../examples/java/BatchOperations.java asset-builders
 
-Note that we're attempting to create the `bronze` asset with an invalid value for the `quorum` parameter. This will generate an API error, and since we're performing a batch operation, we'll have to handle the error in a special way.
+Note that we’re attempting to create the `bronze` asset with an invalid value for the `quorum` parameter. This will generate an API error, and since we’re performing a batch operation, we’ll have to handle the error in a special way.
 
 #### Making the batch call
 
-All batch methods in the SDK are explicitly named with a `Batch` suffix, and they return a special batch response object:
+All batch method names in the SDK end with `Batch`, and they return a special batch response object:
 
 $code ../examples/java/BatchOperations.java asset-create-batch
 
@@ -46,7 +46,7 @@ The `BatchResponse` object provides an easy interface for determining which item
 
 $code ../examples/java/BatchOperations.java asset-create-handle-errors
 
-In our example, we expect at least one of the items in the batch request to fail--we provided an invalid value for the `bronze` asset's `quorum` parameter. This produces the following output:
+In our example, we expect at least one of the items in the batch request to fail, since we provided an invalid value for the `bronze` asset’s `quorum` parameter. This produces the following output:
 
 ```
 asset 0 created, ID: f7cfb9604bc53b2ad44d2b61764cf77b4ffbcc16fd25206ce1ff4c2022f914dd
@@ -60,7 +60,7 @@ Batch operations are parallelized on the server side, so there may be some non-d
 
 $code ../examples/java/BatchOperations.java nondeterministic-errors
 
-Here, all three asset builders are attempting to create an asset with the alias `platinum`. Aliases must be unique, so only one will succeed. Due to parallelization, it's possible to get results that appear to be out-of-order relative to the original request. For example, it's possible for the last item in the request to succeed while the first two produce errors:
+Here, all three asset builders are attempting to create an asset with the alias `platinum`. Aliases must be unique, so only one will succeed. Due to parallelization, it’s possible to get results that appear to be out-of-order relative to the original request. For example, it’s possible for the last item in the request to succeed while the first two produce errors:
 
 ```
 asset 0 error: com.chain.exception.APIException: Code: CH003 Message: Invalid request body Detail: non-unique alias
@@ -68,13 +68,13 @@ asset 1 error: com.chain.exception.APIException: Code: CH003 Message: Invalid re
 asset 2 created, ID: 9f7e068bf207faf60f08e78f8ae2834ac35340c217ee2b2329fe25724f246f42
 ```
 
-## Example: batch transactions
+## Example: Batch transactions
 
-Each of the three primary steps of transaction building--building, signing, and submitting--can be performed as a batch operation. We'll experiment with this by attempting to issue three different assets to Alice in three separate transactions as a batch.
+Each of the three primary steps of transacting in Chain Core--building, signing, and submitting--can be performed as a batch operation. We’ll experiment with this by attempting to issue three different assets to Alice in three separate transactions as a batch.
 
 #### Building
 
-First, we'll put together a list of transaction builders:
+First, we’ll put together a list of transaction builders:
 
 $code ../examples/java/BatchOperations.java batch-build-builders
 
@@ -90,7 +90,7 @@ Error building transaction 1: com.chain.exception.APIException: Code: CH002 Mess
 
 #### Signing
 
-Let's move on and try to sign and submit the transactions that we successfully built. We can extract the successful responses using the `successes()` method and pass them to `signBatch`:
+Let’s move on and try to sign and submit the transactions that we successfully built. We can extract the successful responses using the `successes()` method and pass them to `signBatch`:
 
 $code ../examples/java/BatchOperations.java batch-sign
 
