@@ -49,7 +49,7 @@ Aliases are user-supplied, unique identifiers. They enable convenient operations
 
 ### Account tags
 
-Accounts tags are local data that provide convenient storage and enable [complex queries](../build-applications/query-filters.md). For example:
+Accounts tags are local data that provide convenient storage and enable [complex queries](../build-applications/queries.md). For example:
 
 ```
 {
@@ -63,7 +63,7 @@ Accounts tags are local data that provide convenient storage and enable [complex
 
 ### Asset tags
 
-Asset tags are a local asset definition used to [query the blockchain](../build-applications/query-filters.md). This is useful if you do not wish to publish the asset definition on the blockchain, but rather distribute it out of band to relevant parties. It also enables you to add additional local data about an asset that you didn't create. For example:
+Asset tags are a local asset definition used to [query the blockchain](../build-applications/queries.md). This is useful if you do not wish to publish the asset definition on the blockchain, but rather distribute it out of band to relevant parties. It also enables you to add additional local data about an asset that you didn't create. For example:
 
 ```
 {

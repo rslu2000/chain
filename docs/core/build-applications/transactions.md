@@ -102,7 +102,7 @@ setAscending       | Orders the results from earliest to latest timestamp.
 
 ### Filters
 
-The `setFilter` method allows filtering `Transaction.QueryBuilder` results by any field in the [transaction object](../reference/api-objects.md#transaction). For more information, see [Query Filters](../build-applications/query-filters.md).
+The `setFilter` method allows filtering `Transaction.QueryBuilder` results by any field in the [transaction object](../reference/api-objects.md#transaction). For more information, see [Query Filters](../build-applications/queries.md).
 
 ### Examples
 
