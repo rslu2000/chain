@@ -3,7 +3,8 @@
 * [Introduction](#introduction)
 * [Chain Virtual Machine](#chain-virtual-machine)
 * [Ivy](#ivy)
-* [Predicates](#predicates)
+  * [Predicates](#predicates)
+  * [Contracts](#contracts)
 * [Programs](#programs)
   * [Control programs](#control-programs)
   * [Issuance programs](#issuance-programs)
@@ -125,7 +126,7 @@ Similarly, most development for the EVM is done using [Solidity](https://solidit
 
 [/sidenote]
 
-## Predicates
+### Predicates
 
 *Predicates* in Ivy are programs that either return true or false. 
 
