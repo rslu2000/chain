@@ -1,5 +1,15 @@
 # Assets
 
+* [Introduction](#introduction)
+* [Overview](#overview)
+* [Create asset](#create-asset)
+* [List assets](#list-assets)
+* [Issue asset units to a local account](#issue-asset-units-to-a-local-account)
+* [Issue asset units to an external party](#issue-asset-units-to-an-external-party)
+* [List asset transactions](#list-asset-transactions)
+* [Get asset circulation](#get-asset-circulation)
+
+
 ## Introduction
 
 An asset is a type of value that can be issued on a blockchain. All units of a given asset are fungible.
@@ -25,6 +35,7 @@ This guide will walk you through the basic functions of an asset:
 This guide assumes you know the basic functions presented in the [5-Minute Guide](../get-started/five-minute-guide.md).
 
 ### Sample Code
+
 All code samples in this guide are extracted from a single Java file.
 <a href="../examples/java/Assets.java" class="downloadBtn btn success" target="\_blank">View Sample Code</a>
 

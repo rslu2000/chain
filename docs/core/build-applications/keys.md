@@ -1,5 +1,11 @@
 # Keys
 
+* [Introduction](#introduction)
+* [Overview](#overview)
+* [Create key](#create-key)
+* [Load key](#load-key)
+* [Signing transactions](#signing-transactions)
+
 ## Introduction
 
 Cryptographic private keys are the primary authorization mechanism on a blockchain. They control both the issuance and transfer of assets. Each transaction is signed using the specific private keys required for the issuance or transfer it proposes, and the signature is checked against the corresponding public keys recorded in the earlier transaction being spent, or the asset type being issued, in order to determine the new transaction’s validity.
