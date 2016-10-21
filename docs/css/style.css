@@ -107,7 +107,8 @@ a,
 #doc-header a,
 article a,
 #side-nav ul li a.active,
-#side-nav ul li a:hover {
+#side-nav ul li a:hover,
+#side-nav ul li a.toggle:hover {
 	color: #00BFAA;
 }
 
@@ -717,7 +718,6 @@ article thead tr th {
 /* Pre and Code */
 
 code {
-    font-weight: 500;
     font-family: Nitti-Normal;
     font-size: 90%;
 }
@@ -728,7 +728,6 @@ h4 > code {
     border-radius: 3px;
     padding: 2px 2px;
     margin: 0 -1px;
-    color: #353c3f;
     font-family: Nitti-Medium;
     color: #404446;
     letter-spacing: -0.8px;
