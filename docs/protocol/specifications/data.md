@@ -501,8 +501,11 @@ Root hash of the [merkle binary hash tree](#merkle-binary-tree) formed by the *t
 Root hash of the [merkle patricia tree](#merkle-patricia-tree) formed by unspent outputs with an **asset version 1** after applying the block. Allows bootstrapping nodes from recent blocks and an archived copy of the corresponding merkle patricia tree without processing all historical transactions.
 
 The tree contains [non-retired](#retired-asset) unspent outputs (one or more per [asset ID](#asset-id)):
-  * **Key**: `<txhash> <index int32be>`
-  * **Value**: [SHA3-256](#sha3) of the [output commitment](#transaction-output-commitment)
+
+Key                       | Value
+--------------------------|------------------------------
+`<txhash><index int32be>` | [SHA3-256](#sha3) of the [output commitment](#transaction-output-commitment) 
+
 
 Note: unspent output indices are encoded with a fixed-length big-endian format to support lexicographic ordering.
 
