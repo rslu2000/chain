@@ -2,9 +2,9 @@
 
 ## Overview
 
-Filters enable complex queries to Chain Core to retrieve lists of objects. A filter is comprised of one or more **terms** (joined with AND / OR). Each term contains a **property**, **operator**, and **value**. Each term targets a specific field in the key-value (JSON) object (see [API Objects](../reference/api-objects.md)). Terms can be grouped together in a **scope** to target a specific array of sub-objects within an object.
+Filters enable complex queries for retrieving lists of objects from Chain Core. A filter is composed of one or more **terms**, with multiple terms joined with AND and OR. Each term contains a **property**, **operator**, and **value**. Each term targets a specific field in the key-value (JSON) object (see [API Objects](../reference/api-objects.md)). Terms can be grouped together in a **scope** to target a specific array of sub-objects within an object.
 
-For example, if you wish list transactions where a specific account spends a specific asset, you would create a filter with two terms, scoped to the inputs:
+For example, to list transactions where a specific account spends a specific asset, you would create a filter with two terms, scoped to the inputs:
 
 ```
 inputs(account_alias='alice' AND asset_alias='gold')
@@ -34,17 +34,17 @@ inputs(account_alias='alice' AND asset_alias='gold') AND outputs(account_alias='
 
 ## Queries
 
-The following QueryBuilder classes support filters:
+The following `QueryBuilder` classes support filters:
 
-* Transaction.QueryBuilder
-* Account.QueryBuilder
-* Asset.QueryBuilder
-* UnspentOutput.QueryBuilder
-* Balance.QueryBuilder
+* `Transaction.QueryBuilder`
+* `Account.QueryBuilder`
+* `Asset.QueryBuilder`
+* `UnspentOutput.QueryBuilder`
+* `Balance.QueryBuilder`
 
 ### Note about Balance.QueryBuilder
 
-The Balance.QueryBuilder class is unique in that it does not return an object in the Chain Core, but rather a sum over the `amount` fields a in defined list of unspents outputs. By default, this returns a single `amount`, but can be grouped using a `sumBy` parameter in addition to the filter.
+Unlike other queries in Chain Core, balance queries do not return Chain Core objects, only simple sums over the `amount` fields in a specified list of unspent output objects. By default, the result is a single `amount`, but this can be subtotaled using a `sumBy` parameter in addition to the filter.
 
 For example, to list all balances for `alice`, summed by `asset_alias`, you would set the following filter:
 
@@ -75,7 +75,7 @@ which will return the following:
 
 ## List transactions
 
-The `Transaction.QueryBuilder` retrieves transactions from the blockchain. By default, it returns a paginated list of all transactions, ordered from latest to earliest timestamp. Custom queries can be achieved using the following methods:
+`Transaction.QueryBuilder` retrieves transactions from the blockchain. By default, it returns a paginated list of all transactions, ordered by timestamp from latest to earliest. Queries can be customized using the following methods:
 
 | Method             | Description                                                        |
 |--------------------|--------------------------------------------------------------------|
@@ -84,16 +84,12 @@ The `Transaction.QueryBuilder` retrieves transactions from the blockchain. By de
 | setFilter          | Sets a filter on the results.                                      |
 | addFilterParameter | Defines a value for the first undefined placeholder in the filter. |
 
-### Filters
-
-The `setFilter` method allows filtering `Transaction.QueryBuilder` results by any field in the [transaction object](../reference/api-objects.md#transaction). For more information, see [Query Filters](../build-applications/query-filters.md).
-
 ### Examples
 
 List all transactions involving Alice's account:
 
 $code ../examples/java/QueryFilters.java list-alice-transactions
 
-List all transactions involving the Core:
+List all transactions involving the local Core:
 
 $code ../examples/java/QueryFilters.java list-local-transactions
