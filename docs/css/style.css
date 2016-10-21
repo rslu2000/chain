@@ -1109,7 +1109,7 @@ input:focus {
 
 /* Dividers */
 .separator-line {
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
     margin-top: 60px;
 }
 .divider {
@@ -1119,13 +1119,17 @@ input:focus {
     margin: 20px 0;
 }
 .separator-tag {
+    display: block;
+    width:40px;
+    height:40px;
     background: #b9f3ee;
     border-radius: 20px;
-    padding: 10px;
+    line-height: 40px;
     position: relative;
     left: 50%;
-    top: -11px;
+    top: -21px;
     font-family: NittiGrotesk-Medium;
+    text-align: center;
 }
 
 
