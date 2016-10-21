@@ -40,7 +40,7 @@ A program is written in bytecode — instructions for the Chain Virtual Machine 
 
 [sidenote]
 
-Bitcoin, similarly, uses scripts as predicates in order to determine whether a given state transition — encoded in a transaction — is authorized. This is different from Ethereum’s approach, in which programs directly compute the resulting state.
+Bitcoin, similarly, uses programs as predicates in order to determine whether a given state transition — encoded in a transaction — is authorized. This is different from Ethereum’s approach, in which programs directly compute the resulting state.
 
 [/sidenote]
 
@@ -52,13 +52,13 @@ The run cost also takes into account the stack's current memory usage. Adding an
 
 [sidenote]
 
-Both Bitcoin and Ethereum have restrictions that prevent script execution from using excessive time or memory. Chain’s run limit mechanism is similar to Ethereum’s “gas,” except that there is no on-chain accounting for the execution cost of a transaction.
+Both Bitcoin and Ethereum have restrictions that prevent program execution from using excessive time or memory. Chain’s run limit mechanism is similar to Ethereum’s “gas,” except that there is no on-chain accounting for the execution cost of a transaction.
 
 [/sidenote]
 
 ### Instruction Set
 
-The CVM has some overlaps and similarities with Bitcoin Script, but adds instructions to support additional functionality, including loops, state transitions (through transaction introspection), and script evaluation.
+The CVM has some overlaps and similarities with Bitcoin Script, but adds instructions to support additional functionality, including loops, state transitions (through transaction introspection), and program evaluation.
 
 What follows is a summary of the functionality provided by CVM instructions. For a complete list and more precise definitions, see the [VM specification](../specifications/vm1.md).
 
@@ -101,7 +101,7 @@ While similar to Bitcoin instructions, `CHECKSIG` and `CHECKMULTISIG` are genera
 
 `JUMPIF` conditionally jumps to another part of the code, based on the current value on top of the stack. This can be used to implement conditionals and loops.
 
-`CHECKPREDICATE` evaluates a script (written in CVM bytecode). The script is evaluated in a separate VM instance, and can introspect the transaction. Nested executions are allowed, but the depth is capped by memory cost that is subtracted from the available run limit and refunded when the nested VM instance completes execution.
+`CHECKPREDICATE` executes a program (written in CVM bytecode) in a separate VM instance. Nested executions are allowed, but the depth is capped by memory cost that is subtracted from the available run limit and refunded when the nested VM instance completes execution.
 
 #### Introspection instructions
 
@@ -232,6 +232,8 @@ Ivy contracts bear some notable resemblances to [Solidity contracts](https://sol
 
 Contracts take *parameters* and define *clauses*. Once a contract is *instantiated* with particular parameters, its clauses can be called using *arguments*.
 
+**Oleg: i think this whole section could be simplified and made more to the point by using a more realistic signature checking code.**
+
 ```
 // defining contract
 contract IsGreaterThan(a) {
@@ -279,6 +281,8 @@ verify comparisonToFive.checkOneSmallerNumber(4); // succeeds
 
 Or the contract itself can be called, and the index of the clause can be passed as the first argument:
 
+**Oleg: do you actually use this index syntax? It's quite confusing, i'd rather use contract.clause(i)(args).**
+
 ```
 verify comparisonToFive(1, 4); // equivalent to: verify comparisonToFive.checkOneSmallerNumber(4); 
 ```
@@ -308,7 +312,7 @@ This is examined in more detail in the [contract examples](#contract-examples) b
 
 ## Programs
 
-The Chain Protocol uses three kinds of programs: control programs, issuance programs, and consensus program.
+On the high level, Chain Protocol uses three kinds of programs: control programs, issuance programs, and consensus program.
 
 ### Control programs
 
@@ -386,7 +390,7 @@ contract ConsensusProgram(n, m, ...publickeys[n]) {
 
 ### Signature programs
 
-Chain's scripting language also enables a powerful new way to authorize transactions. 
+Chain's programming language also enables a powerful new way to authorize transactions. 
 
 In the above examples of control programs and issuance programs, coinholders and issuers authorize transactions by signing a hash that commits to the entire transaction. This is the typical way that authorization works in UTXO-based cryptocurrencies such as Bitcoin.
 
@@ -422,7 +426,7 @@ For example:
 ```
 contract SimpleSignatureProgram(targetHash) {
 	clause check() {
-		verify tx.hash = targetHash;
+		verify tx.hash == targetHash;
 	}
 }
 ```
@@ -443,7 +447,7 @@ If this contract is initialized with the details of the desired output — say, 
 
 [sidenote]
 
-Christopher Allen and others explored ideas similar to signature programs in their [working paper](https://github.com/WebOfTrustInfo/ID2020DesignWorkshop/blob/master/draft-documents/smarter-signatures.md) on "smart signatures."
+Christopher Allen and Shannon Appelcline explore ideas similar to signature programs in their working paper on “[smart signatures](https://github.com/WebOfTrustInfo/ID2020DesignWorkshop/blob/master/draft-documents/smarter-signatures.md).”
 
 [/sidenote]
 
@@ -547,7 +551,7 @@ While most state should be tracked locally in the contract parameters for a spec
 First, one needs to create an asset for which only one unit can ever be issued. This requires some understanding of how the Chain Protocol handles issuances. Unique issuance — ensuring that issuances cannot be replayed — is a challenging problem that is outside the scope of this paper. The Chain Protocol's solution is that each issuance input has a nonce, which, when combined with the transaction's mintime and maxtime and the asset ID, must be unique throughout the blockchain's history. As a result, an issuance program can ensure that it is only used once by committing to a specific nonce, transaction mintime, and transaction maxtime:
 
 ```
-contract SinglyIssuableAssetSingletonToken(nonce, mintime, maxtime, amount, lockScript) {
+contract SinglyIssuableAssetSingletonToken(nonce, mintime, maxtime, amount, lockProgram) {
 	clause issue(outputIndex) {
 		// ensure that asset can only be issued once
 		verify nonce == tx.currentInput.nonce;
@@ -557,19 +561,19 @@ contract SinglyIssuableAssetSingletonToken(nonce, mintime, maxtime, amount, lock
 		// ensure that only one unit is issued
 		verify tx.currentInput.amount == 1;
 
-		// ensure that the issued unit is locked with the target script
+		// ensure that the issued unit is locked with the target lockProgram
 		verify tx.outputs[outputIndex] == (tx.currentInput.amount,
 										   tx.currentInput.asset,
-										   lockScript)
+										   lockProgram)
 	}
 }
 ```
 
 This means there will only be one UTXO on the blockchain with this asset ID at a given time. As a result, it can be used as a *singleton* — a token to keep track of some piece of global state for other asset IDs.
 
-The `lockScript` parameter of this contract determines the rules that will govern the token.
+The `lockProgram` parameter of this contract determines the rules that will govern the token.
 
-For example, we've already seen the `OncePerPeriod` contract. If that contract is used as the lock script, the singleton token can be prevented from being spent more than once in a particular amount of time.
+For example, we've already seen the `OncePerPeriod` contract. If that contract is used as the “lock program”, the singleton token can be prevented from being spent more than once in a particular amount of time.
 
 How does that help us with metered issuance? We can create a separate asset with an issuance program that checks that the singleton is also spent in the same transaction, and that no more than a given amount is issued.
 
