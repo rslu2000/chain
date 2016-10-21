@@ -48,14 +48,25 @@ func serve(addr string) {
 
 		b, err := render(path + ".md")
 		if os.IsNotExist(err) {
-			indexPath := strings.TrimSuffix(path, "/") + "/index.html"
-			b, err = renderIndex(indexPath)
+			// Try plain HTML
+			b, err = renderHTML(path + ".html")
+
+			if os.IsNotExist(err) {
+				// Try index.html
+				b, err = renderHTML(strings.TrimSuffix(path, "/") + "/index.html")
+			}
+		}
+
+		if os.IsNotExist(err) {
+			http.NotFound(w, r)
+			return
 		}
 
 		if err != nil {
 			http.Error(w, err.Error(), 500)
 			return
 		}
+
 		w.Write(b)
 	})
 	log.Fatal(http.ListenAndServe(addr, nil))
@@ -64,55 +75,67 @@ func serve(addr string) {
 func convert(dest string) {
 	fmt.Printf("Converting markdown to: %s\n", dest)
 	err := filepath.Walk(".", func(path string, f os.FileInfo, err error) error {
+		if err != nil {
+			printe(err)
+			return err
+		}
+
 		if f.IsDir() {
 			return nil
 		}
 
-		isMarkdown, err := filepath.Match("*.md", f.Name())
-		printe(err)
+		var (
+			destFile = filepath.Join(dest, path)
+			output   []byte
+		)
 
-		if isMarkdown {
-			b, err := render(path)
+		if isMarkdown, _ := filepath.Match("*.md", f.Name()); isMarkdown {
+			output, err = render(path)
 			if err != nil {
 				printe(err)
 				return err
 			}
 
-			path = dest + "/" + path
-			printe(os.MkdirAll(filepath.Dir(path), 0777))
-			printe(ioutil.WriteFile(strings.TrimSuffix(path, ".md"), b, 0644))
-			fmt.Printf("converted: %s\n", path)
-			return nil
-		}
+			destFile = strings.TrimSuffix(destFile, ".md")
+		} else if isHTML, _ := filepath.Match("*.html", f.Name()); isHTML {
+			output, err = renderHTML(path)
+			if err != nil {
+				printe(err)
+				return err
+			}
 
-		isIndex, err := filepath.Match("index.html", f.Name())
-		printe(err)
-
-		var b []byte
-		if isIndex {
-			b, err = renderIndex(path)
+			// For serving index files in S3, avoid stripping the extension.
+			if isIndexHTML, _ := filepath.Match("index.html", f.Name()); !isIndexHTML {
+				destFile = strings.TrimSuffix(destFile, ".html")
+			}
 		} else {
-			b, err = ioutil.ReadFile(path)
+			output, err = ioutil.ReadFile(path)
+			if err != nil {
+				printe(err)
+				return err
+			}
 		}
 
+		err = os.MkdirAll(filepath.Dir(destFile), 0777)
 		if err != nil {
 			printe(err)
 			return err
 		}
 
-		err = os.MkdirAll(filepath.Dir(filepath.Join(dest, path)), 0777)
+		err = ioutil.WriteFile(destFile, output, 0644)
 		if err != nil {
 			printe(err)
 			return err
 		}
 
-		return ioutil.WriteFile(filepath.Join(dest, path), b, 0644)
+		fmt.Printf("converted: %s\n", path)
+		return nil
 	})
 	printe(err)
 }
 
-func renderIndex(path string) ([]byte, error) {
-	b, err := ioutil.ReadFile(path)
+func renderHTML(path string) ([]byte, error) {
+	output, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +145,7 @@ func renderIndex(path string) ([]byte, error) {
 		return nil, err
 	}
 
-	return bytes.Replace(layoutSrc, defaultLayout, b, 1), nil
+	return bytes.Replace(layoutSrc, defaultLayout, output, 1), nil
 }
 
 func printe(err error) {
