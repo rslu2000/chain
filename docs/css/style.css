@@ -836,11 +836,15 @@ article li > .code:last-child {
     margin-top: 10px;
 }
 a.btn.success {
+	    line-height: 39px;
+}
+
+a.btn.success,
+button.btn.success {
     min-width: 155px;
     max-width: 200px;
     border-radius: 4px;
     font-weight: 500;
-    line-height: 39px;
     cursor: pointer;
     outline: none;
     display: block;
@@ -855,7 +859,10 @@ a.btn.success {
 }
 a.btn:hover,
 a.btn:active,
-a.btn:focus {
+a.btn:focus,
+button.btn:hover,
+button.btn:active,
+button.btn:focus {
     outline: none;
     cursor: pointer;
     margin-top: 10px;
