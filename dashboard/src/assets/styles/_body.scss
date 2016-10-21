@@ -77,3 +77,21 @@ p {
   flex-direction: column;
   flex: 1;
 }
+
+.btn-primary {
+  border-color: $highlight-default;
+  height: 40px;
+  color: $text-main-color;
+  border-radius: 2px;
+  background-color: $highlight-default;
+  padding: 0 20px;
+  box-shadow: none;
+}
+.btn:hover,
+.btn:active,
+.btn:focus {
+  text-decoration: none;
+  color: $text-main-color;
+  background: $highlight-secondary;
+  border-color: $highlight-secondary;
+}
