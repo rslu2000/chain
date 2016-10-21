@@ -301,34 +301,7 @@ The contract format is a useful tool for describing and developing generic patte
 
 What makes it particularly powerful, however, is that, using some tricks with string manipulation instructions, programs *themselves* can instantiate contracts with parameters to create new programs. In combination with output introspection, this allows construction of complex state machines.
 
-For example, this contract allows its assets to be transferred from public key to public key, but doesn't allow them to be split up:
-
-```
-contract BundledAsset(publicKey) {
-	action transfer(signature, newPublicKey, outputIndex) {
-		verify checksig(publicKey, tx.hash, signature);
-		verify tx.outputs[outputIndex] == (tx.currentInput.amount, tx.currentInput.asset, BundledAsset(newPublicKey));
-	}
-}
-```
-
-This contract does the same thing, but also counts the number of times it has been transferred, and allows the assets to be freed after 50 transfers:
-
-```
-contract BundledAssetWithCounter(publicKey, counter) {
-	action transfer(signature, newPublicKey, outputIndex) {
-		verify checksig(publicKey, tx.hash, signature);
-		verify tx.outputs[outputIndex] == (tx.currentInput.amount, tx.currentInput.asset, BundledAssetWithCounter(newPublicKey, counter + 1));
-	}
-
-	action free(signature) {
-		verify checksig(publicKey, tx.hash, signature);
-		verify counter >= 50;
-	}
-}
-```
-
-These techniques are the basis of [smart contracts](#contract-examples), which are examined more closely below.
+This is examined in more detail in the [contract examples](#contract-examples) below.
 
 ## Programs
 
@@ -537,17 +510,42 @@ contract PartiallyFillableOffer(pricePerUnit, currency, sellerContract, revocabi
 
 Notice that the remainder must be sent to a new contract that is a duplicate of the current one, just controlling fewer assets.
 
-### Singleton
+### State Machines
 
-It is possible to design an asset for which only one unit can ever be issued.
+What if you want to get more complex than just replicating the same program, but want to change its state when you do? This is where the contract model really shines. Programs can instantiate contracts with new parameters on the fly.
 
-This requires some understanding of how the Chain Protocol handles issuances. Unique issuance — ensuring that issuances cannot be replayed — is a challenging problem that is outside the scope of this paper. The Chain Protocol's solution is that each issuance input has a nonce, which, when combined with the transaction's mintime and maxtime and the asset ID, must be unique throughout the blockchain's history.
-
-As a result, an issuance program can ensure that it is only used once by committing to a specific nonce, transaction mintime, and transaction maxtime:
+This contract will prevent its assets from being transferred more than once within a certain time period:
 
 ```
-contract SinglyIssuableAsset(nonce, mintime, maxtime, amount, lockScript) {
-	issue(outputIndex) {
+contract OncePerPeriod(authorizationPredicate, lastSpend, period) {
+	clause spend(m, ...args[m]) {
+		// check that the spending is otherwise authorized
+		// this could be a signature check
+		verify authorizationPredicate(args...);
+
+		// check that at least one day has passed
+		verify tx.mintime > lastSpend;
+
+		nextControlProgram = OncePerPeriod(authorizationPredicate,
+										   tx.maxtime,
+										   period);
+
+		verify tx.outputs[m] == (tx.currentInput.amount,
+								 tx.currentInput.asset,
+								 nextControlProgram);
+	}
+}
+```
+
+### Singletons
+
+While most state should be tracked locally in the contract parameters for a specific UTXO, some on-chain use cases may require keeping track of "global" state. For example, one may want to limit issuance of an asset, so only 100 units can be issued per day. This can be done using the *singleton* design pattern.
+
+First, one needs to create an asset for which only one unit can ever be issued. This requires some understanding of how the Chain Protocol handles issuances. Unique issuance — ensuring that issuances cannot be replayed — is a challenging problem that is outside the scope of this paper. The Chain Protocol's solution is that each issuance input has a nonce, which, when combined with the transaction's mintime and maxtime and the asset ID, must be unique throughout the blockchain's history. As a result, an issuance program can ensure that it is only used once by committing to a specific nonce, transaction mintime, and transaction maxtime:
+
+```
+contract SinglyIssuableAssetSingletonToken(nonce, mintime, maxtime, amount, lockScript) {
+	clause issue(outputIndex) {
 		// ensure that asset can only be issued once
 		verify nonce == tx.currentInput.nonce;
 		verify mintime == tx.mintime;
@@ -556,7 +554,7 @@ contract SinglyIssuableAsset(nonce, mintime, maxtime, amount, lockScript) {
 		// ensure that only one unit is issued
 		verify tx.currentInput.amount == 1;
 
-		// ensure that unit is locked with the target script
+		// ensure that the issued unit is locked with the target script
 		verify tx.outputs[outputIndex] == (tx.currentInput.amount,
 										   tx.currentInput.asset,
 										   lockScript)
@@ -564,7 +562,33 @@ contract SinglyIssuableAsset(nonce, mintime, maxtime, amount, lockScript) {
 }
 ```
 
-This means there will only be one UTXO on the blockchain with this asset ID. As a result, it can be used as a *singleton* — a token to keep track of some piece of global state for other asset IDs.
+This means there will only be one UTXO on the blockchain with this asset ID at a given time. As a result, it can be used as a *singleton* — a token to keep track of some piece of global state for other asset IDs.
+
+The `lockScript` parameter of this contract determines the rules that will govern the token.
+
+For example, we've already seen the `OncePerPeriod` contract. If that contract is used as the lock script, the singleton token can be prevented from being spent more than once in a particular amount of time.
+
+How does that help us with metered issuance? We can create a separate asset with an issuance program that checks that the singleton is also spent in the same transaction, and that no more than a given amount is issued.
+
+```
+contract MeteredAssetIssuanceProgram(authorizationPredicate, singletonAssetID, maxAmount) {
+	clause issue(singletonControlProgram,
+			     singletonIndex, m, ...args[m]) {
+		// check that the issuance is otherwise authorized
+		verify authorizationPredicate(args...);
+
+		// check that no more than the max amount is being issued
+		verify tx.currentInput.amount < maxAmount;
+
+		// check that the singleton token is being spent
+		// its index and control program don't need to be checked
+		// which is why they are passed as arguments
+		verify tx.outputs[outputIndex] == (1,
+										   singletonAssetID,
+										   singletonControlProgram);
+	}
+}
+```
 
 ### Private Contracts
 
