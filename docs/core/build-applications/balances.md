@@ -17,7 +17,7 @@ This guide will walk you through a few basic balance queries:
 
 * [List account balances](#list-account-balances)
 * [Get asset circulation](#get-asset-circulation)
-* [List account balances, summed by a field in the asset definition](#list-balances-with-sum_by)
+* [List account balances, with custom summation](#list-account-balances-with-custom-summation)
 
 
 ### Sample Code
@@ -38,7 +38,7 @@ Get the circulation of the Bank 1 USD IOU on the blockchain:
 
 $code ../examples/java/Balances.java usd-iou-circulation
 
-## List balances with sum_by
+## List account balances with custom summation
 
 List the asset IOU balances in Bank1's account, summed by currency:
 
