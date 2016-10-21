@@ -2,7 +2,7 @@
 
 * [Overview](#overview)
 * [Example](#example)
-* [A little more detail](#a-little-more-detail)
+* [Subtleties](#subtleties)
 
 ## Overview
 
@@ -99,7 +99,7 @@ New transaction at Sun Oct 16 17:08:55 PDT 2016
     Account: bob
 ```
 
-## A little more detail
+## Subtleties
 
 #### Order of transactions
 
