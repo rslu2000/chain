@@ -74,7 +74,7 @@ Note: the `SpendFromAccount` action will duplicate the reference data on each in
 
 ### Sign transaction
 
-The SDK includes an HSMSigner that communicates with HSMs to sign transactions. For development, the HSMSigner can communicate with the MockHSM built into Chain Core.
+The SDK includes an HSMSigner that communicates with HSMs to sign transactions. For development, the HSMSigner can communicate with the Mock HSM built into Chain Core.
 
 #### Multi-party transactions
 
