@@ -28,7 +28,7 @@ Some payments may require more asset units than are available in any single unsp
 
 ## Overview
 
-This guide describes the structure of transactions, and how to use the Chain Core API and SDK to create and use them. There are code examples for several types of basic transaction, including:
+This guide describes the structure of transactions, and how to use the Chain Core API and SDK to create and use them. There are code examples for several types of basic transactions, including:
 
 * Asset issuance
 * Simple payment
