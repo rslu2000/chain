@@ -916,12 +916,17 @@ img {
 	transition: all 0.15s ease-in-out;
 }
 
-#download-options .download-option:hover .os-icon {
+#download-options .download-option:hover .os-icon,
+#download-options .download-option a.active .os-icon {
 	transform: scale(1.1);
 }
 
 
 #download-options .download-option a.active h3 {
+    color: #00BFAA;
+}
+
+#download-options .download-option a.active{
     color: #00BFAA;
 }
 
@@ -1033,12 +1038,9 @@ input:focus {
     outline: none;
 }
 
-
-/* Video iFrame */
-#iframe {
+video {
     margin-top: 20px;
 }
-
 
 /* Dividers */
 .separator-line {
