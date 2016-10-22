@@ -48,5 +48,4 @@ $code ../examples/java/ControlPrograms.java retire
 
 ## Custom control programs
 
-The [Chain Virtual Machine](../../protocol/specifications/vm1.md) supports custom control programs built from the supported set of [program predicates](../../protocol/papers/blockchain-programs.md#predicates). We are
-currently developing a [high level language](../../protocol/papers/blockchain-programs.md#ivy) that will enable developers to write custom control programs in Chain Core. Additionally, we work directly with our enterprise customers to design, audit, and implement custom control programs for production deployment. For more information, visit the [Enterprise page](https://chain.com/enterprise).
+The [Chain Virtual Machine](../../protocol/specifications/vm1.md) supports custom control programs. We are currently developing a [high level language](../../protocol/papers/blockchain-programs.md#ivy) that will enable developers to write custom control programs in Chain Core. Additionally, we work directly with our enterprise customers to design, audit, and implement custom control programs for production deployment. For more information, visit the [Enterprise page](https://chain.com/enterprise).
