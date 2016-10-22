@@ -1,18 +1,20 @@
-# Protocol Roadmap
+# Chain Protocol Roadmap
 
-Chain Protocol 1 is aimed at laying a foundation for future upgrades and large-scale deployment, so that more sophisticated security and confidentiality features can be introduced in later releases. Updates to the protocol are intended to be deployed as [soft forks](whitepaper.md#8-extensibility) therefore keeping it compatible with the already deployed software and applications.
+The initial version of Chain Protocol is focused on providing a foundation for large-scale deployment and extensibility, so that sophisticated security and confidentiality features can be safely introduced in later releases. Updates to the protocol are intended to be deployed as [soft forks](blockchain-extensibility.md) that keep already deployed applications compatible with a new version of the protocol.
 
-**Disclaimer:** this roadmap does not represent a commitment to specific features, deadlines or order of implementation. It also mostly focuses on protocol-level features and does not cover specific improvements to Chain Core or any additional software. Those are discussed separately in the [Product Roadmap](../../core/reference/product-roadmap.md).
+If you have feature requests or feedback, we want to hear from you. Join us on [GitHub](https://github.com/chain), [Slack](https://slack.chain.com), or the [Chain developer forum](https://support.chain.com).
+
+**Note:** This roadmap focuses on protocol improvements and does not cover features of Chain Core, which are discussed separately in the [Product Roadmap](../../core/reference/product-roadmap.md).
 
 ## Denial of service mitigation
 
-* Explicit limits on number and size of blockchain entities (size of the blocks, number  of transactions etc).
+* Explicit limits on number and size of blockchain entities (size of the blocks, number of transactions etc).
 * Fine-tuned runtime cost limits for the control and issuance programs.
-* Improvemenets to consensus algorithm.
+* Improvements to consensus algorithm.
 
 ## Privacy
 
-* Homomorphically encrypted amounts and asset identifiers to provide secrecy for balances and financial parameters of the transactions.
+* Homomorphically encrypted asset identifiers and amounts to provide secrecy for balances and financial parameters of the transactions.
 * Controlled traceability of the transactions; hiding the link between transaction inputs and the previous transactions’ outputs.
 
 ## Programs
