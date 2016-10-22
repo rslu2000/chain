@@ -884,10 +884,15 @@ img {
     top: 0px;
     right: 10px;
 }
-.icon-download,
-.icon-next {
+
+.icon-download {
     top: 3px;
 }
+
+.icon-next {
+    top: 1px;
+}
+
 .os-icon {
     margin: 0 auto;
     position: relative;
