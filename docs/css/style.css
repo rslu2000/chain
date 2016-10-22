@@ -1229,12 +1229,10 @@ input:focus {
 }
 
 .next-step .btn-icon {
-    top: 21px;
-    right: 50px;
-    position: absolute;
+    position: relative;;
     transition: all 0.15s linear;
 }
 .next-step:hover .btn-icon {
-    right: 40px;
+    left: 5px;
     transform: translateX(6px);
 }
