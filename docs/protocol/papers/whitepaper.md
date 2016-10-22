@@ -194,7 +194,7 @@ The Chain Protocol is intended to be secure under realistic threat models for sp
 
 #### Direct asset ownership
 
-Assets are typically controlled by one or more cryptographic keys. The Chain Protocol supports M-of-N *multisignature* control programs and issuance programs that help reducing the risk of theft by tolerating compromise of up to M–1 cryptographic keys. The protocol uses highly secure Ed25519 keys, which are increasingly being adopted as an industry standard. Private keys can be generated and stored in hardware security modules (HSMs), making key compromise much more difficult. HSM integration is included as a feature in [Chain Core Enterprise Edition](https://chain.com/core).
+Assets are typically controlled by one or more cryptographic keys. The Chain Protocol supports M-of-N *multisignature* control programs and issuance programs that help reducing the risk of theft by tolerating compromise of up to M–1 cryptographic keys. The protocol uses highly secure Ed25519 keys, which are increasingly being adopted as an industry standard. Private keys can be generated and stored in hardware security modules (HSMs), making key compromise much more difficult. HSM integration is included as a feature in [Chain Core Enterprise Edition](https://chain.com/enterprise).
 
 #### Privacy
 
