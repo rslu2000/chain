@@ -1,6 +1,6 @@
 # Protocol Roadmap
 
-Chain Protocol 1 is aimed at laying a foundation for future upgrades and large-scale deployment, so that more sophisticated security and confidentiality features can be introduced in later releases. Updates to the protocol are intended to be deployed as [soft forks](whitepaper.md#8-extensibility) therefore keeping it compatible with the already deployed software and applications. 
+Chain Protocol 1 is aimed at laying a foundation for future upgrades and large-scale deployment, so that more sophisticated security and confidentiality features can be introduced in later releases. Updates to the protocol are intended to be deployed as [soft forks](whitepaper.md#8-extensibility) therefore keeping it compatible with the already deployed software and applications.
 
 **Disclaimer:** this roadmap does not represent a commitment to specific features, deadlines or order of implementation. It also mostly focuses on protocol-level features and does not cover specific improvements to Chain Core or any additional software. Those are discussed separately in the [Product Roadmap](../../core/reference/product-roadmap.md).
 
@@ -26,4 +26,3 @@ Chain Protocol 1 is aimed at laying a foundation for future upgrades and large-s
 * Reducing the amount of data to be stored by the nodes by requiring clients use more sophisticated proofs.
 * More elaborate support for compact proofs to improve security of clients that do not validate the blockchain entirely.
 * Additional support for merging blockchains.
-
