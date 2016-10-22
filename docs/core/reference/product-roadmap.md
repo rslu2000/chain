@@ -1,19 +1,18 @@
 # Chain Core Product Roadmap
 
-Building a large-scale blockchain network is massive collaborative effort that spans many organizations and teams. To help you prioritize your efforts and get an insight in what we work on and our priorities, we are publishing this product roadmap. 
+Chain Core is a collaborative effort. Together with our partners and the wider development community, we are working to re-invent the foundation of financial services. To help you gain insights into our process, we are publishing this product roadmap. It is intended to be an indicator of our priorities, but not a commitment to features, timeline, or order of implementation.
 
-**Disclaimer:** this roadmap does not represent a commitment to specific features, deadlines or order of implementation. It focuses on Chain Core features and does not cover protocol improvements. Those are discussed separately in the [Protocol Roadmap](../../protocol/papers/protocol-roadmap.md).
+If you have feature requests or feedback, we want to hear from you. Join us on [GitHub](https://github.com/chain), [Slack](https://slack.chain.com), or the [Chain developer forum](https://support.chain.com).
+
+**Note:** This roadmap focuses on Chain Core features and does not cover protocol improvements, which are discussed separately in the [Protocol Roadmap](../../protocol/papers/protocol-roadmap.md).
 
 ## Near Term
 
-* Dashboard and API interfaces for updating consensus programs.
-* Node.JS SDK.
+* Ruby and Node.JS SDKs
+* Support for updating consensus programs
+* Additional auto-complete functionality when filtering queries in the dashboard
 
 ## Medium Term
 
-* Confidential assets.
-* High level language for control programs.
-
-## Long Term
-
-* Unified blockchain, server, and HSM control programs.
+* Confidential transactions
+* Support for writing custom control programs
