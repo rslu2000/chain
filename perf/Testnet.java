@@ -6,11 +6,11 @@ import java.util.Random;
 
 import com.chain.api.*;
 import com.chain.api.MockHsm.Key;
-import com.chain.http.Context;
+import com.chain.http.Client;
 import com.chain.signing.HsmSigner;
 
 public class Testnet {
-  static Context ctx;
+  static Client client;
   static MockHsm.Key key;
   static String alice = "alice";
   static String bob = "bob";
@@ -26,18 +26,18 @@ public class Testnet {
   }
 
   private static void setup() throws Exception {
-    ctx = new Context(new URL(String.format("http://127.0.0.1:%s", System.getenv("PORT"))));
-    key = MockHsm.Key.create(ctx);
-    HsmSigner.addKey(key, MockHsm.getSignerContext(ctx));
-    new Account.Builder().addRootXpub(key.xpub).setAlias(alice).setQuorum(1).create(ctx);
-    new Account.Builder().addRootXpub(key.xpub).setAlias(bob).setQuorum(1).create(ctx);
+    client = new Client(new URL(String.format("http://127.0.0.1:%s", System.getenv("PORT"))));
+    key = MockHsm.Key.create(client);
+    HsmSigner.addKey(key, MockHsm.getSignerClient(client));
+    new Account.Builder().addRootXpub(key.xpub).setAlias(alice).setQuorum(1).create(client);
+    new Account.Builder().addRootXpub(key.xpub).setAlias(bob).setQuorum(1).create(client);
     new Asset.Builder()
         .addRootXpub(key.xpub)
         .setAlias(gold)
         .setQuorum(1)
         .addDefinitionField("core", "ccte")
         .addDefinitionField("token", token)
-        .create(ctx);
+        .create(client);
   }
 
   static class Issue extends TimerTask {
@@ -59,8 +59,8 @@ public class Testnet {
 				new Transaction.Action.SetTransactionReferenceData()
 					.addReferenceDataField("core", "ccte")
 					.addReferenceDataField("token", token))
-            .build(ctx);
-    Transaction.submit(ctx, HsmSigner.sign(issuance));
+            .build(client);
+    Transaction.submit(client, HsmSigner.sign(issuance));
 
     Transaction.Template spending =
         new Transaction.Builder()
@@ -78,8 +78,8 @@ public class Testnet {
 				new Transaction.Action.SetTransactionReferenceData()
 					.addReferenceDataField("core", "ccte")
 					.addReferenceDataField("token", token))
-            .build(ctx);
-    Transaction.submit(ctx, HsmSigner.sign(spending));
+            .build(client);
+    Transaction.submit(client, HsmSigner.sign(spending));
 
     Transaction.Template retirement =
         new Transaction.Builder()
@@ -93,8 +93,8 @@ public class Testnet {
 				new Transaction.Action.SetTransactionReferenceData()
 					.addReferenceDataField("core", "ccte")
 					.addReferenceDataField("token", token))
-            .build(ctx);
-    Transaction.submit(ctx, HsmSigner.sign(retirement));
+            .build(client);
+    Transaction.submit(client, HsmSigner.sign(retirement));
       } catch (Exception e) {
         System.out.println(e);
       }
