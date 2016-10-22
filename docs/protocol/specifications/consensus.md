@@ -64,7 +64,7 @@ Entry Point                                              | When used
 
 **Algorithm:**
 
-1. Create a [consensus program](data.md#consensus-program) using the signer keys specified in the [network parameters](validation.md#network-parameters). The contents of this program are a matter of local policy.
+1. Create a [consensus program](data.md#consensus-program). The contents of this program are a matter of local policy.
 2. [Make an initial block](#make-initial-block) with the current time and the created consensus program.
 3. Allocate an empty unspent output set.
 4. The initial block and these empty sets together constitute the *initial state*.
@@ -115,7 +115,7 @@ The block generator collects transactions to include in each block it generates.
 
 ### Generate block
 
-The generator runs this periodically or when the transaction pool reaches a certain size, according to the [network parameters](validation.md#network-parameters). It must broadcast the resulting fully-signed block to all other nodes.
+The generator runs this periodically or when the transaction pool reaches a certain size, according to its local policy. It must broadcast the resulting fully-signed block to all other nodes.
 
 **Inputs:**
 
@@ -135,7 +135,7 @@ The generator runs this periodically or when the transaction pool reaches a cert
 
 1. If the last generated block exists with height greater than the current blockchain state, halt and return it.
 2. [Make Block](#make-block) with the current blockchain state, the transaction pool, and the current time.
-3. For each block signer in the [network parameters](validation.md#network-parameters):
+3. For each block signer:
     1. Send the block and the generator’s [signature](data.md#signature) to the signer [asking the signer to sign the block](#sign-block)
     2. Receive a [signature](data.md#signature) from the signer.
     3. Add the signature to the [block witness](data.md#block-witness) program arguments.
