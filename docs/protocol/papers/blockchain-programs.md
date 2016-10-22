@@ -3,15 +3,14 @@
 * [Introduction](#introduction)
 * [Chain Virtual Machine](#chain-virtual-machine)
 * [Ivy](#ivy)
-  * [Predicates](#predicates)
-  * [Contracts](#contracts)
 * [Programs](#programs)
   * [Control programs](#control-programs)
   * [Issuance programs](#issuance-programs)
   * [Consensus programs](#consensus-programs)
+* [Examples](#contract-examples)
   * [Signature programs](#signature-programs)
-* [Contract Examples](#contract-examples)
-  * [Offers and order books](#offers-and-order-books)
+  * [Offers](#offers)
+  * [State machines](#state-machines)
   * [Singleton](#singleton)
   * [Private Contracts](#private-contracts)
 
@@ -121,63 +120,82 @@ In contrast, CVM allows introspection only of the immutable data declared in the
 
 ## Ivy
 
-Chain is developing a high-level language, *Ivy*, that compiles to CVM bytecode, to make it easier to write safe programs. Ivy is still evolving, and this explanation and tutorial is provided only to help ground the examples used below.
+Chain is developing a high-level language, *Ivy*, that compiles to CVM bytecode, to make it easier to write programs. Ivy is still evolving, and this explanation and tutorial is provided only to help ground the examples used below. Some of the compiled bytecode programs are tweaked for clarity or simplicity.
 
 [sidenote]
 
-Similarly, most development for the EVM is done using [Solidity](https://solidity.readthedocs.io/en/develop/), a high-level language that has been compared to JavaScript. While Ivy and Solidity have some similarities in syntax, they have very different semantics. Solidity can be roughly classified as an object-oriented imperative language, while Ivy fits better into the paradigm of a *declarative language*, though it has some imperative elements. This reflects the design differences between Ethereum's and Chain's transaction models. 
+Similarly, most development for the EVM is done using [Solidity](https://solidity.readthedocs.io/en/develop/), a high-level language that has been compared to JavaScript. While Ivy and Solidity have some similarities in syntax, they have very different semantics. Solidity can be roughly classified as an object-oriented imperative language, while Ivy fits better into the paradigm of a *declarative language*. This reflects the design differences between Ethereum's and Chain's transaction models. 
 
 [/sidenote]
 
-### Predicates
+### Condition
 
-*Predicates* in Ivy are programs that either return true or false. 
+A *condition* in Ivy is a statement that either *fails* or *succeeds*. Each condition begins with `verify` and ends with a semicolon.
 
-    predicate example() {
-    	// comments start with two slashes
-    	// this predicate would return true by default, since there is nothing to cause it to fail
-    }
+`verify 1 + 1 == 2;`
 
-Ivy supports the same arithmetic, logical, cryptographic, and string operations as the CVM, but uses more familiar infix and function-call syntax, such as `2 + 2`, `4 > 5`, or `sha3("foobar")`.
+This condition would compile to the CVM bytecode: `1 1 + 2 EQUAL VERIFY`.
 
-Most of the action in Ivy programs happens in *verify statements*, which halt execution if the given expression evaluates to false.
+A condition fails if the given expression evaluates to `false`. 
 
-    predicate verifyExample() { 
-    	verify 4 + 5 > 2 * 3;
-    }
+Ivy supports the same arithmetic, logical, cryptographic, and string operations as the CVM, but uses more familiar infix and function-call syntax:
+
+`verify (5 > 4) && (2 < 3);` -> `5 4 GREATERTHAN 2 3 LESSTHAN VERIFY`
+`verify sha3("hello world") == 0x644bcc7e564373040999aac89e7622f3ca71fba1d972fd94a31c3bfbf24e3938` -> `PUSHDATA(0x68656c6c6f20776f726c64) SHA3 PUSHDATA(0x644bcc7e564373040999aac89e7622f3ca71fba1d972fd94a31c3bfbf24e3938) VERIFY`
+
+### Programs
+
+*Programs* are an easy way to construct and combine sequences of conditions. Like conditions, programs do not change state or return values; they simply succeed or fail.
+
+Here is an example of a control program written in Ivy:
+
+	program SignatureControlProgram(publicKey) {
+		path spend(signature) {
+			verify checksig(publicKey, tx.hash, signature);
+		}
+	}
+
+Let's break this program down piece by piece.
+
+Programs can take *parameters*. This program takes one parameter, `publicKey`. Parameters are specified at the time the program is *instantiated*, or created. In the case of a control program like this, that is the time that a UTXO is added to the blockchain by a transaction.
+
+Programs define one or more *paths*. This program has only one path: `spend`. If this control program could be spent in different ways, it would have more than one path. In the case of a control program like this, that is the time the UTXO is used as an input in a new transaction. Arguments are provided in the input witness.
+
+Each path can take *arguments*. Arguments are passed at the time the program is satisfied. This program takes one argument: `signature`.
+
+Paths contain one or more conditions. This path only uses a single condition, which uses the `CHECKSIG` instruction to check that the provided signature on the hash of the new transaction corresponds to the previously specified public key.
+
+Control and issuance programs have access to a global `tx` variable, which allows them to use the transaction introspection instructions. In this case, `tx.hash` uses the `TXSIGHASH` instruction to get the hash of the new transaction.
+
+    TXSIGHASH SWAP CHECKSIG VERIFY
+
+When the program is instantiated with a `publicKey` value — to be used in a UTXO — the compiler prepends an instruction pushing that value. For example, if the public key used to initialize it is `0xd75a98...`, the script becomes:
+
+	PUSHDATA(0xd75a98...) TXSIGHASH SWAP CHECKSIG VERIFY
+
+When the UTXO is spent and the control program is run, the virtual machine first takes arguments specified in the input witness and pushes them to the stack. In this case, that argument is a signature. The program then executes, first pushing the public key and then the transaction hash to the stack. The public key and transaction hash are then swapped to put them in the correct order for the next instruction, which pops all three items off the stack to check the signature, pushing `true` or `false` to the stack. `VERIFY` then pops the top value from the stack, and causes the program to fail if the value is `false`. (In an actual control program, the `VERIFY` instruction of the last condition in a path is omitted, since it is performed by the VM itself.)
+
+Many control, issuance, and consensus programs use a multisignature check.
+
+	program MultisigControlProgram(n, m, ...publicKeys[n]) {
+		path spend(...signatures[m]) {
+			verify checkmultisig(n, m, publicKeys..., tx.hash, signatures...);
+		}
+	}
+
+The `...publicKeys[n]` syntax allows programs to take variable numbers of parameters or arguments.
 
 
-Predicates can use *assignment statements* to assign values to named variables:
+### Evaluation
 
-    predicate assignmentExample() {
-    	x = 4 + 5;
-    	y = 6 + 2;
-        
-    	// multiple assigment
-    	(x, y) = (y, x);
-        
-    	verify x < y;
-    }
+Normally, when a control program is added to the blockchain, the logic is available immediately. What if we don't want to reveal our public keys or logic when the control program is first put on the blockchain, but only when it is spent? The control program could commit to a *hash* of the relevant contract. (Bitcoin supports a similar pattern, known as "Pay to Script Hash"; see [BIP 13](https://github.com/bitcoin/bips/blob/master/bip-0013.mediawiki)).
 
-
-Predicates may take named *arguments*:
-
-    predicate argumentExample(x) { 
-    	verify x > 5; 
-    	verify x < 10;
-    }
-
-Predicates can take other predicates as arguments, and evaluate them with given arguments:
-
-    predicate evaluatePredicateExample(pred) {
-    	verify pred(5);
-    }
-
-Predicates can take variable numbers of arguments:
-
-    predicate listExample(pred, m, ...args[m]) {
-    	verify pred(args...);
-    }
+	program P2SHControlProgram(contractHash) {
+		path spend(contract, m, ...args[m]) {
+			verify sha3(contract) == contractHash;
+			verify contract(args...);
+		}
+	}
 
 Predicates in a control or issuance program may introspect aspects of the current transaction by accessing the global `tx` variable:
 
@@ -552,16 +570,7 @@ How does that help us with metered issuance? We can create a separate asset with
 
 ### Private Contracts
 
-Normally, when a control program is added to the blockchain, the logic is available immediately. What if we don't want to reveal our public keys or logic when the control program is first put on the blockchain, but only when it is spent? The control program could commit to a *hash* of the relevant contract. (Bitcoin supports a similar pattern, known as "Pay to Script Hash"; see [BIP 13](https://github.com/bitcoin/bips/blob/master/bip-0013.mediawiki)).
-
-    contract P2SHControlProgram(contractHash) {
-    	clause spend(contract, m, ...args[m]) {
-    		verify sha3(contract) == contractHash;
-    		verify contract(args...);
-    	}
-    }
-
-But what if parties want to avoid *ever* revealing the logic to the blockchain? They can avoid doing so — in the normal case — by adding an additional clause that lets all interested parties spend the output without revealing the contract:
+What if parties want to avoid *ever* revealing the logic to the blockchain? They can avoid doing so — in the normal case — by adding an additional clause that lets all interested parties spend the output without revealing the contract:
 
     contract PrivateContractControlProgram(contractHash, n, ...publicKeys[n]) {
     	clause settle(...sigs[n]) {
