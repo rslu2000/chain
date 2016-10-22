@@ -1,6 +1,7 @@
 Levels = [2,3]
 
-Dir["**/*.md"].each do |mdfile|
+basepath = File.expand_path("..", File.dirname(__FILE__))
+Dir["#{basepath}/**/*.md"].each do |mdfile|
   puts "TOC for #{mdfile}:\n\n"
   File.read(mdfile).each_line do |line|
     if line =~ /^(#+)\s(.*)/

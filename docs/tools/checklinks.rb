@@ -10,7 +10,8 @@ CHECK_GLOBAL_LINKS = false
 
 def main
   dataset = {}
-  Dir["**/*.md"].each do |file|
+  basepath = File.expand_path("..", File.dirname(__FILE__))
+  Dir["#{basepath}/**/*.md"].each do |file|
     #puts "Collecting links and anchors from #{file}..."
     collect_links_and_anchors(file, dataset)
     #puts "Checking links in #{file}..."
