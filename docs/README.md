@@ -24,7 +24,6 @@
   * [Blockchain Participants](core/learn-more/blockchain-participants.md)
 
 * Reference
-  * [Java SDK](#)
   * [API Objects](core/reference/api-objects.md)
   * [Product Roadmap](core/reference/product-roadmap.md)
 
