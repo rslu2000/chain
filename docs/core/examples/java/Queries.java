@@ -7,12 +7,28 @@ import com.chain.signing.*;
 class Queries {
   public static void main(String[] args) throws Exception {
     Client client = new Client();
+    setup(client);
 
     // snippet list-alice-transactions
-    Transaction.Items aliceTransaction = new Transaction.QueryBuilder()
-      .setFilter("inputs(account_alias=$1) AND outputs(account_alias=$1)")
+    Transaction.Items aliceTransactions = new Transaction.QueryBuilder()
+      .setFilter("inputs(account_alias=$1) OR outputs(account_alias=$1)")
       .addFilterParameter("alice")
       .execute(client);
+
+    while (aliceTransactions.hasNext()) {
+      Transaction transaction = aliceTransactions.next();
+      System.out.println("Alice's transaction " + transaction.id);
+      for (Transaction.Input input: transaction.inputs) {
+        if (input.accountAlias != null && input.accountAlias.equals("alice")) {
+          System.out.println("  -" + input.amount + " " + input.assetAlias);
+        }
+      }
+      for (Transaction.Output output: transaction.outputs) {
+        if (output.accountAlias != null && output.accountAlias.equals("alice")) {
+          System.out.println("  +" + output.amount + " " + output.assetAlias);
+        }
+      }
+    }
     // endsnippet
 
     // snippet list-local-transactions
@@ -20,6 +36,11 @@ class Queries {
       .setFilter("is_local=$1")
       .addFilterParameter("yes")
       .execute(client);
+
+    while (localTransactions.hasNext()) {
+      Transaction transaction = localTransactions.next();
+      System.out.println("Local transaction " + transaction.id);
+    }
     // endsnippet
 
     // snippet list-local-assets
@@ -27,6 +48,11 @@ class Queries {
       .setFilter("is_local=$1")
       .addFilterParameter("yes")
       .execute(client);
+
+    while (localAssets.hasNext()) {
+      Asset asset = localAssets.next();
+      System.out.println("Local asset " + asset.id + " (" + asset.alias + ")");
+    }
     // endsnippet
 
     // snippet list-usd-assets
@@ -34,6 +60,11 @@ class Queries {
       .setFilter("definition.currency=$1")
       .addFilterParameter("USD")
       .execute(client);
+
+    while (usdAssets.hasNext()) {
+      Asset asset = usdAssets.next();
+      System.out.println("USD asset " + asset.id + " (" + asset.alias + ")");
+    }
     // endsnippet
 
     // snippet list-checking-accounts
@@ -41,6 +72,11 @@ class Queries {
       .setFilter("tags.type=$1")
       .addFilterParameter("checking")
       .execute(client);
+
+    while (checkingAccounts.hasNext()) {
+      Account account = checkingAccounts.next();
+      System.out.println("Checking account " + account.id + " (" + account.alias + ")");
+    }
     // endsnippet
 
     // snippet list-alice-unspents
@@ -48,9 +84,12 @@ class Queries {
       .setFilter("account_alias=$1")
       .addFilterParameter("alice")
       .execute(client);
-    // endsnippet
 
-    setupForBalances(client);
+    while (aliceUnspentOuputs.hasNext()) {
+      UnspentOutput utxo = aliceUnspentOuputs.next();
+      System.out.println("Alice's unspent output: " + utxo.amount + " " + utxo.assetAlias);
+    }
+    // endsnippet
 
     // snippet account-balance
     Balance.Items bank1Balances = new Balance.QueryBuilder()
@@ -94,9 +133,70 @@ class Queries {
     // endsnippet
   }
 
-  public static void setupForBalances(Client client) throws Exception {
+  public static void setup(Client client) throws Exception {
     MockHsm.Key key = MockHsm.Key.create(client);
     HsmSigner.addKey(key, MockHsm.getSignerClient(client));
+
+    new Asset.Builder()
+      .setAlias("gold")
+      .addRootXpub(key.xpub)
+      .setQuorum(1)
+      .create(client);
+
+    new Asset.Builder()
+      .setAlias("silver")
+      .addRootXpub(key.xpub)
+      .setQuorum(1)
+      .create(client);
+
+    new Account.Builder()
+      .setAlias("alice")
+      .addTag("type", "checking")
+      .addRootXpub(key.xpub)
+      .setQuorum(1)
+      .create(client);
+
+    new Account.Builder()
+      .setAlias("bob")
+      .addRootXpub(key.xpub)
+      .setQuorum(1)
+      .create(client);
+
+    Transaction.submit(client, HsmSigner.sign(new Transaction.Builder()
+      .addAction(new Transaction.Action.Issue()
+        .setAssetAlias("gold")
+        .setAmount(1000))
+      .addAction(new Transaction.Action.Issue()
+        .setAssetAlias("silver")
+        .setAmount(1000))
+      .addAction(new Transaction.Action.ControlWithAccount()
+        .setAccountAlias("alice")
+        .setAssetAlias("gold")
+        .setAmount(1000))
+      .addAction(new Transaction.Action.ControlWithAccount()
+        .setAccountAlias("bob")
+        .setAssetAlias("silver")
+        .setAmount(1000))
+      .build(client)));
+
+    Transaction.submit(client, HsmSigner.sign(new Transaction.Builder()
+      .addAction(new Transaction.Action.SpendFromAccount()
+        .setAccountAlias("alice")
+        .setAssetAlias("gold")
+        .setAmount(10))
+      .addAction(new Transaction.Action.SpendFromAccount()
+        .setAccountAlias("bob")
+        .setAssetAlias("silver")
+        .setAmount(10))
+      .addAction(new Transaction.Action.ControlWithAccount()
+        .setAccountAlias("alice")
+        .setAssetAlias("silver")
+        .setAmount(10))
+      .addAction(new Transaction.Action.ControlWithAccount()
+        .setAccountAlias("bob")
+        .setAssetAlias("gold")
+        .setAmount(10))
+      .build(client)));
 
     new Asset.Builder()
       .setAlias("bank1_usd_iou")
