@@ -21,7 +21,7 @@ The [developer forum](https://support.chain.com) is a great place to ask, answer
 
 ### Dedicated support
 
-Chain offers a dedicated development support retainer that includes priority response times, developer training, and solution development guidance. For more information, [get in touch](https://chain.com/enterprise-support).
+Chain offers a dedicated development support retainer that includes priority response times, developer training, and solution development guidance. For more information, [get in touch](https://chain.com/get-in-touch).
 
 ## What is a blockchain?
 
