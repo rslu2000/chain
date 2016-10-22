@@ -10,9 +10,9 @@ If you have feature requests or feedback, we want to hear from you. Join us on [
 
 * Ruby and Node.JS SDKs
 * Support for updating consensus programs
-* Additional auto-complete functionality when filtering queries in the dashboard
 
 ## Medium Term
 
+* Advanced consensus configurations
 * Confidential transactions
 * Support for writing custom control programs
