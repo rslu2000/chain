@@ -40,7 +40,7 @@ Transaction reference data is included in a transaction when it is written to th
 }
 ```
 
-Transaction reference data can be included at the top level of a transaction, or on individual actions when building a transaction.
+Transaction reference data can be included at the top level of a transaction or on individual actions when building a transaction.
 
 ## User-supplied local data
 
