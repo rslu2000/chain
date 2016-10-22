@@ -829,7 +829,7 @@ a.btn.success,
 button.btn.success {
     min-width: 155px;
     max-width: 200px;
-    border-radius: 4px;
+    border-radius: 3px;
     font-weight: 500;
     cursor: pointer;
     outline: none;
@@ -1104,6 +1104,7 @@ input:focus {
     background-position: 15px 28px;
     background-size: 40px 40px;
     border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
     transition: box-shadow .2s ease-in-out;
     text-align: center;
 }
