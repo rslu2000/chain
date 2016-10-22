@@ -64,19 +64,4 @@ A blockchain can be configured to require network tokens in order to connect to 
 
 ### Adding/removing blockchain operators
 
-To adjust the set of blockchain operators, a change must be made to the consensus program. In order to change the consensus program, the block generator must create a block with the new consensus program and then get signatures from the existing quorum of block signers. Once the block with new consensus program has been created and added to the blockchain, the new group of network operators will be required to create the next block.
-
-#### Example
-
-If a blockchain with two block signers wants to add a third block signer, the following steps would be required:
-
-1. The new block signer initializes a Chain Core as a block signer, creating a network token, and creating a private/public keypair (in the MockHSM, for development).
-2. The new block signer distributes their block signer URL, network token, and public key to the block generator out of band.
-3. The block generator configures a consensus change in Chain Core settings, adding the additional the URL and network token for the new block signer in Chain Core settings.
-4. The block generator configures the URL, network token, and public key for the new block signer in Chain Core settings.
-5. The block generator creates a proposed consensus program, adding the new block signers public key and updating the quorum.
-6. The block generator distributes the proposed consensus program to each block signer out of band.
-7. Each blog signer inputs the proposed consensus program in Chain Core settings.
-8. Once the block generator confirms (out of band) that a quorum of the existing block signers has input the proposed consensus program, it activates the proposed consensus program in Chain Core settings.
-9. The next block proposed by the block generator will include the proposed consensus program.
-10. When signers receive the new block, they will automatically recognize that the new consensus program matches the proposed consensus program that they previous input, and sign the block, approving the change.
+To adjust the set of blockchain operators, a change must be made to the consensus program, and a quorum of existing block signers must agree to the change. This procedure requires tools still under development and coming soon; see the [Chain Core product roadmap](../reference/product-roadmap.md).

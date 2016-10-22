@@ -12,6 +12,8 @@ For convenience, **when accessing from localhost, neither API requires authentic
 
 ## Creating access tokens
 
+_The instructions in this section require having the Go programming environment installed and the `PATH` variable correctly configured. See [the Chain Core Readme file](https://github.com/chain/chain/blob/main/Readme.md) for details._
+
 Both client and network access tokens are created in the dashboard. However, when deploying Chain Core to a non-local environment, you will not be able to access the dashboard, because you will not yet have a client access token. Therefore, you must use the `corectl` command line tool to create your first client access token. After that, you can use that access token to login to the dashboard and create additional access tokens.
 
 Install the `corectl` command line tool:
