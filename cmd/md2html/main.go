@@ -145,7 +145,7 @@ func renderHTML(path string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	html = bytes.Replace(html, layoutPlaceholder, content, 1)
 	return html, nil
 }
@@ -176,14 +176,14 @@ func render(f string) ([]byte, error) {
 	html = bytes.Replace(html, layoutPlaceholder, src, 1)
 	pathClass := strings.Replace(strings.TrimSuffix(strings.TrimPrefix(strings.TrimPrefix(f, "./"), "../"), ".md"), "/", "_", -1)
 	html = bytes.Replace(html, documentNamePlaceholder, []byte(pathClass), -1)
-	
+
 	return html, nil
 }
 
 // Returns the contents of a layout.html file
 // starting in the directory of p and ending at the command's
 // working directory.
-// If no layout.html file is found layoutPlaceholder is returned 
+// If no layout.html file is found layoutPlaceholder is returned
 // as a default layout.
 func layout(p string) ([]byte, error) {
 	// Don't search for layouts beyond the working dir
