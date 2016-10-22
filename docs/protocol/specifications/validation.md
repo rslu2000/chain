@@ -2,7 +2,6 @@
 
 * [Introduction](#introduction)
 * [General requirements](#general-requirements)
-* [Network parameters](#network-parameters)
 * [Node state](#node-state)
 * [Algorithms](#algorithms)
   * [Join new network](#join-new-network)
@@ -49,8 +48,6 @@ A *blockchain state* comprises:
 * A *timestamp* equal to the timestamp in the [block header](data.md#block-header).
 * The set of [non-retired](data.md#retired-asset) unspent outputs in the block’s [assets merkle tree](data.md#assets-merkle-root).
 * An *issuance memory*: a set of (issuance hash, expiration timestamp) pairs. It records recent issuance inputs in the state in order to detect duplicates.
-
-In addition, all nodes have access to the [network parameters](#network-parameters), which are used by, but not affected by, these algorithms.
 
 
 ## Algorithms
