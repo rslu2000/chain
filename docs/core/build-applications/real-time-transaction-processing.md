@@ -2,7 +2,7 @@
 
 ## Overview
 
-You can use transaction feeds to process transactions as they arrive on the blockchain. This is helpful for real-time applications such as notifications or live-updating interfaces. Transaction feeds work efficiently, without the need for polling or keeping state in your application.
+You can use **transaction feeds** to process transactions as they arrive on the blockchain. This is helpful for real-time applications such as notifications or live-updating interfaces. Transaction feeds work efficiently, without the need for polling or keeping state in your application.
 
 ### Sample Code
 
