@@ -4,7 +4,7 @@
 
 Chain Core Developer Edition is a free, downloadable version of Chain Core that is [open source](https://github.com/chain/chain) and licensed under [AGPL](https://github.com/chain/chain/blob/main/LICENSE). Individuals and organizations can use Chain Core Developer Edition to learn, experiment, and build prototypes.
 
-Chain Core Developer Edition can run locally on Mac, Windows, or Linux to create a new blockchain network, connect to an existing blockchain network, or connect to the public Chain testnet, operated by Chain, Microsoft, and Cornell University’s IC3.
+Chain Core Developer Edition can run locally on Mac, Windows, or Linux to create a new blockchain network, connect to an existing blockchain network, or connect to the public Chain Testnet, operated by Chain, Microsoft, and Cornell University’s IC3.
 
 <a href="../get-started/install" class="downloadBtn btn success" target="\_blank">Install Chain Core</a>
 
