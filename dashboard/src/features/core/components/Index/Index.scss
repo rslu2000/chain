@@ -63,7 +63,7 @@
 }
 
 .green {
-  background: $brand-success;
+  background: $highlight-secondary;
 }
 
 .yellow {
@@ -71,9 +71,13 @@
 }
 
 .red {
-  background: $brand-danger;
+  background: darken($highlight-danger-background, 20%);
 }
 
 .mainContainer {
   background-color: $background-color;
+}
+
+code {
+  padding-left: 0;
 }
