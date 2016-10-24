@@ -30,6 +30,19 @@ build:
           go test -cover $(go list ./...|grep -v vendor)
           go generate $(go list ./...|grep -v vendor)
           git diff --exit-code # make sure generated files are in sync
+
+dashboard:
+  steps:
+    - inz/npm-install@1.1.5:
+      cwd: dashboard/
+    - script:
+        name: lint dashboard
+        cwd: dashboard/
+        code: |
+          npm run lint
+
+formatting:
+  steps:
     - script:
         name: gofmt
         code: |
@@ -47,17 +60,4 @@ build:
           if egrep -Iinr '//.*\b'$p'\b' $(ls -1|egrep -v 'vendor|generated')
           then exit 1
           fi
-    - inz/npm-install@1.1.5:
-      cwd: dashboard/
-    - script:
-        name: lint dashboard
-        cwd: dashboard/
-        code: |
-          npm run lint
-
-
-
-
-
-
 
