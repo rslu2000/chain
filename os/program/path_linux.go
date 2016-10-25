@@ -1,7 +1,7 @@
 package program
 
-import "errors"
+import "os"
 
 func path() (name string, err error) {
-	return "", errors.New("program: Path not implemented on linux")
+	return os.Readlink("/proc/self/exe")
 }
