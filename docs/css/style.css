@@ -120,7 +120,8 @@ a,
 article a,
 #side-nav ul li a.active,
 #side-nav ul li a:hover,
-#side-nav ul li a.toggle:hover {
+#side-nav ul li a.toggle:hover,
+#side-nav ul li a.toggle.active {
 	color: #00BFAA;
 }
 
@@ -1239,6 +1240,9 @@ video {
 .docs-nav.folded-by-default ul .inner {
     display: none;
 }
+.docs-nav.folded-by-default ul li.keep-unfolded .inner {
+    display: block;
+}
 .docs-nav ul li {
     margin: .5em 0;
 }
@@ -1249,6 +1253,19 @@ video {
     background: rgba(0, 0, 0, 0.9);
 }
 
+/*.this-page-toc {
+    opacity: 0;
+    xdisplay: none;
+    z-index: -1;
+}
+*/
+/*.this-page-toc.appeared {
+    display: block;
+    opacity:1;
+    -webkit-animation: fadeIn .7s ease forwards, dropdown .6s ease forwards;
+    animation: fadeIn .7s ease forwards, dropdown .6s ease forwards;
+}
+*/
 
 .alert {
     margin: 10px 0px;

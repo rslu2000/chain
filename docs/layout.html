@@ -22,12 +22,16 @@
       </div>
     </div>
 
-    <div class="docs-nav">
+    <div class="docs-nav" id="docs-nav">
+      <script>
+        // collapse the menu earlier than the whole page loaded.
+        document.getElementById("docs-nav").className = "docs-nav folded-by-default"
+      </script>
       <ul class="accordion">
         <li class="nav-header">Chain Core</li>
         <li>
           <a class="toggle" href="javascript:void(0);">Get Started</a>
-          <ul class="inner">
+          <ul class="inner collapsible">
             <li><a href="/docs/core/get-started/introduction">Introduction</a></li>
             <li><a href="/docs/core/get-started/install" title="Install Chain Core">Install</a></li>
             <li><a href="/docs/core/get-started/sdk" title="Download SDK">SDK</a></li>
@@ -37,7 +41,7 @@
         </li>
         <li>
           <a class="toggle" href="javascript:void(0);">Build Applications</a>
-          <ul class="inner">
+          <ul class="inner collapsible">
             <li><a href="/docs/core/build-applications/keys">Keys</a></li>
             <li><a href="/docs/core/build-applications/assets">Assets</a></li>
             <li><a href="/docs/core/build-applications/accounts">Accounts</a></li>
@@ -52,7 +56,7 @@
         </li>
         <li>
           <a class="toggle" href="javascript:void(0);">Learn More</a>
-          <ul class="inner">
+          <ul class="inner collapsible">
             <li><a href="/docs/core/learn-more/global-vs-local-data">Global vs Local Data</a></li>
             <li><a href="/docs/core/learn-more/authentication" title="Authentication">Authentication</a></li>
             <li><a href="/docs/core/learn-more/blockchain-operators">Blockchain Operators</a></li>
@@ -61,7 +65,7 @@
         </li>
         <li>
           <a class="toggle" href="javascript:void(0);">Reference</a>
-          <ul class="inner">
+          <ul class="inner collapsible">
             <li><a href="/docs/java/javadoc/index.html" target="_blank" class="skip-next-up">Java SDK</a></li>
             <li><a href="/docs/core/reference/api-objects">API Objects</a></li>
             <li><a href="/docs/core/reference/product-roadmap">Product Roadmap</a></li>
@@ -72,57 +76,17 @@
         <li class="nav-header">Chain Protocol</li>
         <li>
           <a class="toggle" href="javascript:void(0);">Papers</a>
-          <ul class="inner">
+          <ul class="inner collapsible">
             <li><a href="/docs/protocol/papers/whitepaper">Whitepaper</a></li>
             <li><a href="/docs/protocol/papers/federated-consensus">Federated Consensus</a></li>
-            <li>
-              <a href="/docs/protocol/papers/blockchain-programs">Blockchain Programs</a>
-              
-              <div id="nav-toc">
-              <ul>
-              <li><a href="#introduction">Introduction</a></li>
-              <li><a href="#chain-virtual-machine">Chain Virtual Machine</a>
-
-              <ul>
-              <li><a href="#stack-machine-basics">Stack machine basics</a></li>
-              <li><a href="#run-limit">Run limit</a></li>
-              <li><a href="#instruction-set">Instruction set</a></li>
-              </ul></li>
-              <li><a href="#ivy">Ivy</a>
-
-              <ul>
-              <li><a href="#conditions">Conditions</a></li>
-              <li><a href="#programs">Programs</a></li>
-              <li><a href="#composing-programs">Composing programs</a></li>
-              </ul></li>
-              <li><a href="#program-functionality">Program functionality</a>
-
-              <ul>
-              <li><a href="#control-programs">Control programs</a></li>
-              <li><a href="#issuance-programs">Issuance programs</a></li>
-              <li><a href="#consensus-programs">Consensus programs</a></li>
-              <li><a href="#signature-programs">Signature programs</a></li>
-              </ul></li>
-              <li><a href="#examples">Examples</a>
-
-              <ul>
-              <li><a href="#offers">Offers</a></li>
-              <li><a href="#state-machines">State Machines</a></li>
-              <li><a href="#singletons">Singletons</a></li>
-              <li><a href="#private-programs">Private Programs</a></li>
-              </ul></li>
-              <li><a href="#conclusion">Conclusion</a></li>
-              </ul>
-              </div>
-              
-            </li>
+            <li><a href="/docs/protocol/papers/blockchain-programs">Blockchain Programs</a></li>
             <li><a href="/docs/protocol/papers/blockchain-extensibility">Blockchain Extensibility</a></li>
             <li><a href="/docs/protocol/papers/protocol-roadmap">Protocol Roadmap</a></li>
           </ul>
         </li>
         <li>
           <a class="toggle" href="javascript:void(0);">Specifications</a>
-          <ul class="inner">
+          <ul class="inner collapsible">
             <li><a href="/docs/protocol/specifications/data" title="Data Model Specification">Data Model</a></li>
             <li><a href="/docs/protocol/specifications/validation" title="Validation Specification">Validation</a></li>
             <li><a href="/docs/protocol/specifications/consensus"  title="Consensus Specification">Consensus</a></li>

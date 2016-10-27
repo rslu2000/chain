@@ -21,8 +21,9 @@ function prepareSidebarMenu() {
         sectionLink.next().removeClass('show');
         sectionLink.next().slideUp(150);
       } else {
-        sectionLink.parent().parent().find('li .inner').removeClass('show');
-        sectionLink.parent().parent().find('li .inner').slideUp(150);
+	    // collapse all collapsible inner lists, show the clicked one.
+        sectionLink.parent().parent().find('li .inner.collapsible').removeClass('show');
+        sectionLink.parent().parent().find('li .inner.collapsible').slideUp(150);
         sectionLink.next().toggleClass('show');
         sectionLink.next().slideToggle(150);
       }
@@ -167,42 +168,107 @@ function fixupSidenotes() {
 }
 
 function setupSidebarToc() {
-	var nav = $("#docs-nav")
-	var navtoc = $("#nav-toc")
-	var doctoc = $("h1 + ul")
-	if (!doctoc[0]) doctoc = $("h1 + li")
-
-	navtoc.hide()
-	var doctocoffset = 100
-	var doctocheight = doctoc.outerHeight()
-	var navtocmaxheight = navtoc.height()
+	var nav = $(".docs-nav")
+	var doctoc = $("h1:first-child + ul")
+	if (!doctoc[0]) { doctoc = $("h1:first-child + ol") }
+	if (!doctoc[0]) { return; }
+	
+	$(">ul", nav).append("<li class=\"nav-header this-page-toc\">On this page</li>")
+	var sidetocitems = $(">li", doctoc).clone()
+	sidetocitems.addClass("keep-unfolded this-page-toc")
+	$(">ul", nav).append(sidetocitems)
+	$(">ul>li>a", nav).addClass("toggle")
+	$(">ul>li>ul", nav).addClass("inner")
+	
+	$(".this-page-toc").hide()
+	$(".this-page-toc").delay(200).fadeIn(400)
+	
+	var list = []
+	window.sideTocScrollingState = {
+		list: list,
+		currentItem: null
+	}
+	// Prepare positions of H1/H2/... and corresponding items in the TOC. 
+	// As we scroll, highlight the relevant item
+	$("article > *").each(function(i){
+		var element = $(this)
+		var tag = element[0].nodeName.toLowerCase()
+		if (!(tag == "h1" || tag == "h2" || tag == "h3" || tag == "h4")) {
+			return
+		}	
+		var id = element.attr("id")
+		var item = $(".this-page-toc a[href$=#" + id + "]")
+		if (!item[0] || !id) {
+			return
+		}
+		
+		list.push({item: item, header: element, position: element.position().top})
+	})
 	
 	var doc = $("#doc-wrapper")
 	doc.scroll(function() {
-
-		// Figure how much of ToC we have scrolled.
-		var scrollFraction = (doc.scrollTop() - doctocoffset) / doctocheight
-		if (scrollFraction < 0) scrollFraction = 0
-		if (scrollFraction > 1) scrollFraction = 1
-		
-		// Then, apply that to the sidebar
-		var navtocheight = Math.round(navtocmaxheight * scrollFraction)
-		if (navtocheight < 1) {
-			navtoc.hide()
-		} else {
-			navtoc.show()
-			navtoc.css("height", navtocheight)
+		var scroll = doc.scrollTop()
+		var list = sideTocScrollingState.list
+		var newlink = null
+		for (var i = 0; i < list.length; i++) { 
+			if (scroll > (list[i].header.position().top - 300)) {
+				newlink = list[i].item
+			} else {
+				break	
+			}
 		}
 		
-		// 
-		
-		//console.log(scrollFraction)
-		
-//		console.log(doctoc.offset().top)
-//		var perc = doc.scrollTop() - doctoc.offset().top
-//		console.log(doc.scrollTop())
-	});
+		if (sideTocScrollingState.currentItem) {
+			sideTocScrollingState.currentItem.removeClass("active")
+		}
+
+		if (newlink) {
+			// console.log(list[i])
+			// console.log("FOUND LINK " + list[i].item.attr('href') + ": " + scroll + " pos: " + (list[i].offset-100))
+			newlink.addClass("active")
+			sideTocScrollingState.currentItem = newlink
+		}
+	})
 }
+
+// Scrolling for the smooth in-menu ToC appearance
+// function setupSidebarToc() {
+// 	var nav = $(".docs-nav")
+// 	var navtoc = $("#nav-toc")
+// 	var doctoc = $("h1 + ul")
+// 	if (!doctoc[0]) doctoc = $("h1 + li")
+// 
+// 	navtoc.hide()
+// 	var doctocoffset = 100
+// 	var doctocheight = doctoc.outerHeight()
+// 	var navtocmaxheight = navtoc.height()
+// 	
+// 	var doc = $("#doc-wrapper")
+// 	doc.scroll(function() {
+// 
+// 		// Figure how much of ToC we have scrolled.
+// 		var scrollFraction = (doc.scrollTop() - doctocoffset) / doctocheight
+// 		if (scrollFraction < 0) scrollFraction = 0
+// 		if (scrollFraction > 1) scrollFraction = 1
+// 		
+// 		// Then, apply that to the sidebar
+// 		var navtocheight = Math.round(navtocmaxheight * scrollFraction)
+// 		if (navtocheight < 1) {
+// 			navtoc.hide()
+// 		} else {
+// 			navtoc.show()
+// 			navtoc.css("height", navtocheight)
+// 		}
+// 		
+// 		// 
+// 		
+// 		//console.log(scrollFraction)
+// 		
+// //		console.log(doctoc.offset().top)
+// //		var perc = doc.scrollTop() - doctoc.offset().top
+// //		console.log(doc.scrollTop())
+// 	});
+// }
 
 
 
