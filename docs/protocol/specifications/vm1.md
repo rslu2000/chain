@@ -1285,7 +1285,7 @@ The unassigned codes are reserved for future expansion and have no effect on the
 
 
 
-# References
+## References
 
 * [FIPS180] ["Secure Hash Standard", United States of America, National Institute of Standards and Technology, Federal Information Processing Standard (FIPS) 180-2](http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf).
 * [FIPS202] [Federal Inf. Process. Stds. (NIST FIPS) - 202 (SHA3)](https://dx.doi.org/10.6028/NIST.FIPS.202)
