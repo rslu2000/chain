@@ -210,6 +210,19 @@ a {
     font-family: NittiGrotesk-Normal;
     letter-spacing: 0.2px;
 }
+#side-nav ul li.this-page-toc ul li {
+    margin-top:0;
+    margin-bottom:0;
+    padding-top:0;
+    padding-bottom:0;
+}
+#side-nav ul li.this-page-toc ul li a {
+    mmin-height:10px;
+    padding:0;
+    margin:0;
+    xfont-size:13px;
+}
+
 
 #side-nav .nav-header:not(:first-of-type) {
     margin-top: 40px;

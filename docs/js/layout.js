@@ -173,7 +173,8 @@ function setupSidebarToc() {
 	if (!doctoc[0]) { doctoc = $("h1:first-child + ol") }
 	if (!doctoc[0]) { return; }
 	
-	$(">ul", nav).append("<li class=\"nav-header this-page-toc\">On this page</li>")
+	var pagetitle = $($("ul.inner a.active")[0]).text()
+	$(">ul", nav).append("<li class=\"nav-header this-page-toc\">" + pagetitle +"</li>")
 	var sidetocitems = $(">li", doctoc).clone()
 	sidetocitems.addClass("keep-unfolded this-page-toc")
 	$(">ul", nav).append(sidetocitems)
@@ -181,7 +182,7 @@ function setupSidebarToc() {
 	$(">ul>li>ul", nav).addClass("inner")
 	
 	$(".this-page-toc").hide()
-	$(".this-page-toc").delay(200).fadeIn(400)
+	$(".this-page-toc").delay(600).fadeIn(400)
 	
 	var list = []
 	window.sideTocScrollingState = {
@@ -208,6 +209,10 @@ function setupSidebarToc() {
 	var doc = $("#doc-wrapper")
 	doc.scroll(function() {
 		var scroll = doc.scrollTop()
+		if (scroll == 0) {
+			$(".docs-nav").stop(true, true).animate({scrollTop: 0}, 100);
+			return;
+		}
 		var list = sideTocScrollingState.list
 		var newlink = null
 		for (var i = 0; i < list.length; i++) { 
@@ -223,10 +228,31 @@ function setupSidebarToc() {
 		}
 
 		if (newlink) {
-			// console.log(list[i])
-			// console.log("FOUND LINK " + list[i].item.attr('href') + ": " + scroll + " pos: " + (list[i].offset-100))
 			newlink.addClass("active")
 			sideTocScrollingState.currentItem = newlink
+			
+			// Scroll to make this link visible.
+			//console.log({pos: newlink.position().top, offset: newlink.offset().top, container: $("#side-nav").outerHeight()})
+			
+			var fold = $(".docs-nav").outerHeight() - 0
+			var offset = newlink.offset().top
+			console.log({offset: offset, fold: fold, scrollto: (offset - fold)})
+			var newpos = null
+			if (offset > fold) {
+				newpos = $(".docs-nav").scrollTop() + offset - fold
+			} else if (offset < $(".docs-nav").scrollTop() - 150) {
+				newpos = $(".docs-nav").scrollTop() + offset - 150
+			}
+			if (newpos != null) {
+				if (window.newTocScrollPosition == newpos) {
+					return
+				}
+				window.newTocScrollPosition = newpos
+				// $(".docs-nav").stop(true, true).animate({
+				//   scrollTop: newpos
+				// }, 100);
+				//$(".docs-nav").scrollTop(newpos)
+			}
 		}
 	})
 }
