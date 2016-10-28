@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -veou pipefail
+
+# configure postgres
+mkdir -p /var/lib/postgresql/data
+chown -R postgres /var/lib/postgresql/data
+su postgres -c 'initdb -D /var/lib/postgresql/data'
+su postgres -c 'pg_ctl start -w -D /var/lib/postgresql/data -l /var/lib/postgresql/data/postgres.log'
+su postgres -c 'createdb core-integration-tests'
+
+# setup cache
+set +e
+mkdir -p $CACHE_DIR
+set -e
+
+# run integration tests
+PATH=$GOPATH/bin:$PATH:$CHAIN/bin
+export DATABASE_URL="postgres://postgres:@localhost/core-integration-tests?sslmode=disable"
+go install -tags 'insecure_disable_https_redirect' chain/cmd/cored
+go install chain/cmd/corectl
+$GOPATH/bin/corectl config-generator
+$GOPATH/bin/cored &
+sleep 5
+SDKTARGET=chain-test
+cd $CHAIN/sdk/java
+mvn -Dmaven.repo.local=$CACHE_DIR -Djar.finalName=$SDKTARGET integration-test
+
+# compile non-sdk java files
+export CLASSPATH=$CHAIN/sdk/java/target/$SDKTARGET.jar
+cd $CHAIN/perf
+for file in *.java
+do /usr/lib/jvm/default-jvm/bin/javac $file
+done
+cd $CHAIN/docs/core/examples/java
+for file in *.java
+do /usr/lib/jvm/default-jvm/bin/javac $file
+done

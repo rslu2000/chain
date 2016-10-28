@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -veou pipefail
+
+# configure postgres
+mkdir -p /var/lib/postgresql/data
+chown -R postgres /var/lib/postgresql/data
+su postgres -c 'initdb -D /var/lib/postgresql/data'
+su postgres -c 'pg_ctl start -w -D /var/lib/postgresql/data -l /var/lib/postgresql/data/postgres.log'
+su postgres -c 'createdb core-test'
+
+# run unit tests
+go version
+go env
+PATH=$GOPATH/bin:$PATH:$CHAIN/bin
+export DB_URL_TEST="postgres://postgres:@localhost/core-test?sslmode=disable"
+cd $CHAIN
+go vet $(go list ./...|grep -v vendor)
+go install chain/cmd/vet
+vet .
+go install chain/log # needed before testing ./cmd/vet below
+go test -cover $(go list ./...|grep -v vendor)
+go generate $(go list ./...|grep -v vendor)
+git diff --exit-code # make sure generated files are in sync
