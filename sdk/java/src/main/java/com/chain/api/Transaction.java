@@ -511,7 +511,8 @@ public class Transaction {
       throws ChainException {
     HashMap<String, Object> body = new HashMap<>();
     body.put("transactions", templates);
-    return client.batchRequest("submit-transaction", body, SubmitResponse.class, APIException.class);
+    return client.batchRequest(
+        "submit-transaction", body, SubmitResponse.class, APIException.class);
   }
 
   /**
@@ -528,7 +529,8 @@ public class Transaction {
   public static SubmitResponse submit(Client client, Template template) throws ChainException {
     HashMap<String, Object> body = new HashMap<>();
     body.put("transactions", Arrays.asList(template));
-    return client.singletonBatchRequest("submit-transaction", body, SubmitResponse.class, APIException.class);
+    return client.singletonBatchRequest(
+        "submit-transaction", body, SubmitResponse.class, APIException.class);
   }
 
   /**
@@ -1002,7 +1004,8 @@ public class Transaction {
      * @throws JSONException This exception is raised due to malformed json requests or responses.
      */
     public Template build(Client client) throws ChainException {
-      return client.singletonBatchRequest("build-transaction", Arrays.asList(this), Template.class, BuildException.class);
+      return client.singletonBatchRequest(
+          "build-transaction", Arrays.asList(this), Template.class, BuildException.class);
     }
 
     /**
