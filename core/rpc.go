@@ -3,7 +3,10 @@ package core
 import (
 	"context"
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
+
+	"github.com/golang/protobuf/proto"
 
 	chainjson "chain/encoding/json"
 	"chain/errors"
@@ -50,6 +53,42 @@ func (h *Handler) getSnapshotInfoRPC(ctx context.Context) (resp snapshotInfoResp
 	resp.Height, resp.Size, err = h.Store.LatestSnapshotInfo(ctx)
 	resp.BlockchainID = h.Config.BlockchainID
 	return resp, err
+}
+
+func (h *Handler) submitRPC(w http.ResponseWriter, req *http.Request) {
+	if h.Config == nil {
+		WriteHTTPError(req.Context(), w, errUnconfigured)
+		return
+	}
+
+	data, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		http.Error()
+		return
+	}
+
+	var (
+		sreq  netrpc.SubmitRequest
+		sreqp netrpc.SubmitReponse
+	)
+	err = proto.Unmarshal(data, &sreq)
+	if err != nil {
+		http.Error(400)
+		return
+	}
+
+	var txData bc.TxData
+	err = bc.ReadTx(sreq.TxData, &txData)
+	if err != nil {
+		http.Error(400)
+		return
+	}
+
+	err = h.Chain.AddTx(req.Context(), bc.NewTx(txData))
+	if err != nil {
+		http.Error(400)
+		return
+	}
 }
 
 // getSnapshotRPC returns the raw protobuf snapshot at the provided height.

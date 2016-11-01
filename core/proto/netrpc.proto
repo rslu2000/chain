@@ -1,0 +1,13 @@
+syntax = "proto3";
+option go_package = "netrpc";
+package chain.core.netrpc;
+
+// SubmitRequest is a request to submit a transaction to the network.
+message SubmitRequest {
+	bytes tx_data = 1;
+}
+
+// SubmitResponse is a response to SubmitRequest.
+message SubmitResponse {
+	bytes error = 1;
+}

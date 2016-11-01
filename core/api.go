@@ -133,7 +133,7 @@ func (h *Handler) init() {
 	m.Handle("/list-unspent-outputs", needConfig(h.listUnspentOutputs))
 	m.Handle("/reset", needConfig(h.reset))
 
-	m.Handle(networkRPCPrefix+"submit", needConfig(h.Chain.AddTx))
+	m.Handle(networkRPCPrefix+"submit", http.HandlerFunc(h.submitRPC))
 	m.Handle(networkRPCPrefix+"get-blocks", needConfig(h.getBlocksRPC)) // DEPRECATED: use get-block instead
 	m.Handle(networkRPCPrefix+"get-block", needConfig(h.getBlockRPC))
 	m.Handle(networkRPCPrefix+"get-snapshot-info", needConfig(h.getSnapshotInfoRPC))
