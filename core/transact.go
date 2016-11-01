@@ -76,12 +76,16 @@ func (h *Handler) build(ctx context.Context, buildReqs []*buildRequest) (interfa
 
 	for i := 0; i < len(responses); i++ {
 		go func(i int) {
-			defer wg.Done()
-
 			subctx := reqid.NewSubContext(ctx, reqid.New())
-			responses[i] = handleInnerRequest(subctx, func() (interface{}, error) {
-				return h.buildSingle(subctx, buildReqs[i])
-			})
+			defer wg.Done()
+			defer batchRecover(subctx, &responses[i])
+
+			tmpl, err := h.buildSingle(subctx, buildReqs[i])
+			if err != nil {
+				responses[i] = err
+			} else {
+				responses[i] = tmpl
+			}
 		}(i)
 	}
 
@@ -255,14 +259,19 @@ func (h *Handler) submit(ctx context.Context, x submitArg) interface{} {
 	wg.Add(len(responses))
 	for i := range responses {
 		go func(i int) {
-			defer wg.Done()
 			subctx := reqid.NewSubContext(ctx, reqid.New())
-			responses[i] = handleInnerRequest(subctx, func() (interface{}, error) {
-				return h.submitSingle(subctx, h.Chain, submitSingleArg{
-					tpl:  x.Transactions[i],
-					wait: x.wait,
-				})
+			defer wg.Done()
+			defer batchRecover(subctx, &responses[i])
+
+			tx, err := h.submitSingle(subctx, h.Chain, submitSingleArg{
+				tpl:  x.Transactions[i],
+				wait: x.wait,
 			})
+			if err != nil {
+				responses[i] = err
+			} else {
+				responses[i] = tx
+			}
 		}(i)
 	}
 
