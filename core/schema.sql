@@ -266,6 +266,7 @@ CREATE FUNCTION reserve_utxos(inp_asset_id text, inp_account_id text, inp_tx_has
 			                  AND (inp_tx_hash IS NULL OR inp_tx_hash = u.tx_hash)
 			                  AND (inp_out_index IS NULL OR inp_out_index = u.index)
 			                  AND r.tx_hash IS NULL
+			            FOR UPDATE OF u SKIP LOCKED
 			            LIMIT 1;
 			        IF FOUND THEN
 			            INSERT INTO reservation_utxos (tx_hash, index, reservation_id)
@@ -1126,4 +1127,4 @@ ALTER TABLE ONLY reservation_utxos
 
 insert into migrations (filename, hash) values ('2016-10-17.0.core.schema-snapshot.sql', 'cff5210e2d6af410719c223a76443f73c5c12fe875f0efecb9a0a5937cf029cd');
 insert into migrations (filename, hash) values ('2016-10-19.0.core.add-core-id.sql', '9353da072a571d7a633140f2a44b6ac73ffe9e27223f7c653ccdef8df3e8139e');
-insert into migrations (filename, hash) values ('2016-11-01.0.account.reservation-utxos.sql', '7f61fe0c9f7c9bfed5a7746ad064ce971ac58629a0137b8334ec37a2dbae05e3');
+insert into migrations (filename, hash) values ('2016-11-01.0.account.reservation-utxos.sql', '8a0c2654d82b8e7c3e7457cb827cfd8dce2b30d4b3d6bf9ae2410a0bb0552919');

@@ -99,6 +99,7 @@ var migrations = []migration{
 			                  AND (inp_tx_hash IS NULL OR inp_tx_hash = u.tx_hash)
 			                  AND (inp_out_index IS NULL OR inp_out_index = u.index)
 			                  AND r.tx_hash IS NULL
+			            FOR UPDATE OF u SKIP LOCKED
 			            LIMIT 1;
 			        IF FOUND THEN
 			            INSERT INTO reservation_utxos (tx_hash, index, reservation_id)
