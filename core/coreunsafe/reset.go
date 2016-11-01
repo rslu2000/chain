@@ -45,6 +45,7 @@ func ResetBlockchain(ctx context.Context, db pg.DB) error {
 			leader,
 			pool_txs,
 			query_blocks,
+			reservation_utxos,
 			reservations,
 			signed_blocks,
 			signers,
